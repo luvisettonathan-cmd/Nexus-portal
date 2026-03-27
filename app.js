@@ -5,7 +5,7 @@
 const SUPABASE_URL = 'https://macpqlkefvjfrvotkkqh.supabase.co';
 const SUPABASE_KEY = 'SUA_KEY_AQUI';
  
-// 🔥 CORREÇÃO PRINCIPAL
+// ✅ CORREÇÃO
 const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
  
 const MODULES = [
@@ -86,9 +86,15 @@ function renderLogin() {
   const wrap = h('div', { className: 'login-screen' });
   const box = h('div', { className: 'login-box' });
  
+  box.appendChild(h('div', { className: 'login-logo' },
+    h('div', { className: 'icon' }, '🌐'),
+    h('h1', {}, 'Nexus ', h('span', {}, 'English')),
+    h('p', {}, 'Portal do Professor')
+  ));
+ 
   const errDiv = h('div', { id: 'login-error', style: { display: 'none' }, className: 'error-box' });
-  const userInput = h('input', { className: 'form-input' });
-  const pwInput = h('input', { className: 'form-input', type: 'password' });
+  const userInput = h('input', { className: 'form-input', placeholder: 'Usuário' });
+  const pwInput = h('input', { className: 'form-input', type: 'password', placeholder: 'Senha' });
  
   const doLogin = async () => {
     const username = userInput.value.toLowerCase().trim();
@@ -102,7 +108,7 @@ function renderLogin() {
       .single();
  
     if (error || !data) {
-      errDiv.textContent = 'Erro login';
+      errDiv.textContent = 'Usuário ou senha incorretos';
       errDiv.style.display = 'block';
       return;
     }
@@ -112,8 +118,11 @@ function renderLogin() {
     await loadAll();
   };
  
-  box.append(userInput, pwInput, errDiv,
-    h('button', { onClick: doLogin }, 'Entrar')
+  box.append(
+    userInput,
+    pwInput,
+    errDiv,
+    h('button', { className: 'btn-full', onClick: doLogin }, 'Entrar')
   );
  
   wrap.appendChild(box);
@@ -121,7 +130,7 @@ function renderLogin() {
 }
  
 function renderPortal() {
-  return h('div', {}, 'LOGADO ✅');
+  return h('div', { style: { padding: '40px', color: '#fff' } }, `Bem-vindo, ${state.user.name} ✅`);
 }
  
 render();
