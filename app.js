@@ -3,10 +3,13 @@
 // ══════════════════════════════════════════════════════════════
 
 const SUPABASE_URL = 'https://macpqlkefvjfrvotkkqh.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1hY3BxbGtlZnZqZnJ2b3Rra3FoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NzY1NjEsImV4cCI6MjA5MDE1MjU2MX0.dz0dsXVHOPkobv8ZMOg5UfHHVOQcB5gipT_rJkoQMaE'; // 
+// 
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1hY3BxbGtlZnZqZnJ2b3Rra3FoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NzY1NjEsImV4cCI6MjA5MDE1MjU2MX0.dz0dsXVHOPkobv8ZMOg5UfHHVOQcB5gipT_rJkoQMaE'; 
 
 const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-const NEXUS_LOGO_URL = 'https://i.ibb.co/6P0J9X4/nexus-logo.png'; 
+
+// LOGO OFICIAL PRETO E LARANJA (COM CONTROLE DE CACHE)
+const NEXUS_LOGO_URL = 'https://i.ibb.co/6P0J9X4/nexus-logo.png?v=3'; 
 
 const MODULES = [
   { id: 'starter', label: 'Starter', color: '#16a34a' },
@@ -46,8 +49,10 @@ function renderLogin(app) {
   wrap.className = 'login-screen';
   wrap.innerHTML = `
     <div class="login-box">
-      <img src="${NEXUS_LOGO_URL}" style="max-width:220px; margin-bottom:20px; display:block; margin:0 auto 20px">
-      <p style="font-size:14px; color:#667e70; font-weight:700; text-transform:uppercase; letter-spacing:1px; text-align:center">Portal do Professor</p>
+      <div style="margin-bottom:30px">
+        <img src="${NEXUS_LOGO_URL}" alt="Nexus Logo" style="width:100%; max-width:280px; height:auto; display:block; margin:0 auto">
+      </div>
+      <p style="font-size:12px; color:#E76F51; font-weight:800; text-transform:uppercase; letter-spacing:2px; margin-bottom:25px">Portal do Professor</p>
       <div id="login-err" style="display:none; color:#ff4444; margin-bottom:15px; font-size:14px; text-align:center;">E-mail ou senha incorretos</div>
       <input type="text" id="email" class="form-input" placeholder="E-mail">
       <input type="password" id="pass" class="form-input" placeholder="Senha">
@@ -70,7 +75,7 @@ function renderPortal(app) {
   main.innerHTML = `
     <header class="header-main">
       <div style="display:flex; align-items:center">
-        <img src="${NEXUS_LOGO_URL}" style="max-height:40px; margin-right:15px">
+        <img src="${NEXUS_LOGO_URL}" alt="Nexus Logo" style="max-height:45px; margin-right:15px; filter: brightness(0) invert(1);">
         <div><strong style="font-size:18px">Portal do Professor</strong></div>
       </div>
       <div style="display:flex; gap:10px; align-items:center;">
@@ -106,7 +111,6 @@ function renderPortal(app) {
     render();
   };
 
-  // --- ACESSO RÁPIDO COM SEUS LINKS REAIS ---
   const quickLinksArea = document.getElementById('q-links');
   const linksFisicos = [
     {t: 'Livros 2026', i: '📚', url: 'https://drive.google.com/drive/folders/14Rz1xYSEXvZAVUPzsLA8xP5Ryq-7Gf5v?usp=drive_link'},
@@ -129,7 +133,6 @@ function renderPortal(app) {
     quickLinksArea.appendChild(card);
   });
 
-  // --- FILTROS DE NÍVEL ---
   const fBarArea = document.getElementById('f-bar');
   MODULES.forEach(m => {
     const btn = document.createElement('button');
@@ -139,20 +142,15 @@ function renderPortal(app) {
     fBarArea.appendChild(btn);
   });
 
-  // --- MATERIAIS ESPECÍFICOS POR MÓDULO ---
   const mGridArea = document.getElementById('m-grid');
-  
-  // Aqui você pode adicionar os materiais individuais de cada nível quando tiver os links
   const moduleContent = {
     'starter': [
       {t: 'Guias Starter', type: 'DOC', url: 'https://docs.google.com/document/d/1s59KaF69-tCAQdg_abUbMjdNVDnhVJ0SDfO5L56n7h0/edit?usp=drive_link'},
       {t: 'Livros Starter 2026', type: 'DRIVE', url: 'https://drive.google.com/drive/folders/14Rz1xYSEXvZAVUPzsLA8xP5Ryq-7Gf5v?usp=drive_link'}
-    ],
-    // Adicione mais conforme precisar...
+    ]
   };
 
   const currentModuleDocs = moduleContent[state.activeModule] || [];
-  
   if(currentModuleDocs.length > 0) {
     currentModuleDocs.forEach(doc => {
       const card = document.createElement('div');
@@ -162,7 +160,7 @@ function renderPortal(app) {
       mGridArea.appendChild(card);
     });
   } else {
-    mGridArea.innerHTML = `<p style="padding:20px; color:#999; font-size:14px;">Em breve materiais específicos para o nível ${state.activeModule.toUpperCase()}.</p>`;
+    mGridArea.innerHTML = `<p style="padding:20px; color:#999; font-size:14px;">Em breve materiais para o nível ${state.activeModule.toUpperCase()}.</p>`;
   }
 }
 
