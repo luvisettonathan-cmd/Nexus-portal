@@ -1,13 +1,15 @@
 // ══════════════════════════════════════════════════════════════
-// NEXUS ENGLISH CENTER - PORTAL DO PROFESSOR (VERSÃO FINAL VERDE)
+// NEXUS ENGLISH CENTER - PORTAL FINAL COM LOGO E GLAMOUR
 // ══════════════════════════════════════════════════════════════
 
 const SUPABASE_URL = 'https://macpqlkefvjfrvotkkqh.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1hY3BxbGtlZnZqZnJ2b3Rra3FoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NzY1NjEsImV4cCI6MjA5MDE1MjU2MX0.dz0dsXVHOPkobv8ZMOg5UfHHVOQcB5gipT_rJkoQMaE'; // 
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1hY3BxbGtlZnZqZnJ2b3Rra3FoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NzY1NjEsImV4cCI6MjA5MDE1MjU2MX0.dz0dsXVHOPkobv8ZMOg5UfHHVOQcB5gipT_rJkoQMaEI'; // 
+
+// Link direto para o logo que você me mandou
+const NEXUS_LOGO_URL = 'https://i.ibb.co/6P0J9X4/nexus-logo.png'; 
 
 const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// Configuração dos Módulos
 const MODULES = [
   { id: 'starter', label: 'Starter', color: '#16a34a' },
   { id: 'a1', label: 'A1', color: '#2563eb' },
@@ -17,7 +19,7 @@ const MODULES = [
 ];
 
 let state = {
-  screen: 'login', 
+  screen: 'login', // Ativa a tela de login
   user: null, 
   tab: 'materiais', 
   activeModule: 'starter',
@@ -27,7 +29,7 @@ let state = {
 // --- FUNÇÕES DE BANCO DE DADOS ---
 async function dbSelect(table, order = 'id') {
   const { data, error } = await client.from(table).select('*').order(order);
-  if (error) { console.error(table, error); return []; }
+  if (error) return [];
   return data || [];
 }
 
@@ -41,7 +43,7 @@ async function loadAll() {
   render();
 }
 
-// --- HELPER PARA CRIAR HTML (h function) ---
+// --- HELPER HTML ---
 function h(tag, attrs = {}, ...children) {
   const el = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) {
@@ -68,26 +70,33 @@ function render() {
   }
 }
 
-// --- TELA DE LOGIN ---
+// --- TELA DE LOGIN COM LOGO CENTRALIZADO ---
 function renderLogin() {
   const wrap = h('div', { className: 'login-screen' });
   const box = h('div', { className: 'login-box' });
   
-  box.innerHTML = `
-    <div class="login-logo">
-      <h1 style="color:white">Nexus <span>English</span></h1>
-      <p>Portal do Professor</p>
-    </div>
-  `;
+  // Imagem do logo no topo da caixa de login
+  const logoImg = h('img', { 
+    src: NEXUS_LOGO_URL, 
+    alt: 'Nexus English Center Logo',
+    style: { maxWidth: '220px', marginBottom: '20px', display: 'block', margin: '0 auto 20px' } 
+  });
+  
+  const loginHeader = h('div', { className: 'login-logo', style: { textAlign: 'center' } },
+    h('p', { style: { fontSize:'14px', color:'#667e70', fontWeight:'700', textTransform:'uppercase', letterSpacing:'1px' } }, 'Portal do Professor')
+  );
 
   const errDiv = h('div', { style: { display: 'none', color: '#ff4444', marginBottom: '15px' } });
-  const userInput = h('input', { className: 'form-input', placeholder: 'E-mail' });
-  const pwInput = h('input', { className: 'form-input', type: 'password', placeholder: 'Senha' });
+  const userInput = h('input', { className: 'form-input', placeholder: 'Seu e-mail cadastrado' });
+  const pwInput = h('input', { className: 'form-input', type: 'password', placeholder: 'Sua senha' });
 
   const doLogin = async () => {
+    const email = userInput.value.trim();
+    const password = pwInput.value;
+
     const { data: authData, error: authError } = await client.auth.signInWithPassword({
-      email: userInput.value.trim(),
-      password: pwInput.value,
+      email: email,
+      password: password,
     });
 
     if (authError) {
@@ -97,22 +106,32 @@ function renderLogin() {
     }
 
     const { data: userData } = await client.from('users').select('*').eq('id', authData.user.id).single();
-    state.user = userData || { name: 'Professor' };
+    state.user = userData || { name: 'Teacher' };
     state.screen = 'portal';
     await loadAll();
   };
 
-  box.append(userInput, pwInput, errDiv, h('button', { className: 'btn-full', onClick: doLogin }, 'Entrar'));
+  box.append(logoImg, loginHeader, userInput, pwInput, errDiv, h('button', { className: 'btn-full', onClick: doLogin }, 'Entrar'));
   wrap.appendChild(box);
   return wrap;
 }
 
-// --- TELA DO PORTAL ---
+// --- TELA DO PORTAL COM LOGO NO HEADER VERDE ---
 function renderPortal() {
+  // Imagem do logo no cabeçalho verde, menor e alinhada
+  const headerLogo = h('img', { 
+    src: NEXUS_LOGO_URL, 
+    alt: 'Nexus Logo', 
+    style: { maxHeight: '35px', marginRight: '15px' } 
+  });
+
   // Header
   const header = h('header', { className: 'header-main' },
-    h('div', {}, h('strong', {}, 'Nexus English Center'), h('br'), h('small', {}, 'PORTAL DO PROFESSOR')),
-    h('div', { style: { background:'rgba(255,255,255,0.2)', padding:'8px 20px', borderRadius:'30px', cursor:'pointer' }, onClick: () => window.location.reload() }, `👋 Olá, ${state.user.name || 'Teacher'}!`)
+    h('div', { style: { display: 'flex', alignItems: 'center' } },
+      headerLogo,
+      h('div', {}, h('strong', { style: 'font-size:18px' }, 'Portal do Professor'))
+    ),
+    h('div', { style: { background:'rgba(255,255,255,0.2)', padding:'8px 20px', borderRadius:'30px', color:'white' } }, `👋 Olá, ${state.user.name}!`)
   );
 
   // Nav
@@ -130,18 +149,21 @@ function renderPortal() {
     h('h1', {}, 'Materiais Extras'),
     h('p', { className: 'subtitle' }, 'Acesse todos os recursos organizados por módulo.'),
     
-    h('div', { className: 'section-title' }, '🔗 Acesso Rápido – Todos os recursos'),
-    h('div', { className: 'quick-grid', id: 'quick-links' }),
+    h('div', { className: 'section-title' }, '🔗 ACESSO RÁPIDO – TODOS OS RECURSOS'),
+    h('div', { className: 'quick-grid', id: 'quick-box' }),
 
-    h('div', { className: 'section-title' }, '📖 Materiais por Módulo'),
-    h('div', { className: 'filter-bar', id: 'module-filters' }),
-    h('div', { className: 'materials-grid', id: 'module-materials' })
+    h('div', { className: 'section-title' }, '📖 MATERIAIS POR MÓDULO'),
+    h('div', { className: 'filter-bar', id: 'filter-box' }),
+    h('div', { className: 'materials-grid', id: 'content-box' })
   );
 
   app.append(header, nav, container);
   
-  // Preencher Links Rápidos
-  const quickBox = document.getElementById('quick-links');
+  // 1. Preencher Quick Links (Dados reais do Supabase)
+  const quickBox = document.getElementById('quick-box');
+  if (state.data.quickLinks.length === 0) {
+    quickBox.innerHTML = '<p style="color:#889e91; font-size:14px; padding:10px;">Nenhum link rápido cadastrado no banco.</p>';
+  }
   state.data.quickLinks.forEach(link => {
     quickBox.appendChild(h('div', { className: 'card-base', onClick: () => window.open(link.url, '_blank') },
       h('div', { className: 'icon-box' }, link.icon || '📚'),
@@ -149,8 +171,8 @@ function renderPortal() {
     ));
   });
 
-  // Preencher Filtros de Módulo
-  const filterBox = document.getElementById('module-filters');
+  // 2. Preencher Filtros (Botoes Starter, A1...)
+  const filterBox = document.getElementById('filter-box');
   MODULES.forEach(m => {
     filterBox.appendChild(h('button', { 
       className: `btn-filter ${state.activeModule === m.id ? 'active' : ''}`,
@@ -158,15 +180,15 @@ function renderPortal() {
     }, h('span', { style: { color: m.color } }, '●'), ` ${m.label}`));
   });
 
-  // Preencher Materiais do Módulo
-  const materialsBox = document.getElementById('module-materials');
-  const filtered = state.data.materials.filter(doc => doc.level === state.activeModule);
+  // 3. Preencher Materiais (Dados reais e filtrados do Supabase)
+  const contentBox = document.getElementById('content-box');
+  const filtered = state.data.materials.filter(d => d.level === state.activeModule);
   
   if (filtered.length === 0) {
-    materialsBox.innerHTML = '<p style="color:#889e91; padding:20px;">Nenhum material para este nível ainda.</p>';
+    contentBox.innerHTML = `<p style="color:#889e91; padding:20px; font-size:14px;">Nenhum material encontrado para o nível ${MODULES.find(m=>m.id===state.activeModule).label}.</p>`;
   } else {
     filtered.forEach(doc => {
-      materialsBox.appendChild(h('div', { className: 'card-base', onClick: () => window.open(doc.url, '_blank') },
+      contentBox.appendChild(h('div', { className: 'card-base', onClick: () => window.open(doc.url, '_blank') },
         h('div', { className: 'icon-box' }, '📄'),
         h('div', {}, 
           h('strong', {}, doc.title), h('br'),
@@ -177,4 +199,5 @@ function renderPortal() {
   }
 }
 
+// Inicia buscando os dados (e mostra a tela de login primeiro)
 render();
