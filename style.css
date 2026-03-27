@@ -1,3 +1,7 @@
+/* ══════════════════════════════════════════════════════════════
+   NEXUS ENGLISH CENTER - LAYOUT COMPLETO (LOGIN + PORTAL)
+   ══════════════════════════════════════════════════════════════ */
+
 :root {
   --nexus-green: #146933;
   --bg-light: #f8faf9;
@@ -5,12 +9,89 @@
   --white: #ffffff;
 }
 
-body {
-  margin: 0; font-family: 'Inter', sans-serif;
-  background-color: var(--bg-light); color: var(--text-dark);
+body, html {
+  margin: 0; padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-light);
 }
 
-/* Header & Nav */
+/* --- TELA DE LOGIN (O GLAMOUR VOLTOU) --- */
+.login-screen {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0b1e28 0%, #1a3a4a 100%); /* Fundo degradê premium */
+}
+
+.login-box {
+  background: white;
+  padding: 50px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.login-logo h1 {
+  font-size: 32px;
+  margin: 0;
+  color: #1a2b21;
+  font-weight: 800;
+}
+
+.login-logo span {
+  color: var(--nexus-green);
+}
+
+.login-logo p {
+  color: #667e70;
+  margin-top: 5px;
+  margin-bottom: 35px;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #e2e8e4;
+  border-radius: 12px;
+  font-size: 16px;
+  background: #f9fbfb;
+  box-sizing: border-box; /* Garante que o input não saia da caixa */
+  transition: 0.3s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--nexus-green);
+  box-shadow: 0 0 0 3px rgba(20, 105, 51, 0.1);
+}
+
+.btn-full {
+  width: 100%;
+  padding: 16px;
+  background: var(--nexus-green);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 10px;
+}
+
+.btn-full:hover {
+  background: #0f5227;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(20, 105, 51, 0.3);
+}
+
+/* --- ESTILOS DO INTERNO (CONTINUAM AQUI) --- */
 .header-main {
   background-color: var(--nexus-green); color: white;
   padding: 20px 60px; display: flex; justify-content: space-between; align-items: center;
@@ -28,68 +109,41 @@ body {
 
 .nav-item.active { color: white; border-bottom: 4px solid #facc15; }
 
-/* Content Area */
 .container { padding: 40px 60px; max-width: 1200px; margin: 0 auto; }
 
 h1 { font-family: 'Playfair Display', serif; font-size: 36px; margin-bottom: 10px; color: var(--text-dark); }
 .subtitle { color: #667e70; margin-bottom: 40px; }
 
 .section-title {
-  font-size: 14px; font-weight: 700; color: #889e91;
+  font-size: 12px; font-weight: 700; color: #889e91;
   text-transform: uppercase; letter-spacing: 1px; margin: 30px 0 20px;
-  display: flex; align-items: center; gap: 10px;
 }
 
-/* Grid Layouts */
-.quick-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px;
-}
+.quick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+.materials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
 
-.materials-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;
-}
-
-/* Cards */
 .card-base {
   background: white; border-radius: 12px; padding: 15px 20px;
   display: flex; align-items: center; gap: 15px;
-  border: 1px solid #e2e8e4; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-  cursor: pointer; transition: 0.2s;
-  min-height: 60px;
+  border: 1px solid #e2e8e4; cursor: pointer; transition: 0.2s;
 }
 
-.card-base strong {
-  color: #1a2b21 !important; /* Força o texto a ficar preto */
-  font-size: 14px;
-}
-
+.card-base strong { color: #1a2b21 !important; font-size: 14px; }
 .card-base:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
 
-.icon-box {
-  width: 40px; height: 40px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center; font-size: 24px;
-}
+.icon-box { font-size: 24px; min-width: 40px; }
 
-/* Badges */
 .badge {
   font-size: 10px; font-weight: 800; padding: 2px 6px;
-  border-radius: 4px; margin-top: 4px; display: inline-block;
+  border-radius: 4px; display: inline-block; margin-top: 5px;
 }
 .bg-doc { background: #d1fae5; color: #065f46; }
 .bg-drive { background: #dcfce7; color: #166534; }
 .bg-yt { background: #fee2e2; color: #991b1b; }
 
-/* Filter Buttons */
 .filter-bar { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
 .btn-filter {
   padding: 8px 20px; border-radius: 25px; border: 1px solid #e2e8e4;
-  background: white; cursor: pointer; display: flex; align-items: center; gap: 8px;
-  font-weight: 600; transition: 0.2s; color: #4b5563;
+  background: white; cursor: pointer; font-weight: 600; color: #4b5563;
 }
 .btn-filter.active { background: #16a34a; color: white; border-color: #16a34a; }
-
-/* Login (Simples para combinar) */
-.login-screen { height: 100vh; display: flex; align-items: center; justify-content: center; background: #0b1e28; }
-.login-box { background: white; padding: 40px; border-radius: 15px; width: 350px; text-align: center; }
-.form-input { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-.btn-full { width: 100%; padding: 12px; background: #16a34a
