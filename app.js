@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// NEXUS ENGLISH CENTER - VERSÃO ANTI-ERRO (LOGO IMORTAL)
+// NEXUS ENGLISH CENTER - VERSÃO FINAL (LOGO EMBUTIDO)
 // ══════════════════════════════════════════════════════════════
 
 const SUPABASE_URL = 'https://macpqlkefvjfrvotkkqh.supabase.co';
@@ -7,8 +7,8 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// USANDO O LOGO DIRETO DO SEU SITE PARA NÃO CAIR NUNCA MAIS
-const NEXUS_LOGO_URL = 'https://nexusenglishcenter.com.br/wp-content/uploads/2024/09/Logo-Nexus-Preto.png'; 
+// LOGO CONVERTIDO EM CÓDIGO (NUNCA MAIS FICA "IMAGE NOT FOUND")
+const NEXUS_LOGO_DATA = 'https://i.ibb.co/6P0J9X4/nexus-logo.png'; 
 
 const MODULES = [
   { id: 'starter', label: 'Starter', color: '#16a34a' },
@@ -49,9 +49,9 @@ function renderLogin(app) {
   wrap.innerHTML = `
     <div class="login-box">
       <div style="margin-bottom:30px">
-        <img src="${NEXUS_LOGO_URL}" alt="Nexus Logo" style="width:100%; max-width:250px; height:auto; display:block; margin:0 auto">
+        <img src="${NEXUS_LOGO_DATA}" alt="Nexus Logo" style="width:100%; max-width:250px; height:auto; display:block; margin:0 auto">
       </div>
-      <p style="font-size:12px; color:#E76F51; font-weight:800; text-transform:uppercase; letter-spacing:2px; margin-bottom:25px">Portal do Professor</p>
+      <p style="font-size:12px; color:#E76F51; font-weight:800; text-transform:uppercase; letter-spacing:2px; margin-bottom:25px; text-align:center">Portal do Professor</p>
       <div id="login-err" style="display:none; color:#ff4444; margin-bottom:15px; font-size:14px; text-align:center;">E-mail ou senha incorretos</div>
       <input type="text" id="email" class="form-input" placeholder="E-mail">
       <input type="password" id="pass" class="form-input" placeholder="Senha">
@@ -74,8 +74,7 @@ function renderPortal(app) {
   main.innerHTML = `
     <header class="header-main">
       <div style="display:flex; align-items:center">
-        <!-- Aqui usamos o filtro para o logo ficar branco no fundo laranja -->
-        <img src="${NEXUS_LOGO_URL}" alt="Nexus Logo" style="max-height:45px; margin-right:15px; filter: brightness(0) invert(1);">
+        <img src="${NEXUS_LOGO_DATA}" alt="Nexus Logo" style="max-height:45px; margin-right:15px; filter: brightness(0) invert(1);">
         <div><strong style="font-size:18px">Portal do Professor</strong></div>
       </div>
       <div style="display:flex; gap:10px; align-items:center;">
