@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// NEXUS ENGLISH CENTER - PORTAL DO PROFESSOR (VERSÃO ESTÁVEL)
+// NEXUS ENGLISH CENTER - PORTAL DO PROFESSOR (VERSÃO FINAL)
 // ══════════════════════════════════════════════════════════════
 
 const SUPABASE_URL = 'https://macpqlkefvjfrvotkkqh.supabase.co';
@@ -106,19 +106,19 @@ function renderPortal(app) {
     render();
   };
 
-  // --- LISTA FIXA DE ACESSO RÁPIDO (ADEUS UNDEFINED!) ---
+  // --- COLOQUE SEUS LINKS REAIS AQUI ---
   const quickLinksArea = document.getElementById('q-links');
   const linksFisicos = [
-    {t: 'Livros 2026', i: '📚', url: 'LINK_DO_DRIVE_AQUI'},
-    {t: 'Áudios dos Livros', i: '🎧', url: 'LINK_DO_DRIVE_AQUI'},
-    {t: 'Extra Activities', i: '🎯', url: 'LINK_DO_DRIVE_AQUI'},
-    {t: 'B2 Scripts', i: '📜', url: 'LINK_DO_DRIVE_AQUI'},
-    {t: 'Material para Aulas', i: '📂', url: 'LINK_DO_DRIVE_AQUI'},
-    {t: 'Listening B2', i: '🎵', url: 'LINK_DO_DRIVE_AQUI'},
-    {t: 'Conversations 2026', i: '💬', url: 'LINK_DO_DRIVE_AQUI'},
-    {t: 'Transcripts A1/A2/B1', i: '📝', url: 'LINK_DO_DRIVE_AQUI'},
-    {t: 'Guias Starter', i: '📋', url: 'LINK_DO_DRIVE_AQUI'},
-    {t: 'Erros e Sugestões', i: '🐛', url: 'LINK_DO_DRIVE_AQUI'}
+    {t: 'Livros 2026', i: '📚', url: 'https://drive.google.com'},
+    {t: 'Áudios dos Livros', i: '🎧', url: 'https://drive.google.com'},
+    {t: 'Extra Activities', i: '🎯', url: 'https://drive.google.com'},
+    {t: 'B2 Scripts', i: '📜', url: 'https://drive.google.com'},
+    {t: 'Material para Aulas', i: '📂', url: 'https://drive.google.com'},
+    {t: 'Listening B2', i: '🎵', url: 'https://drive.google.com'},
+    {t: 'Conversations 2026', i: '💬', url: 'https://drive.google.com'},
+    {t: 'Transcripts A1/A2/B1', i: '📝', url: 'https://drive.google.com'},
+    {t: 'Guias Starter', i: '📋', url: 'https://drive.google.com'},
+    {t: 'Erros e Sugestões', i: '🐛', url: 'https://forms.google.com'}
   ];
 
   linksFisicos.forEach(link => {
@@ -139,20 +139,33 @@ function renderPortal(app) {
     fBarArea.appendChild(btn);
   });
 
-  // Materiais do Módulo (Simulado para Starter)
+  // Materiais (Exemplos)
   const mGridArea = document.getElementById('m-grid');
-  if(state.activeModule === 'starter') {
-    const starterDocs = [
-        {t: 'Guia do Professor - Starter', type: 'DOC', url: '#'},
-        {t: 'Livro Digital Starter', type: 'DRIVE', url: '#'}
-    ];
-    starterDocs.forEach(doc => {
+  const levelNames = { 'starter': 'Starter', 'a1': 'A1', 'a2': 'A2', 'b1': 'B1', 'b2': 'B2' };
+  
+  // Exemplo de como adicionar itens por módulo
+  const moduleData = {
+    'starter': [
+        {t: 'Guia do Professor - Starter', type: 'DOC', url: 'https://drive.google.com'},
+        {t: 'Livro Digital Starter', type: 'DRIVE', url: 'https://drive.google.com'}
+    ],
+    'a1': [
+        {t: 'Material Extra A1', type: 'DRIVE', url: 'https://drive.google.com'}
+    ]
+  };
+
+  const currentDocs = moduleData[state.activeModule] || [];
+  
+  if(currentDocs.length > 0) {
+    currentDocs.forEach(doc => {
         const card = document.createElement('div');
         card.className = 'card-base';
         card.innerHTML = `<div class="icon-box">📄</div><div><strong style="color:#1a2b21 !important">${doc.t}</strong><br><span class="badge bg-drive">${doc.type}</span></div>`;
         card.onclick = () => window.open(doc.url, '_blank');
         mGridArea.appendChild(card);
     });
+  } else {
+    mGridArea.innerHTML = `<p style="padding:20px; color:#999">Nenhum material cadastrado para o nível ${levelNames[state.activeModule]}.</p>`;
   }
 }
 
