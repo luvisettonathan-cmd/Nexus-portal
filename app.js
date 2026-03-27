@@ -1,14 +1,11 @@
 // ══════════════════════════════════════════════════════════════
-// NEXUS ENGLISH CENTER - PORTAL DO PROFESSOR (VERSÃO FINAL CORRIGIDA)
+// NEXUS ENGLISH CENTER - PORTAL DO PROFESSOR (VERSÃO ESTÁVEL)
 // ══════════════════════════════════════════════════════════════
 
 const SUPABASE_URL = 'https://macpqlkefvjfrvotkkqh.supabase.co';
-// 
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1hY3BxbGtlZnZqZnJ2b3Rra3FoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NzY1NjEsImV4cCI6MjA5MDE1MjU2MX0.dz0dsXVHOPkobv8ZMOg5UfHHVOQcB5gipT_rJkoQMaE'; 
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1hY3BxbGtlZnZqZnJ2b3Rra3FoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NzY1NjEsImV4cCI6MjA5MDE1MjU2MX0.dz0dsXVHOPkobv8ZMOg5UfHHVOQcB5gipT_rJkoQMaE'; // 
 
 const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// LINK DO SEU LOGO VERDADEIRO (PRETO E LARANJA)
 const NEXUS_LOGO_URL = 'https://i.ibb.co/6P0J9X4/nexus-logo.png'; 
 
 const MODULES = [
@@ -22,37 +19,17 @@ const MODULES = [
 let state = {
   screen: 'login', 
   user: null, 
-  activeModule: 'starter',
-  data: { quickLinks: [], materials: [] }
+  activeModule: 'starter'
 };
 
-// --- FUNÇÃO PARA VERIFICAR SESSÃO AO CARREGAR ---
 async function checkUser() {
   const { data: { session } } = await client.auth.getSession();
   if (session) {
     state.user = session.user;
     state.screen = 'portal';
-    await loadAll(); // Carrega os dados reais do banco
   } else {
     state.screen = 'login';
-    render();
   }
-}
-
-// --- BANCO DE DADOS: PUXAR DADOS REAIS ---
-async function dbSelect(table, order = 'id') {
-  const { data, error } = await client.from(table).select('*').order(order);
-  if (error) { console.error(`Erro na tabela ${table}:`, error); return []; }
-  return data || [];
-}
-
-async function loadAll() {
-  const [links, docs] = await Promise.all([
-    dbSelect('quick_links', 'sort_order'),
-    dbSelect('materials', 'title')
-  ]);
-  state.data.quickLinks = links;
-  state.data.materials = docs;
   render();
 }
 
@@ -60,21 +37,16 @@ function render() {
   const app = document.getElementById('app');
   if (!app) return;
   app.innerHTML = '';
-
-  if (state.screen === 'login') {
-    renderLogin(app);
-  } else {
-    renderPortal(app);
-  }
+  if (state.screen === 'login') renderLogin(app);
+  else renderPortal(app);
 }
 
-// --- TELA DE LOGIN ---
 function renderLogin(app) {
   const wrap = document.createElement('div');
   wrap.className = 'login-screen';
   wrap.innerHTML = `
     <div class="login-box">
-      <img src="${NEXUS_LOGO_URL}" alt="Nexus Logo" style="max-width:220px; margin-bottom:20px; display:block; margin:0 auto 20px">
+      <img src="${NEXUS_LOGO_URL}" style="max-width:220px; margin-bottom:20px; display:block; margin:0 auto 20px">
       <p style="font-size:14px; color:#667e70; font-weight:700; text-transform:uppercase; letter-spacing:1px; text-align:center">Portal do Professor</p>
       <div id="login-err" style="display:none; color:#ff4444; margin-bottom:15px; font-size:14px; text-align:center;">E-mail ou senha incorretos</div>
       <input type="text" id="email" class="form-input" placeholder="E-mail">
@@ -87,33 +59,18 @@ function renderLogin(app) {
   document.getElementById('btn-entrar').onclick = async () => {
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('pass').value;
-
-    if (!email || !password) {
-        document.getElementById('login-err').textContent = 'Preencha todos os campos';
-        document.getElementById('login-err').style.display = 'block';
-        return;
-    }
-
     const { data, error } = await client.auth.signInWithPassword({ email, password });
-
-    if (error) {
-      document.getElementById('login-err').textContent = 'E-mail ou senha incorretos';
-      document.getElementById('login-err').style.display = 'block';
-    } else {
-      state.user = data.user;
-      state.screen = 'portal';
-      await loadAll();
-    }
+    if (error) { document.getElementById('login-err').style.display = 'block'; }
+    else { state.user = data.user; state.screen = 'portal'; render(); }
   };
 }
 
-// --- TELA DO PORTAL ---
 function renderPortal(app) {
   const main = document.createElement('div');
   main.innerHTML = `
     <header class="header-main">
       <div style="display:flex; align-items:center">
-        <img src="${NEXUS_LOGO_URL}" alt="Nexus Logo" style="max-height:40px; margin-right:15px">
+        <img src="${NEXUS_LOGO_URL}" style="max-height:40px; margin-right:15px">
         <div><strong style="font-size:18px">Portal do Professor</strong></div>
       </div>
       <div style="display:flex; gap:10px; align-items:center;">
@@ -131,7 +88,7 @@ function renderPortal(app) {
 
     <div class="container">
       <h1 style="color:#1a2b21; font-family:serif; margin-bottom:5px;">Materiais Extras</h1>
-      <p class="subtitle">Acesse todos os recursos organizados por módulo. Os links abrem diretamente no Google Drive ou YouTube.</p>
+      <p class="subtitle">Acesse os recursos clicando nos cards abaixo.</p>
       
       <div class="section-title">🔗 ACESSO RÁPIDO – TODOS OS RECURSOS</div>
       <div class="quick-grid" id="q-links"></div>
@@ -143,37 +100,36 @@ function renderPortal(app) {
   `;
   app.appendChild(main);
 
-  // Botão Sair
   document.getElementById('btn-sair').onclick = async () => {
     await client.auth.signOut();
     state.screen = 'login';
-    state.user = null;
     render();
   };
 
-  // --- SOLUÇÃO PROBLEMA 1: PREENCHER COM LINKS REAIS DO BANCO ---
-  
-  // 1. Acesso Rápido
-  const qLinksArea = document.getElementById('q-links');
-  if (state.data.quickLinks.length === 0) {
-    qLinksArea.innerHTML = '<p style="color:#889e91; font-size:14px;">Cadastre links na tabela quick_links do Supabase.</p>';
-  }
+  // --- LISTA FIXA DE ACESSO RÁPIDO (ADEUS UNDEFINED!) ---
+  const quickLinksArea = document.getElementById('q-links');
+  const linksFisicos = [
+    {t: 'Livros 2026', i: '📚', url: 'LINK_DO_DRIVE_AQUI'},
+    {t: 'Áudios dos Livros', i: '🎧', url: 'LINK_DO_DRIVE_AQUI'},
+    {t: 'Extra Activities', i: '🎯', url: 'LINK_DO_DRIVE_AQUI'},
+    {t: 'B2 Scripts', i: '📜', url: 'LINK_DO_DRIVE_AQUI'},
+    {t: 'Material para Aulas', i: '📂', url: 'LINK_DO_DRIVE_AQUI'},
+    {t: 'Listening B2', i: '🎵', url: 'LINK_DO_DRIVE_AQUI'},
+    {t: 'Conversations 2026', i: '💬', url: 'LINK_DO_DRIVE_AQUI'},
+    {t: 'Transcripts A1/A2/B1', i: '📝', url: 'LINK_DO_DRIVE_AQUI'},
+    {t: 'Guias Starter', i: '📋', url: 'LINK_DO_DRIVE_AQUI'},
+    {t: 'Erros e Sugestões', i: '🐛', url: 'LINK_DO_DRIVE_AQUI'}
+  ];
 
-  state.data.quickLinks.forEach(item => {
+  linksFisicos.forEach(link => {
     const card = document.createElement('div');
     card.className = 'card-base';
-    // Adiciona o ícone e o título reais do banco
-    card.innerHTML = `<div class="icon-box">${item.icon || '🔗'}</div><strong style="color:#1a2b21 !important">${item.title}</strong>`;
-    
-    // !!! ESTA É A CORREÇÃO: ADICIONA O CLIQUE !!!
-    card.onclick = () => {
-        if (item.url) window.open(item.url, '_blank');
-        else alert('Este item não possui um link cadastrado.');
-    };
-    qLinksArea.appendChild(card);
+    card.innerHTML = `<div class="icon-box">${link.i}</div><strong style="color:#1a2b21 !important">${link.t}</strong>`;
+    card.onclick = () => window.open(link.url, '_blank');
+    quickLinksArea.appendChild(card);
   });
 
-  // 2. Filtros de Módulo
+  // Filtros
   const fBarArea = document.getElementById('f-bar');
   MODULES.forEach(m => {
     const btn = document.createElement('button');
@@ -183,35 +139,21 @@ function renderPortal(app) {
     fBarArea.appendChild(btn);
   });
 
-  // 3. Materiais do Módulo (Filtrados)
+  // Materiais do Módulo (Simulado para Starter)
   const mGridArea = document.getElementById('m-grid');
-  const filteredDocs = state.data.materials.filter(doc => doc.level === state.activeModule);
-
-  if (filteredDocs.length === 0) {
-    mGridArea.innerHTML = `<p style="color:#889e91; padding:20px; font-size:14px;">Nenhum material cadastrado para o nível ${state.activeModule.toUpperCase()} ainda.</p>`;
-  } else {
-    filteredDocs.forEach(doc => {
-      const card = document.createElement('div');
-      card.className = 'card-base';
-      const fileType = (doc.type || 'drive').toLowerCase();
-      
-      card.innerHTML = `
-        <div class="icon-box">📄</div>
-        <div>
-          <strong style="color:#1a2b21 !important">${doc.title}</strong><br>
-          <span class="badge bg-${fileType}">${fileType.toUpperCase()}</span>
-        </div>
-      `;
-
-      // !!! ESTA É A CORREÇÃO: ADICIONA O CLIQUE !!!
-      card.onclick = () => {
-        if (doc.url) window.open(doc.url, '_blank');
-        else alert('Este material não possui um link cadastrado.');
-      };
-      mGridArea.appendChild(card);
+  if(state.activeModule === 'starter') {
+    const starterDocs = [
+        {t: 'Guia do Professor - Starter', type: 'DOC', url: '#'},
+        {t: 'Livro Digital Starter', type: 'DRIVE', url: '#'}
+    ];
+    starterDocs.forEach(doc => {
+        const card = document.createElement('div');
+        card.className = 'card-base';
+        card.innerHTML = `<div class="icon-box">📄</div><div><strong style="color:#1a2b21 !important">${doc.t}</strong><br><span class="badge bg-drive">${doc.type}</span></div>`;
+        card.onclick = () => window.open(doc.url, '_blank');
+        mGridArea.appendChild(card);
     });
   }
 }
 
-// Inicia verificando se já está logado
 checkUser();
