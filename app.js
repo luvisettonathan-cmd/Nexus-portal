@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// NEXUS ENGLISH CENTER - PORTAL DO PROFESSOR (VERSÃO FINAL)
+// NEXUS ENGLISH CENTER - PORTAL DO PROFESSOR (VERSÃO OFICIAL 2026)
 // ══════════════════════════════════════════════════════════════
 
 const SUPABASE_URL = 'https://macpqlkefvjfrvotkkqh.supabase.co';
@@ -88,7 +88,7 @@ function renderPortal(app) {
 
     <div class="container">
       <h1 style="color:#1a2b21; font-family:serif; margin-bottom:5px;">Materiais Extras</h1>
-      <p class="subtitle">Acesse os recursos clicando nos cards abaixo.</p>
+      <p class="subtitle">Acesse os recursos oficiais da Nexus English Center.</p>
       
       <div class="section-title">🔗 ACESSO RÁPIDO – TODOS OS RECURSOS</div>
       <div class="quick-grid" id="q-links"></div>
@@ -106,19 +106,19 @@ function renderPortal(app) {
     render();
   };
 
-  // --- COLOQUE SEUS LINKS REAIS AQUI ---
+  // --- ACESSO RÁPIDO COM SEUS LINKS REAIS ---
   const quickLinksArea = document.getElementById('q-links');
   const linksFisicos = [
-    {t: 'Livros 2026', i: '📚', url: 'https://drive.google.com'},
-    {t: 'Áudios dos Livros', i: '🎧', url: 'https://drive.google.com'},
-    {t: 'Extra Activities', i: '🎯', url: 'https://drive.google.com'},
-    {t: 'B2 Scripts', i: '📜', url: 'https://drive.google.com'},
-    {t: 'Material para Aulas', i: '📂', url: 'https://drive.google.com'},
-    {t: 'Listening B2', i: '🎵', url: 'https://drive.google.com'},
-    {t: 'Conversations 2026', i: '💬', url: 'https://drive.google.com'},
-    {t: 'Transcripts A1/A2/B1', i: '📝', url: 'https://drive.google.com'},
-    {t: 'Guias Starter', i: '📋', url: 'https://drive.google.com'},
-    {t: 'Erros e Sugestões', i: '🐛', url: 'https://forms.google.com'}
+    {t: 'Livros 2026', i: '📚', url: 'https://drive.google.com/drive/folders/14Rz1xYSEXvZAVUPzsLA8xP5Ryq-7Gf5v?usp=drive_link'},
+    {t: 'Áudios dos Livros', i: '🎧', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o'},
+    {t: 'Extra Activities', i: '🎯', url: 'https://drive.google.com/drive/folders/1uz3ATitZpIJM7S_-ve_w6XmqOosmqPvX?usp=sharing'},
+    {t: 'B2 Scripts', i: '📜', url: 'https://drive.google.com/drive/folders/1yoRbzOyUKuuP-_KQZRZmBigmTh5v6YkX?usp=drive_link'},
+    {t: 'Material para Aulas', i: '📂', url: 'https://drive.google.com/drive/folders/1B3HnQl6Zz8aTj2oi_BwAY7n2jEPV5AHU?usp=drive_link'},
+    {t: 'Listening B2', i: '🎵', url: 'https://drive.google.com/drive/folders/1JTeOIlIY5wgdGLkuERuj-l2EqNwQNfpA?usp=drive_link'},
+    {t: 'Conversations 2026', i: '💬', url: 'https://drive.google.com/drive/folders/1ghnIw2A-CCRo_QgXcO1cE39V-8lfop_w?usp=sharing'},
+    {t: 'Transcripts Listenings', i: '📝', url: 'https://docs.google.com/document/d/15KSATfziQzmvirEy8sKnWgB4TZr3xwRDmXWMLLFTYJE/edit?usp=sharing'},
+    {t: 'Guias Starter', i: '📋', url: 'https://docs.google.com/document/d/1s59KaF69-tCAQdg_abUbMjdNVDnhVJ0SDfO5L56n7h0/edit?usp=drive_link'},
+    {t: 'Erros e Sugestões', i: '🐛', url: 'https://docs.google.com/document/d/1C6qYZzcHAA15j0oZzbAb07QF-Gbad6s2ScB8fwAAaFk/edit?tab=t.v471pfad98x'}
   ];
 
   linksFisicos.forEach(link => {
@@ -129,7 +129,7 @@ function renderPortal(app) {
     quickLinksArea.appendChild(card);
   });
 
-  // Filtros
+  // --- FILTROS DE NÍVEL ---
   const fBarArea = document.getElementById('f-bar');
   MODULES.forEach(m => {
     const btn = document.createElement('button');
@@ -139,33 +139,30 @@ function renderPortal(app) {
     fBarArea.appendChild(btn);
   });
 
-  // Materiais (Exemplos)
+  // --- MATERIAIS ESPECÍFICOS POR MÓDULO ---
   const mGridArea = document.getElementById('m-grid');
-  const levelNames = { 'starter': 'Starter', 'a1': 'A1', 'a2': 'A2', 'b1': 'B1', 'b2': 'B2' };
   
-  // Exemplo de como adicionar itens por módulo
-  const moduleData = {
+  // Aqui você pode adicionar os materiais individuais de cada nível quando tiver os links
+  const moduleContent = {
     'starter': [
-        {t: 'Guia do Professor - Starter', type: 'DOC', url: 'https://drive.google.com'},
-        {t: 'Livro Digital Starter', type: 'DRIVE', url: 'https://drive.google.com'}
+      {t: 'Guias Starter', type: 'DOC', url: 'https://docs.google.com/document/d/1s59KaF69-tCAQdg_abUbMjdNVDnhVJ0SDfO5L56n7h0/edit?usp=drive_link'},
+      {t: 'Livros Starter 2026', type: 'DRIVE', url: 'https://drive.google.com/drive/folders/14Rz1xYSEXvZAVUPzsLA8xP5Ryq-7Gf5v?usp=drive_link'}
     ],
-    'a1': [
-        {t: 'Material Extra A1', type: 'DRIVE', url: 'https://drive.google.com'}
-    ]
+    // Adicione mais conforme precisar...
   };
 
-  const currentDocs = moduleData[state.activeModule] || [];
+  const currentModuleDocs = moduleContent[state.activeModule] || [];
   
-  if(currentDocs.length > 0) {
-    currentDocs.forEach(doc => {
-        const card = document.createElement('div');
-        card.className = 'card-base';
-        card.innerHTML = `<div class="icon-box">📄</div><div><strong style="color:#1a2b21 !important">${doc.t}</strong><br><span class="badge bg-drive">${doc.type}</span></div>`;
-        card.onclick = () => window.open(doc.url, '_blank');
-        mGridArea.appendChild(card);
+  if(currentModuleDocs.length > 0) {
+    currentModuleDocs.forEach(doc => {
+      const card = document.createElement('div');
+      card.className = 'card-base';
+      card.innerHTML = `<div class="icon-box">📄</div><div><strong style="color:#1a2b21 !important">${doc.t}</strong><br><span class="badge bg-drive">${doc.type}</span></div>`;
+      card.onclick = () => window.open(doc.url, '_blank');
+      mGridArea.appendChild(card);
     });
   } else {
-    mGridArea.innerHTML = `<p style="padding:20px; color:#999">Nenhum material cadastrado para o nível ${levelNames[state.activeModule]}.</p>`;
+    mGridArea.innerHTML = `<p style="padding:20px; color:#999; font-size:14px;">Em breve materiais específicos para o nível ${state.activeModule.toUpperCase()}.</p>`;
   }
 }
 
