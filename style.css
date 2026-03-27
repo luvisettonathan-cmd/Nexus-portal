@@ -1,149 +1,159 @@
-/* ══════════════════════════════════════════════════════════════
-   NEXUS ENGLISH CENTER - LAYOUT COMPLETO (LOGIN + PORTAL)
-   ══════════════════════════════════════════════════════════════ */
+// ══════════════════════════════════════════════════════════════
+// NEXUS ENGLISH CENTER - PORTAL COM LOGO E GLAMOUR
+// ══════════════════════════════════════════════════════════════
 
-:root {
-  --nexus-green: #146933;
-  --bg-light: #f8faf9;
-  --text-dark: #1a2b21;
-  --white: #ffffff;
+const SUPABASE_URL = 'https://macpqlkefvjfrvotkkqh.supabase.co';
+const SUPABASE_KEY = 'COLE_SUA_CHAVE_AQUI'; 
+
+// --- COLE O LINK DO SEU LOGO AQUI ---
+// Exemplo: 'https://sua-url-do-logo.com/logo.png'
+const NEXUS_LOGO_URL = 'https://sua-url-do-logo.com/logo.png'; 
+
+const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const MODULES = [
+  { id: 'starter', label: 'Starter', color: '#16a34a' },
+  { id: 'a1', label: 'A1', color: '#2563eb' },
+  { id: 'a2', label: 'A2', color: '#84cc16' },
+  { id: 'b1', label: 'B1', color: '#ea580c' },
+  { id: 'b2', label: 'B2', color: '#be123c' },
+];
+
+let state = {
+  screen: 'login', // Ativando a tela de login
+  user: null, 
+  tab: 'materiais', 
+  activeModule: 'starter',
+  data: { quickLinks: [], materials: [] }
+};
+
+// --- FUNÇÕES DE BANCO DE DADOS ---
+async function dbSelect(table, order = 'id') {
+  const { data, error } = await client.from(table).select('*').order(order);
+  if (error) return [];
+  return data || [];
 }
 
-body, html {
-  margin: 0; padding: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg-light);
+async function loadAll() {
+  const [links, docs] = await Promise.all([
+    dbSelect('quick_links', 'sort_order'),
+    dbSelect('materials', 'title')
+  ]);
+  state.data.quickLinks = links;
+  state.data.materials = docs;
+  render();
 }
 
-/* --- TELA DE LOGIN (O GLAMOUR VOLTOU) --- */
-.login-screen {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #0b1e28 0%, #1a3a4a 100%); /* Fundo degradê premium */
+// --- HELPER HTML ---
+function h(tag, attrs = {}, ...children) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k.startsWith('on')) el.addEventListener(k.slice(2).toLowerCase(), v);
+    else if (k === 'className') el.className = v;
+    else if (k === 'innerHTML') el.innerHTML = v;
+    else el.setAttribute(k, v);
+  }
+  for (const c of children.flat()) {
+    if (c == null) continue;
+    el.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+  }
+  return el;
 }
 
-.login-box {
-  background: white;
-  padding: 50px;
-  border-radius: 24px;
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+const app = document.getElementById('app');
+
+function render() {
+  app.innerHTML = '';
+  if (state.screen === 'login') {
+    app.appendChild(renderLogin());
+  } else {
+    renderPortal();
+  }
 }
 
-.login-logo h1 {
-  font-size: 32px;
-  margin: 0;
-  color: #1a2b21;
-  font-weight: 800;
+// --- TELA DE LOGIN COM LOGO ---
+function renderLogin() {
+  const wrap = h('div', { className: 'login-screen' });
+  const box = h('div', { className: 'login-box' });
+  
+  // Imagem do logo centralizada na caixa de login
+  const logoImg = h('img', { 
+    src: NEXUS_LOGO_URL, 
+    alt: 'Nexus English Logo',
+    style: { maxWidth: '180px', marginBottom: '10px' } 
+  });
+  
+  box.innerHTML = `
+    <div class="login-logo">
+      <p style="font-size:16px; color:#1a2b21; font-weight:700;">Portal do Professor</p>
+    </div>
+  `;
+  
+  // Inserindo o logo no topo da caixa
+  box.prepend(logoImg);
+
+  const errDiv = h('div', { style: { display: 'none', color: '#ff4444', marginBottom: '15px' } });
+  const userInput = h('input', { className: 'form-input', placeholder: 'E-mail (ex: teacher@nexus.com)' });
+  const pwInput = h('input', { className: 'form-input', type: 'password', placeholder: 'Senha' });
+
+  const doLogin = async () => {
+    // Pegando os valores reais
+    const email = userInput.value.trim();
+    const password = pwInput.value;
+
+    const { data: authData, error: authError } = await client.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    if (authError) {
+      errDiv.textContent = 'E-mail ou senha incorretos';
+      errDiv.style.display = 'block';
+      return;
+    }
+
+    const { data: userData } = await client.from('users').select('*').eq('id', authData.user.id).single();
+    state.user = userData || { name: 'Teacher' };
+    state.screen = 'portal';
+    await loadAll();
+  };
+
+  box.append(userInput, pwInput, errDiv, h('button', { className: 'btn-full', onClick: doLogin }, 'Entrar'));
+  wrap.appendChild(box);
+  return wrap;
 }
 
-.login-logo span {
-  color: var(--nexus-green);
-}
+// --- TELA DO PORTAL COM LOGO ---
+function renderPortal() {
+  // Imagem do logo no cabeçalho verde
+  const headerLogo = h('img', { 
+    src: NEXUS_LOGO_URL, 
+    alt: 'Nexus Logo', 
+    style: { maxHeight: '40px', marginRight: '15px' } 
+  });
 
-.login-logo p {
-  color: #667e70;
-  margin-top: 5px;
-  margin-bottom: 35px;
-  font-size: 14px;
-  letter-spacing: 1px;
-}
+  // Header
+  const header = h('header', { className: 'header-main' },
+    h('div', { style: { display: 'flex', alignItems: 'center' } },
+      headerLogo,
+      h('div', {}, h('strong', { style: 'font-size:18px' }, 'Portal do Professor'))
+    ),
+    h('div', { style: { background:'rgba(255,255,255,0.2)', padding:'8px 20px', borderRadius:'30px;' }, onClick: () => window.location.reload() }, `👋 Olá, ${state.user.name}!`)
+  );
 
-.form-input {
-  width: 100%;
-  padding: 15px;
-  margin-bottom: 15px;
-  border: 1px solid #e2e8e4;
-  border-radius: 12px;
-  font-size: 16px;
-  background: #f9fbfb;
-  box-sizing: border-box; /* Garante que o input não saia da caixa */
-  transition: 0.3s;
-}
+  // Nav
+  const nav = h('div', { className: 'nav-bar' },
+    ['Materiais', 'Treinamento', 'Atividades', 'Avisos'].map(t => 
+      h('div', { 
+        className: `nav-item ${state.tab === t.toLowerCase() ? 'active' : ''}`,
+        onClick: () => { state.tab = t.toLowerCase(); render(); }
+      }, t)
+    )
+  );
 
-.form-input:focus {
-  outline: none;
-  border-color: var(--nexus-green);
-  box-shadow: 0 0 0 3px rgba(20, 105, 51, 0.1);
-}
-
-.btn-full {
-  width: 100%;
-  padding: 16px;
-  background: var(--nexus-green);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s;
-  margin-top: 10px;
-}
-
-.btn-full:hover {
-  background: #0f5227;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(20, 105, 51, 0.3);
-}
-
-/* --- ESTILOS DO INTERNO (CONTINUAM AQUI) --- */
-.header-main {
-  background-color: var(--nexus-green); color: white;
-  padding: 20px 60px; display: flex; justify-content: space-between; align-items: center;
-}
-
-.nav-bar {
-  background-color: var(--nexus-green); padding: 0 60px 10px;
-  display: flex; gap: 30px; border-bottom: 4px solid #1a8a44;
-}
-
-.nav-item {
-  color: #c2e0cc; cursor: pointer; padding-bottom: 10px;
-  display: flex; align-items: center; gap: 8px; font-weight: 500;
-}
-
-.nav-item.active { color: white; border-bottom: 4px solid #facc15; }
-
-.container { padding: 40px 60px; max-width: 1200px; margin: 0 auto; }
-
-h1 { font-family: 'Playfair Display', serif; font-size: 36px; margin-bottom: 10px; color: var(--text-dark); }
-.subtitle { color: #667e70; margin-bottom: 40px; }
-
-.section-title {
-  font-size: 12px; font-weight: 700; color: #889e91;
-  text-transform: uppercase; letter-spacing: 1px; margin: 30px 0 20px;
-}
-
-.quick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
-.materials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
-
-.card-base {
-  background: white; border-radius: 12px; padding: 15px 20px;
-  display: flex; align-items: center; gap: 15px;
-  border: 1px solid #e2e8e4; cursor: pointer; transition: 0.2s;
-}
-
-.card-base strong { color: #1a2b21 !important; font-size: 14px; }
-.card-base:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
-
-.icon-box { font-size: 24px; min-width: 40px; }
-
-.badge {
-  font-size: 10px; font-weight: 800; padding: 2px 6px;
-  border-radius: 4px; display: inline-block; margin-top: 5px;
-}
-.bg-doc { background: #d1fae5; color: #065f46; }
-.bg-drive { background: #dcfce7; color: #166534; }
-.bg-yt { background: #fee2e2; color: #991b1b; }
-
-.filter-bar { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
-.btn-filter {
-  padding: 8px 20px; border-radius: 25px; border: 1px solid #e2e8e4;
-  background: white; cursor: pointer; font-weight: 600; color: #4b5563;
-}
-.btn-filter.active { background: #16a34a; color: white; border-color: #16a34a; }
+  // Conteúdo Principal
+  const container = h('div', { className: 'container' },
+    h('h1', {}, 'Materiais Extras'),
+    h('p', { className: 'subtitle' }, 'Acesse todos os recursos organizados por módulo.'),
+    
+    h('div', {
