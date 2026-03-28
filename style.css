@@ -10,6 +10,7 @@
      --text-muted: #666666;
      --white: #ffffff;
      --sidebar-width: 220px;
+     --sidebar-bg: #111111;
 }
 
 body, html {
@@ -84,7 +85,7 @@ body, html {
      display: flex;
      justify-content: space-between;
      align-items: center;
-     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
      position: sticky;
      top: 0;
      z-index: 100;
@@ -96,10 +97,10 @@ body, html {
      min-height: calc(100vh - 70px);
 }
 
-/* --- SIDEBAR LATERAL --- */
+/* --- SIDEBAR LATERAL PRETA --- */
 .sidebar {
      width: var(--sidebar-width);
-     background-color: #1a2b21;
+     background-color: var(--sidebar-bg);
      flex-shrink: 0;
      display: flex;
      flex-direction: column;
@@ -111,8 +112,8 @@ body, html {
      display: flex;
      align-items: center;
      gap: 12px;
-     padding: 12px 24px;
-     color: rgba(255,255,255,0.6);
+     padding: 13px 24px;
+     color: rgba(255,255,255,0.55);
      cursor: pointer;
      font-size: 14px;
      font-weight: 500;
@@ -121,12 +122,12 @@ body, html {
 }
 
 .sidebar-item:hover {
-     background: rgba(255,255,255,0.07);
+     background: rgba(255,255,255,0.08);
      color: rgba(255,255,255,0.9);
 }
 
 .sidebar-item.active {
-     background: rgba(231,111,81,0.15);
+     background: rgba(231,111,81,0.18);
      color: white;
      font-weight: 700;
      border-left: 3px solid var(--nexus-orange);
@@ -139,14 +140,14 @@ body, html {
 }
 
 .sidebar-item.disabled {
-     opacity: 0.35;
+     opacity: 0.3;
      cursor: default;
      pointer-events: none;
 }
 
 /* --- CONTEÚDO PRINCIPAL --- */
 .main-content {
-     flex: 1;
+                        flex: 1;
      overflow-y: auto;
 }
 
@@ -168,15 +169,15 @@ h1 {
      font-size: 14px;
 }
 
-/* --- TÍTULOS DE SEÇÃO MAIS VISÍVEIS --- */
+/* --- TÍTULOS DE SEÇÃO DESTACADOS --- */
 .section-title {
      display: flex;
      align-items: center;
      gap: 10px;
      font-size: 13px;
      font-weight: 800;
-     color: #1a2b21;
-     text-transform: uppercase;
+     color: #1a1a1a;
+  text-transform: uppercase;
      letter-spacing: 1.5px;
      margin: 35px 0 14px;
      padding-bottom: 10px;
@@ -206,23 +207,24 @@ h1 {
      gap: 20px;
 }
 
-/* Cards */
+/* --- CARDS COM CONTORNO MAIS VISÍVEL --- */
 .card-base {
      background: white;
      border-radius: 12px;
-     padding: 15px 20px;
+     padding: 16px 20px;
      display: flex;
      align-items: center;
      gap: 15px;
-     border: 1px solid #e2e8e4;
+     border: 2px solid #d0d7d3;
      cursor: pointer;
-     transition: 0.2s;
+     transition: all 0.2s ease;
+     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
 .card-base:hover {
      transform: translateY(-3px);
-     box-shadow: 0 8px 15px rgba(0,0,0,0.07);
-     border-color: #E76F51;
+     border-color: var(--nexus-orange);
+     box-shadow: 0 6px 16px rgba(231,111,81,0.15);
 }
 
 .card-base strong {
