@@ -3,231 +3,273 @@
    ══════════════════════════════════════════════════════════════ */
 
 :root {
-  /* NOVA PALETA LARANJA NEXUS */
-  --nexus-orange: #E76F51; /* Laranja principal do logo */
-  --nexus-orange-hover: #D65A3F; /* Laranja ligeiramente mais escuro para hover */
-  --bg-light: #fdfaf9; /* Fundo com leve toque quente */
-  --text-dark: #1a1a1a; /* Texto quase preto */
-  --text-muted: #666666; /* Texto secundário */
-  --white: #ffffff;
+     --nexus-orange: #E76F51;
+     --nexus-orange-hover: #D65A3F;
+     --bg-light: #fdfaf9;
+     --text-dark: #1a1a1a;
+     --text-muted: #666666;
+     --white: #ffffff;
+     --sidebar-width: 220px;
 }
 
 body, html {
-  margin: 0; padding: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg-light);
-  color: var(--text-dark);
+     margin: 0; padding: 0;
+     font-family: 'Inter', sans-serif;
+     background-color: var(--bg-light);
+     color: var(--text-dark);
 }
 
-/* --- TELA DE LOGIN (COM GLAMOUR LARANJA) --- */
+/* --- TELA DE LOGIN --- */
 .login-screen {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Fundo degradê escuro premium */
-  background: linear-gradient(135deg, #0b1e28 0%, #1a3a4a 100%);
+     height: 100vh;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     background: linear-gradient(135deg, #0b1e28 0%, #1a3a4a 100%);
 }
 
 .login-box {
-  background: white;
-  padding: 50px;
-  border-radius: 24px;
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+     background: white;
+     padding: 50px;
+     border-radius: 24px;
+     width: 100%;
+     max-width: 400px;
+     text-align: center;
+     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
 .form-input {
-  width: 100%;
-  padding: 15px;
-  margin-bottom: 15px;
-  border: 1px solid #e2e8e4;
-  border-radius: 12px;
-  font-size: 16px;
-  background: #f9fbfb;
-  box-sizing: border-box;
-  transition: 0.3s;
+     width: 100%;
+     padding: 15px;
+     margin-bottom: 15px;
+     border: 1px solid #e2e8e4;
+     border-radius: 12px;
+     font-size: 16px;
+     background: #f9fbfb;
+     box-sizing: border-box;
+     transition: 0.3s;
 }
 
-/* Foco do input com borda laranja */
 .form-input:focus {
-  outline: none;
-  border-color: var(--nexus-orange);
-  box-shadow: 0 0 0 3px rgba(231, 111, 81, 0.1);
+     outline: none;
+     border-color: var(--nexus-orange);
+     box-shadow: 0 0 0 3px rgba(231, 111, 81, 0.1);
 }
 
-/* Botão de login laranja */
 .btn-full {
-  width: 100%;
-  padding: 16px;
-  background: var(--nexus-orange);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s;
-  margin-top: 10px;
+     width: 100%;
+     padding: 16px;
+     background: var(--nexus-orange);
+     color: white;
+     border: none;
+     border-radius: 12px;
+     font-size: 16px;
+     font-weight: 700;
+     cursor: pointer;
+     transition: 0.2s;
+     margin-top: 10px;
 }
 
 .btn-full:hover {
-  background: var(--nexus-orange-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(231, 111, 81, 0.3);
+     background: var(--nexus-orange-hover);
+     transform: translateY(-2px);
+     box-shadow: 0 5px 15px rgba(231, 111, 81, 0.3);
 }
 
-/* --- ESTILOS DO INTERNO (AGORA TUDO LARANJA) --- */
-
-/* Cabeçalho principal laranja */
+/* --- HEADER --- */
 .header-main {
-  background-color: var(--nexus-orange);
-  color: white;
-  padding: 15px 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+     background-color: var(--nexus-orange);
+     color: white;
+     padding: 15px 30px;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+     position: sticky;
+     top: 0;
+     z-index: 100;
 }
 
-/* Barra de navegação laranja */
-.nav-bar {
-  background-color: var(--nexus-orange);
-  padding: 0 60px 5px;
-  display: flex;
-  gap: 30px;
-  /* Linha inferior ligeiramente mais escura */
-  border-bottom: 4px solid #D65A3F;
+/* --- LAYOUT PRINCIPAL COM SIDEBAR --- */
+.portal-body {
+     display: flex;
+     min-height: calc(100vh - 70px);
 }
 
-.nav-item {
-  color: rgba(255,255,255,0.7); /* Texto branco transparente */
-  cursor: pointer;
-  padding-bottom: 10px;
-  font-weight: 500;
-  font-size: 14px;
-  transition: 0.2s;
+/* --- SIDEBAR LATERAL --- */
+.sidebar {
+     width: var(--sidebar-width);
+     background-color: #1a2b21;
+     flex-shrink: 0;
+     display: flex;
+     flex-direction: column;
+     padding: 30px 0;
+     gap: 4px;
 }
 
-.nav-item:hover {
-  color: white;
+.sidebar-item {
+     display: flex;
+     align-items: center;
+     gap: 12px;
+     padding: 12px 24px;
+     color: rgba(255,255,255,0.6);
+     cursor: pointer;
+     font-size: 14px;
+     font-weight: 500;
+     transition: 0.2s;
+     border-left: 3px solid transparent;
 }
 
-/* Item ativo com borda inferior branca ou amarela (como na foto) */
-.nav-item.active {
-  color: white;
-  font-weight: 700;
-  border-bottom: 4px solid #facc15; /* Detalhe amarelo da foto */
+.sidebar-item:hover {
+     background: rgba(255,255,255,0.07);
+     color: rgba(255,255,255,0.9);
 }
 
-/* Área de Conteúdo */
+.sidebar-item.active {
+     background: rgba(231,111,81,0.15);
+     color: white;
+     font-weight: 700;
+     border-left: 3px solid var(--nexus-orange);
+}
+
+.sidebar-item .sidebar-icon {
+     font-size: 18px;
+     min-width: 22px;
+     text-align: center;
+}
+
+.sidebar-item.disabled {
+     opacity: 0.35;
+     cursor: default;
+     pointer-events: none;
+}
+
+/* --- CONTEÚDO PRINCIPAL --- */
+.main-content {
+     flex: 1;
+     overflow-y: auto;
+}
+
 .container {
-  padding: 40px 60px;
-  max-width: 1200px;
-  margin: 0 auto;
+     padding: 40px 50px;
+     max-width: 1100px;
 }
 
 h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 36px;
-  margin-bottom: 5px;
-  color: var(--text-dark);
+     font-family: 'Playfair Display', serif;
+     font-size: 34px;
+     margin-bottom: 5px;
+     color: var(--text-dark);
 }
 
 .subtitle {
-  color: var(--text-muted);
-  margin-bottom: 40px;
-  font-size: 14px;
+     color: var(--text-muted);
+     margin-bottom: 30px;
+     font-size: 14px;
 }
 
+/* --- TÍTULOS DE SEÇÃO MAIS VISÍVEIS --- */
 .section-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: #889e91;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 30px 0 15px;
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     font-size: 13px;
+     font-weight: 800;
+     color: #1a2b21;
+     text-transform: uppercase;
+     letter-spacing: 1.5px;
+     margin: 35px 0 14px;
+     padding-bottom: 10px;
+     border-bottom: 2px solid #e2e8e4;
+}
+
+.section-title::before {
+     content: '';
+     display: inline-block;
+     width: 4px;
+     height: 16px;
+     background: var(--nexus-orange);
+     border-radius: 2px;
+     flex-shrink: 0;
 }
 
 /* Grids */
 .quick-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 15px;
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+     gap: 14px;
 }
 
 .materials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+     gap: 20px;
 }
 
 /* Cards */
 .card-base {
-  background: white;
-  border-radius: 12px;
-  padding: 15px 20px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  border: 1px solid #e2e8e4;
-  cursor: pointer;
-  transition: 0.2s;
+     background: white;
+     border-radius: 12px;
+     padding: 15px 20px;
+     display: flex;
+     align-items: center;
+     gap: 15px;
+     border: 1px solid #e2e8e4;
+     cursor: pointer;
+     transition: 0.2s;
 }
 
 .card-base:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+     transform: translateY(-3px);
+     box-shadow: 0 8px 15px rgba(0,0,0,0.07);
+     border-color: #E76F51;
 }
 
 .card-base strong {
-  color: var(--text-dark) !important;
-  font-size: 14px;
+     color: var(--text-dark) !important;
+     font-size: 14px;
 }
 
 .icon-box {
-  font-size: 24px;
-  min-width: 40px;
+     font-size: 24px;
+     min-width: 40px;
 }
 
-/* Badges de arquivo (Pequenos ajustes) */
+/* Badges */
 .badge {
-  font-size: 10px;
-  font-weight: 800;
-  padding: 2px 6px;
-  border-radius: 4px;
-  display: inline-block;
-  margin-top: 5px;
+     font-size: 10px;
+     font-weight: 800;
+     padding: 2px 6px;
+     border-radius: 4px;
+     display: inline-block;
+     margin-top: 5px;
 }
 
-.bg-doc { background: #d1fae5; color: #065f46; } /* Mantido verde leve para docs */
-.bg-drive { background: #dcfce7; color: #166534; } /* Mantido verde leve para drive */
-.bg-yt { background: #fee2e2; color: #991b1b; } /* Mantido vermelho leve para YT */
+.bg-doc { background: #d1fae5; color: #065f46; }
+.bg-drive { background: #dcfce7; color: #166534; }
+.bg-yt { background: #fee2e2; color: #991b1b; }
 
-/* Botões de Filtro Laranja */
+/* Filtros */
 .filter-bar {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
+     display: flex;
+     gap: 12px;
+     margin-bottom: 30px;
+     flex-wrap: wrap;
 }
 
 .btn-filter {
-  padding: 8px 20px;
-  border-radius: 25px;
-  border: 1px solid #e2e8e4;
-  background: white;
-  cursor: pointer;
-  font-weight: 600;
-  color: #4b5563;
-  transition: 0.2s;
+     padding: 8px 20px;
+     border-radius: 25px;
+     border: 1px solid #e2e8e4;
+     background: white;
+     cursor: pointer;
+     font-weight: 600;
+     color: #4b5563;
+     transition: 0.2s;
 }
 
-/* Botão de filtro ativo agora é Laranja */
 .btn-filter.active {
-  background: var(--nexus-orange);
-  color: white;
-  border-color: var(--nexus-orange);
+     background: var(--nexus-orange);
+     color: white;
+     border-color: var(--nexus-orange);
 }
