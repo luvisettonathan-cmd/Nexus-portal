@@ -669,17 +669,40 @@
   .match-emoji-box.matched { border-color: #16a34a; background: #f0fdf4; }
   .match-emoji-box .mej { font-size: 28px; display: block; margin-bottom: 6px; }
   .match-emoji-box .manswer {
-    width: 28px; height: 20px;
-    background: var(--white);
-    border: 1px solid var(--gray-border);
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 800;
-    color: var(--teal-dark);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
+  width: 28px;
+  height: 20px;
+  background: var(--white);
+  border: 1px solid var(--gray-border);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--teal-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.manswer-input {
+  width: 34px;
+  height: 22px;
+  border: 1px solid var(--gray-border);
+  border-radius: 4px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--teal-dark);
+  background: var(--white);
+  outline: none;
+  cursor: text;
+  font-family: 'Nunito', sans-serif;
+  transition: border-color 0.18s;
+}
+.manswer-input:focus {
+  border-color: var(--teal);
+}
+.match-emoji-box.matched {
+  border-color: var(--teal);
+  background: var(--teal-light);
+}
 
   /* ─── EXERCISE 8: LISTENING ─── */
   .audio-btn-row {
@@ -1113,12 +1136,12 @@
               <span class="match-label">6 - Sandwich</span>
             </div>
             <div class="match-emojis">
-              <div class="match-emoji-box" onclick="matchBox(this,'6')"><span class="mej">🥪</span><div class="manswer" id="mb1"></div></div>
-              <div class="match-emoji-box" onclick="matchBox(this,'5')"><span class="mej">💧</span><div class="manswer" id="mb2"></div></div>
-              <div class="match-emoji-box" onclick="matchBox(this,'1')"><span class="mej">🍞</span><div class="manswer" id="mb3"></div></div>
-              <div class="match-emoji-box" onclick="matchBox(this,'4')"><span class="mej">🧀</span><div class="manswer" id="mb4"></div></div>
-              <div class="match-emoji-box" onclick="matchBox(this,'3')"><span class="mej">🥤</span><div class="manswer" id="mb5"></div></div>
-              <div class="match-emoji-box" onclick="matchBox(this,'2')"><span class="mej">🍕</span><div class="manswer" id="mb6"></div></div>
+              <div class="match-emoji-box" onclick="matchBox(this,'6')"><span class="mej">🥪</span><input class="manswer-input" id="mb1" type="text" maxlength="3" placeholder="?" style="width:34px;height:22px;border:1px solid var(--gray-border);border-radius:4px;text-align:center;font-size:11px;font-weight:800;color:var(--teal-dark);background:var(--white);outline:none;"></div>
+              <div class="match-emoji-box" onclick="matchBox(this,'5')"><span class="mej">💧</span><input class="manswer-input" id="mb2" type="text" maxlength="3" placeholder="?" style="width:34px;height:22px;border:1px solid var(--gray-border);border-radius:4px;text-align:center;font-size:11px;font-weight:800;color:var(--teal-dark);background:var(--white);outline:none;"></div>
+              <div class="match-emoji-box" onclick="matchBox(this,'1')"><span class="mej">🍞</span><input class="manswer-input" id="mb3" type="text" maxlength="3" placeholder="?" style="width:34px;height:22px;border:1px solid var(--gray-border);border-radius:4px;text-align:center;font-size:11px;font-weight:800;color:var(--teal-dark);background:var(--white);outline:none;"></div>
+              <div class="match-emoji-box" onclick="matchBox(this,'4')"><span class="mej">🧀</span><input class="manswer-input" id="mb4" type="text" maxlength="3" placeholder="?" style="width:34px;height:22px;border:1px solid var(--gray-border);border-radius:4px;text-align:center;font-size:11px;font-weight:800;color:var(--teal-dark);background:var(--white);outline:none;"></div>
+              <div class="match-emoji-box" onclick="matchBox(this,'3')"><span class="mej">🥤</span><input class="manswer-input" id="mb5" type="text" maxlength="3" placeholder="?" style="width:34px;height:22px;border:1px solid var(--gray-border);border-radius:4px;text-align:center;font-size:11px;font-weight:800;color:var(--teal-dark);background:var(--white);outline:none;"></div>
+              <div class="match-emoji-box" onclick="matchBox(this,'2')"><span class="mej">🍕</span><input class="manswer-input" id="mb6" type="text" maxlength="3" placeholder="?" style="width:34px;height:22px;border:1px solid var(--gray-border);border-radius:4px;text-align:center;font-size:11px;font-weight:800;color:var(--teal-dark);background:var(--white);outline:none;"></div>
             </div>
           </div>
         </div>
@@ -1506,7 +1529,7 @@ function closeSidebar() {
 }
 
 function speak(el, word) {
-  if(el.classList.contains('vocab-line')) el.classList.add('played');
+  if(el.classList.contains('vocab-line')) el.classList.toggle('played');
   const audio = new Audio('audio/' + word.toLowerCase().replace(/[^a-z0-9]/g,'_') + '.mp3');
   audio.onerror = () => {
     if('speechSynthesis' in window) {
@@ -1567,11 +1590,12 @@ function pickOpt(el) {
 }
 
 function matchBox(el, answer) {
-  const ans = el.querySelector('.manswer');
-  if(ans) { ans.textContent = answer; el.classList.add('matched'); }
+  el.classList.toggle('matched');
+  const inp = el.querySelector('.manswer-input');
+  if (inp) inp.focus();
 }
 
-let toastT;
+
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
