@@ -322,7 +322,7 @@ function openEbookModal() {
             overlay.innerHTML =
                 '<div style="background:#fff;border-radius:12px;width:96vw;height:94vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.6);">' +
                       '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#1a2b21;border-bottom:1px solid rgba(255,255,255,0.1);">' +
-                              '<span style="color:white;font-weight:700;font-size:15px;">📘 Nexus Starter – Ebook Interativo</span>' +
+                              '<span style="color:white;font-weight:700;font-size:15px;">📘 Starter</span>' +
                                       '<button id="close-ebook-modal" style="background:rgba(255,255,255,0.15);border:none;color:white;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600;">✕ Fechar</button>' +
                                             '</div>' +
                                                   '<iframe src="ebook.html" style="flex:1;border:none;width:100%;background:#fff;" loading="lazy"></iframe>' +
