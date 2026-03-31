@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus A1 Starter — Students Textbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #00C4B4;
+    --teal-dark: #009E91;
+    --teal-light: #E6F9F7;
+    --dark: #1A1A1A;
+    --gray: #6B7280;
+    --gray-light: #F3F4F6;
+    --gray-border: #E5E7EB;
+    --white: #FFFFFF;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 4px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #F0F2F5;
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* ─── COVER ─── */
+  #cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+  }
+  #cover .teal-half {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 58%;
+    background: var(--teal);
+  }
+  .cover-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px;
+  }
+  .cover-a1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(100px, 20vw, 220px);
+    color: var(--dark);
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    display: block;
+    margin-bottom: 0;
+  }
+  .cover-titles {
+    background: var(--dark);
+    display: inline-block;
+    padding: 8px 28px 14px;
+    margin-top: -10px;
+  }
+  .cover-titles .t1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 7vw, 80px);
+    color: var(--white);
+    font-style: italic;
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .cover-titles .t2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 7vw, 80px);
+    color: var(--white);
+    font-style: italic;
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .cover-badge {
+    background: var(--dark);
+    border: 2px solid var(--white);
+    display: inline-block;
+    padding: 6px 24px;
+    margin-top: 6px;
+  }
+  .cover-badge span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--white);
+    font-style: italic;
+    letter-spacing: 0.06em;
+  }
+  .nexus-logo-cover {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .nexus-logo-cover .circle {
+    width: 44px; height: 44px;
+    border: 3px solid var(--teal);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nexus-logo-cover .circle span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--teal);
+  }
+  .nexus-logo-cover .name {
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.3;
+    text-align: left;
+  }
+  .cover-start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--teal);
+    color: var(--dark);
+    font-weight: 800;
+    font-size: 15px;
+    padding: 14px 36px;
+    border-radius: 100px;
+    cursor: pointer;
+    border: none;
+    margin-top: 32px;
+    transition: all 0.22s;
+    font-family: 'Nunito', sans-serif;
+  }
+  .cover-start-btn:hover {
+    background: #00E0CE;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0,196,180,0.4);
+  }
+
+  /* ─── APP SHELL ─── */
+  #app { display: none; min-height: 100vh; }
+  #app.active { display: flex; }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    width: 240px;
+    min-width: 240px;
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+  }
+  .sidebar-logo {
+    padding: 22px 20px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sidebar-logo .circle {
+    width: 36px; height: 36px;
+    border: 2px solid var(--teal);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .sidebar-logo .circle span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: var(--teal);
+  }
+  .sidebar-logo .brand-text {
+    font-family: 'Nunito', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+  .sidebar-logo .brand-text small {
+    display: block;
+    font-size: 9px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    margin-top: 1px;
+  }
+  .sidebar-nav { flex: 1; padding: 12px 0; }
+  .nav-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    padding: 10px 20px 4px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border-left: 3px solid transparent;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.45);
+    user-select: none;
+  }
+  .nav-item:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.04); }
+  .nav-item.active { color: var(--teal); border-left-color: var(--teal); background: rgba(0,196,180,0.08); }
+  .nav-item .num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 5px;
+    padding: 2px 6px;
+    color: rgba(255,255,255,0.3);
+    min-width: 26px;
+    text-align: center;
+  }
+  .nav-item.active .num { background: rgba(0,196,180,0.15); color: var(--teal); }
+  .sidebar-progress {
+    padding: 14px 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .progress-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+  .progress-track {
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--teal);
+    border-radius: 100px;
+    transition: width 0.5s ease;
+  }
+
+  /* ─── MAIN ─── */
+  .main { flex: 1; min-width: 0; overflow-y: auto; }
+
+  /* ─── MOBILE HEADER ─── */
+  .mobile-header {
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: var(--dark);
+    padding: 12px 18px;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid var(--teal);
+  }
+  .hamburger {
+    background: none; border: none; cursor: pointer; color: #fff;
+    display: flex; flex-direction: column; gap: 4px; padding: 4px;
+  }
+  .hamburger span { display: block; width: 20px; height: 2px; background: currentColor; border-radius: 2px; }
+  .overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 250;
+  }
+  @media (max-width: 780px) {
+    .mobile-header { display: flex; }
+    .sidebar { position: fixed; left: -240px; top: 0; height: 100vh; z-index: 300; transition: left 0.28s; }
+    .sidebar.open { left: 0; box-shadow: 6px 0 32px rgba(0,0,0,0.4); }
+    .overlay { display: block; }
+    .lesson-hero, .lesson-body { padding: 24px 16px; }
+  }
+
+  /* ─── LESSON PANEL ─── */
+  .lesson-panel { display: none; animation: fadeIn 0.3s ease; }
+  .lesson-panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ─── LESSON HEADER (like the PDF page top) ─── */
+  .lesson-header {
+    background: var(--dark);
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+    min-height: 72px;
+    border-bottom: 3px solid var(--teal);
+  }
+  .lesson-header .lh-num {
+    background: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 28px;
+    flex-shrink: 0;
+  }
+  .lesson-header .lh-num span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--dark);
+    line-height: 1;
+  }
+  .lesson-header .lh-text {
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .lh-text .lh-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .lh-text h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(24px, 4vw, 38px);
+    color: #fff;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .lh-text p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 4px;
+    font-weight: 600;
+  }
+  .lesson-header .lh-tags {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 24px;
+    flex-wrap: wrap;
+  }
+  .lh-tag {
+    background: rgba(0,196,180,0.12);
+    border: 1px solid rgba(0,196,180,0.25);
+    color: var(--teal);
+    border-radius: 100px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  /* ─── LESSON BODY ─── */
+  .lesson-body { padding: 28px 32px 72px; max-width: 900px; }
+
+  /* ─── PAGE NUMBER (like PDF) ─── */
+  .page-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--gray);
+    text-align: right;
+    padding: 6px 32px 0;
+    letter-spacing: 0.08em;
+  }
+
+  /* ─── SECTION BLOCK (faithful to PDF boxes) ─── */
+  .section-block {
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .section-block.teal-bg {
+    background: var(--teal);
+    border-color: var(--teal-dark);
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px 12px;
+    border-bottom: 1px solid var(--gray-border);
+  }
+  .section-block.teal-bg .section-title { border-bottom-color: rgba(0,0,0,0.12); }
+  .section-num-circle {
+    width: 28px; height: 28px;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: var(--dark);
+    flex-shrink: 0;
+  }
+  .section-block.teal-bg .section-num-circle { background: var(--dark); color: var(--white); }
+  .section-title h2 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--dark);
+    letter-spacing: 0.01em;
+  }
+  .section-block.teal-bg .section-title h2 { color: var(--dark); }
+  .section-body { padding: 18px 20px; }
+
+  /* ─── VOCABULARY LIST (like PDF lines) ─── */
+  .vocab-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0;
+  }
+  .vocab-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: background 0.15s;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+    border-bottom: 1px dashed var(--gray-border);
+    position: relative;
+  }
+  .vocab-line:hover { background: var(--teal-light); }
+  .vocab-line .bullet {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+  .vocab-line .audio-btn {
+    margin-left: auto;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--teal-light);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity 0.15s;
+    flex-shrink: 0;
+  }
+  .vocab-line:hover .audio-btn { opacity: 1; }
+  .vocab-line .audio-btn svg { width: 12px; height: 12px; }
+  .vocab-line.played { background: var(--teal-light); }
+
+  /* ─── NUMBERS (like PDF colored boxes) ─── */
+  .numbers-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .num-box {
+    background: var(--teal);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-width: 64px;
+    flex: 1;
+  }
+  .num-box:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .num-box .nv {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--dark);
+    line-height: 1;
+  }
+  .num-box .nl { font-size: 11px; color: var(--dark); font-weight: 700; margin-top: 2px; }
+
+  /* ─── FOOD / IMAGE GRID (like PDF photos) ─── */
+  .img-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+  }
+  .img-card {
+    border: 1px solid var(--gray-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.18s;
+    background: var(--gray-light);
+    text-align: center;
+  }
+  .img-card:hover { border-color: var(--teal); box-shadow: 0 4px 12px rgba(0,196,180,0.2); transform: translateY(-2px); }
+  .img-card .emoji-wrap {
+    padding: 14px 8px 8px;
+    font-size: 32px;
+    transition: transform 0.18s;
+  }
+  .img-card:hover .emoji-wrap { transform: scale(1.12); }
+  .img-card .img-label {
+    background: var(--teal);
+    color: var(--dark);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 5px 4px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ─── EXPRESSIONS / IMPROVE VOCAB ─── */
+  .expr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+  }
+  .expr-item {
+    background: var(--gray-light);
+    border: 1px solid var(--gray-border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .expr-item:hover { border-color: var(--teal); background: var(--teal-light); }
+  .expr-item .bullet { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+
+  /* ─── IMPROVE VOCAB TABLE ─── */
+  .improve-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .improve-box {
+    background: var(--gray-light);
+    border: 1px solid var(--gray-border);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+  }
+  .improve-box .ik { font-weight: 800; color: var(--teal-dark); font-size: 14px; margin-bottom: 3px; }
+  .improve-box .iv { font-size: 12px; color: var(--gray); font-style: italic; }
+
+  /* ─── EXERCISE 6: COMPLETE PHRASES ─── */
+  .word-bank-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: var(--teal-light);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(0,196,180,0.2);
+  }
+  .wbank-tag {
+    background: var(--teal);
+    color: var(--dark);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    border: 1px solid var(--teal-dark);
+  }
+  .wbank-tag:hover { background: var(--teal-dark); color: #fff; }
+  .wbank-tag.used { opacity: 0.55; background: var(--teal-dark); color: #fff; }
+  .wbank-tag.used:hover { opacity: 1; }
+
+  .fill-rows { display: flex; flex-direction: column; gap: 10px; }
+  .fill-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.8;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    background: var(--gray-light);
+    border: 1px solid var(--gray-border);
+    transition: border-color 0.2s;
+  }
+  .fill-row:focus-within { border-color: var(--teal); background: var(--teal-light); }
+  .fill-row .row-letter {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 17px;
+    color: var(--teal);
+    min-width: 18px;
+  }
+  .fill-input {
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-bottom: 2px solid var(--teal);
+    border-radius: 4px 4px 0 0;
+    padding: 3px 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark);
+    outline: none;
+    min-width: 90px;
+    transition: border-color 0.18s;
+  }
+  .fill-input:focus { border-color: var(--teal); border-bottom-color: var(--teal-dark); }
+  .fill-input.correct { border-color: #16a34a; border-bottom-color: #16a34a; background: #f0fdf4; }
+  .fill-input.wrong { border-color: #dc2626; border-bottom-color: #dc2626; background: #fef2f2; }
+
+  /* ─── EXERCISE 7: MATCHING ─── */
+  .matching-header {
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 700;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .match-labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .match-label {
+    background: var(--gray-light);
+    border: 1px solid var(--gray-border);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--dark);
+  }
+  .match-emojis {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .match-emoji-box {
+    background: var(--gray-light);
+    border: 2px solid var(--gray-border);
+    border-radius: var(--radius-sm);
+    padding: 14px 10px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    flex: 1;
+    min-width: 80px;
+    position: relative;
+  }
+  .match-emoji-box:hover { border-color: var(--teal); background: var(--teal-light); }
+  .match-emoji-box.matched { border-color: #16a34a; background: #f0fdf4; }
+  .match-emoji-box .mej { font-size: 28px; display: block; margin-bottom: 6px; }
+  .match-emoji-box .manswer {
+    width: 28px; height: 20px;
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--teal-dark);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ─── EXERCISE 8: LISTENING ─── */
+  .audio-btn-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gray-light);
+    border: 1px solid var(--gray-border);
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray);
+    margin-bottom: 14px;
+    transition: all 0.18s;
+    width: fit-content;
+  }
+  .audio-btn-row:hover { border-color: var(--teal); color: var(--teal-dark); background: var(--teal-light); }
+  .audio-btn-row svg { width: 18px; height: 18px; color: var(--teal); }
+  .audio-btn-row .file-hint {
+    font-size: 10px;
+    color: var(--teal-dark);
+    font-family: 'Space Mono', monospace;
+    font-weight: 400;
+  }
+
+  .listen-rows { display: flex; flex-direction: column; gap: 10px; }
+  .listen-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .listen-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--teal);
+    min-width: 22px;
+  }
+  .listen-opts { display: flex; gap: 6px; flex-wrap: wrap; }
+  .listen-opt {
+    background: var(--gray-light);
+    border: 1px solid var(--gray-border);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .listen-opt:hover { border-color: var(--teal); color: var(--teal-dark); }
+  .listen-opt.selected { background: var(--teal); border-color: var(--teal-dark); color: var(--dark); }
+
+  /* ─── EXERCISE 9: TRANSCRIBE ─── */
+  .transcribe-rows { display: flex; flex-direction: column; gap: 10px; }
+  .transcribe-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .transcribe-row .tnum {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--teal);
+    min-width: 22px;
+  }
+  .transcribe-input {
+    flex: 1;
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-bottom: 2px solid var(--teal);
+    border-radius: 4px 4px 0 0;
+    padding: 8px 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+    outline: none;
+    transition: border-color 0.18s;
+  }
+  .transcribe-input:focus { border-color: var(--teal); border-bottom-color: var(--teal-dark); background: var(--teal-light); }
+
+  /* ─── EXERCISE 10: EXPRESS YOURSELF ─── */
+  .example-strip {
+    background: var(--teal-light);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .example-strip strong { color: var(--teal-dark); }
+  .express-subtitle {
+    font-size: 12px;
+    color: var(--gray);
+    font-style: italic;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .express-rows { display: flex; flex-direction: column; gap: 10px; }
+  .express-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .express-row .enum {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--teal);
+    min-width: 22px;
+  }
+  .express-input {
+    flex: 1;
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-bottom: 2px solid var(--teal);
+    border-radius: 4px 4px 0 0;
+    padding: 9px 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    transition: all 0.18s;
+  }
+  .express-input:focus { border-color: var(--teal); border-bottom-color: var(--teal-dark); background: var(--teal-light); }
+  .express-input::placeholder { color: #C4C9D0; font-weight: 600; font-style: italic; }
+
+  /* ─── DAYS OF WEEK ─── */
+  .days-flex { display: flex; flex-wrap: wrap; gap: 8px; }
+  .day-chip {
+    background: var(--teal);
+    color: var(--dark);
+    border-radius: 6px;
+    padding: 9px 18px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    border: 2px solid var(--teal-dark);
+  }
+  .day-chip:hover { background: var(--teal-dark); color: #fff; }
+  .day-chip.off { background: var(--gray-light); border-color: var(--gray-border); color: var(--gray); }
+
+  /* ─── MONTHS ─── */
+  .months-flex { display: flex; flex-wrap: wrap; gap: 8px; }
+  .month-chip {
+    background: var(--teal);
+    color: var(--dark);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    flex: 1;
+    min-width: 90px;
+    text-align: center;
+    border: 2px solid var(--teal-dark);
+  }
+  .month-chip:hover { background: var(--teal-dark); color: #fff; transform: translateY(-2px); }
+
+  /* ─── TIME BOXES ─── */
+  .time-flex { display: flex; flex-wrap: wrap; gap: 10px; }
+  .time-box {
+    background: var(--teal);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    flex: 1;
+    min-width: 110px;
+    border: 2px solid var(--teal-dark);
+  }
+  .time-box:hover { background: var(--teal-dark); transform: translateY(-2px); }
+  .time-box .tv { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--dark); line-height: 1; }
+  .time-box .tl { font-size: 11px; color: var(--dark); font-weight: 700; margin-top: 3px; opacity: 0.8; }
+
+  /* ─── TOAST ─── */
+  .toast {
+    position: fixed; bottom: 22px; right: 22px;
+    background: var(--dark); color: #fff;
+    border-left: 3px solid var(--teal);
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 13px; font-weight: 700;
+    z-index: 9999;
+    opacity: 0; transform: translateY(10px);
+    transition: all 0.25s;
+    pointer-events: none;
+    box-shadow: var(--shadow-md);
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ─── VIDEO PLACEHOLDER ─── */
+  .video-placeholder {
+    background: var(--dark);
+    border-radius: var(--radius);
+    aspect-ratio: 16/9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    border: 2px dashed rgba(0,196,180,0.35);
+    cursor: pointer;
+  }
+  .video-placeholder .vp-icon { font-size: 40px; opacity: 0.6; }
+  .video-placeholder p { color: rgba(255,255,255,0.4); font-size: 13px; font-weight: 700; }
+  .video-placeholder small { color: var(--teal); font-size: 11px; font-family: 'Space Mono',monospace; }
+</style>
+</head>
+<body>
+
+<!-- ═══════ COVER ═══════ -->
+<div id="cover">
+  <div class="teal-half"></div>
+  <div class="cover-content">
+    <span class="cover-a1">A1</span>
+    <div class="cover-titles">
+      <div class="t1">STARTER</div>
+      <div class="t2">STUDENTS</div>
+      <div class="cover-badge"><span>TEXTBOOK</span></div>
+    </div>
+    <div class="nexus-logo-cover">
+      <div class="circle"><span>X</span></div>
+      <div class="name">ENGLISH<br>CENTER</div>
+    </div>
+    <br>
+    <button class="cover-start-btn" onclick="openApp()">
+      ▶&nbsp; Open Textbook
+    </button>
+  </div>
+</div>
+
+<!-- ═══════ APP ═══════ -->
+<div id="app">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="circle"><span>X</span></div>
+      <div class="brand-text">NEXUS<br><small>A1 · STARTER STUDENTS</small></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-label">Lessons</div>
+      <div class="nav-item active" data-l="1" onclick="goLesson(1)"><span class="num">01</span>First Words</div>
+      <div class="nav-item" data-l="2" onclick="goLesson(2)"><span class="num">02</span>Ordering Like a Pro</div>
+      <div class="nav-item" data-l="3" onclick="goLesson(3)"><span class="num">03</span>Spot It!</div>
+      <div class="nav-item" data-l="4" onclick="goLesson(4)"><span class="num">04</span>People</div>
+      <div class="nav-item" data-l="5" onclick="goLesson(5)"><span class="num">05</span>Life Around You</div>
+      <div class="nav-item" data-l="6" onclick="goLesson(6)"><span class="num">06</span>What You Do</div>
+      <div class="nav-item" data-l="7" onclick="goLesson(7)"><span class="num">07</span>Routine</div>
+      <div class="nav-item" data-l="8" onclick="goLesson(8)"><span class="num">08</span>Going to Places</div>
+    </nav>
+    <div class="sidebar-progress">
+      <div class="progress-label">Progress</div>
+      <div class="progress-track"><div class="progress-fill" id="pFill" style="width:12%"></div></div>
+    </div>
+  </aside>
+
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <main class="main">
+    <div class="mobile-header">
+      <button class="hamburger" onclick="toggleSidebar()">
+        <span></span><span></span><span></span>
+      </button>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--teal);letter-spacing:0.06em;">NEXUS · A1 STARTER</div>
+    </div>
+
+    <!-- ════ LESSON 1 ════ -->
+    <div class="lesson-panel active" id="lesson-1">
+      <div class="lesson-header">
+        <div class="lh-num"><span>1</span></div>
+        <div class="lh-text">
+          <div class="lh-label">Lesson 01</div>
+          <h1>First Words</h1>
+          <p>Greetings · Numbers 1–10 · Food & Drinks</p>
+        </div>
+        <div class="lh-tags">
+          <span class="lh-tag">Greetings</span>
+          <span class="lh-tag">Numbers</span>
+          <span class="lh-tag">Food</span>
+        </div>
+      </div>
+      <div class="page-num">A1 - Lesson 1 · 04</div>
+      <div class="lesson-body">
+
+        <!-- 1 Vocabulary -->
+        <div class="section-block">
+          <div class="section-title">
+            <div class="section-num-circle">1</div>
+            <h2>Vocabulary</h2>
+          </div>
+          <div class="section-body">
+            <div class="vocab-list">
+              <div class="vocab-line" onclick="speak(this,'Hi')"><div class="bullet"></div>Hi<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+              <div class="vocab-line" onclick="speak(this,'Hello')"><div class="bullet"></div>Hello<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+              <div class="vocab-line" onclick="speak(this,'Hey')"><div class="bullet"></div>Hey<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+              <div class="vocab-line" onclick="speak(this,'Good morning')"><div class="bullet"></div>Good morning<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+              <div class="vocab-line" onclick="speak(this,'Good afternoon')"><div class="bullet"></div>Good afternoon<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+              <div class="vocab-line" onclick="speak(this,'Good evening')"><div class="bullet"></div>Good evening<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+              <div class="vocab-line" onclick="speak(this,'Good night')"><div class="bullet"></div>Good night<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+              <div class="vocab-line" onclick="speak(this,'Bye')"><div class="bullet"></div>Bye<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+              <div class="vocab-line" onclick="speak(this,'Goodbye')"><div class="bullet"></div>Goodbye<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Expressions -->
+        <div class="section-block">
+          <div class="section-title"><div class="section-num-circle">2</div><h2>Expressions</h2></div>
+          <div class="section-body">
+            <div class="expr-grid">
+              <div class="expr-item" onclick="speak(this,'Please')"><div class="bullet"></div>Please</div>
+              <div class="expr-item" onclick="speak(this,'Yes')"><div class="bullet"></div>Yes</div>
+              <div class="expr-item" onclick="speak(this,'No')"><div class="bullet"></div>No</div>
+              <div class="expr-item" onclick="speak(this,'Thank you')"><div class="bullet"></div>Thank you</div>
+              <div class="expr-item" onclick="speak(this,'Thanks')"><div class="bullet"></div>Thanks</div>
+              <div class="expr-item" onclick="speak(this,&quot;You're welcome&quot;)"><div class="bullet"></div>You're welcome</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Numbers -->
+        <div class="section-block teal-bg">
+          <div class="section-title"><div class="section-num-circle">3</div><h2>Numbers</h2></div>
+          <div class="section-body">
+            <div class="numbers-grid">
+              <div class="num-box" onclick="speak(this,'one')"><div class="nv">1</div><div class="nl">One</div></div>
+              <div class="num-box" onclick="speak(this,'two')"><div class="nv">2</div><div class="nl">Two</div></div>
+              <div class="num-box" onclick="speak(this,'three')"><div class="nv">3</div><div class="nl">Three</div></div>
+              <div class="num-box" onclick="speak(this,'four')"><div class="nv">4</div><div class="nl">Four</div></div>
+              <div class="num-box" onclick="speak(this,'five')"><div class="nv">5</div><div class="nl">Five</div></div>
+              <div class="num-box" onclick="speak(this,'six')"><div class="nv">6</div><div class="nl">Six</div></div>
+              <div class="num-box" onclick="speak(this,'seven')"><div class="nv">7</div><div class="nl">Seven</div></div>
+              <div class="num-box" onclick="speak(this,'eight')"><div class="nv">8</div><div class="nl">Eight</div></div>
+              <div class="num-box" onclick="speak(this,'nine')"><div class="nv">9</div><div class="nl">Nine</div></div>
+              <div class="num-box" onclick="speak(this,'ten')"><div class="nv">10</div><div class="nl">Ten</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Food & Drinks -->
+        <div class="section-block">
+          <div class="section-title"><div class="section-num-circle">4</div><h2>Food & Drinks</h2></div>
+          <div class="section-body">
+            <div class="img-grid">
+              <div class="img-card" onclick="speak(this,'coffee')"><div class="emoji-wrap">☕</div><div class="img-label">Coffee</div></div>
+              <div class="img-card" onclick="speak(this,'tea')"><div class="emoji-wrap">🍵</div><div class="img-label">Tea</div></div>
+              <div class="img-card" onclick="speak(this,'water')"><div class="emoji-wrap">💧</div><div class="img-label">Water</div></div>
+              <div class="img-card" onclick="speak(this,'soda')"><div class="emoji-wrap">🥤</div><div class="img-label">Soda</div></div>
+              <div class="img-card" onclick="speak(this,'burger')"><div class="emoji-wrap">🍔</div><div class="img-label">Burger</div></div>
+              <div class="img-card" onclick="speak(this,'sandwich')"><div class="emoji-wrap">🥪</div><div class="img-label">Sandwich</div></div>
+              <div class="img-card" onclick="speak(this,'cheese')"><div class="emoji-wrap">🧀</div><div class="img-label">Cheese</div></div>
+              <div class="img-card" onclick="speak(this,'ham')"><div class="emoji-wrap">🥩</div><div class="img-label">Ham</div></div>
+              <div class="img-card" onclick="speak(this,'bread')"><div class="emoji-wrap">🍞</div><div class="img-label">Bread</div></div>
+              <div class="img-card" onclick="speak(this,'sugar')"><div class="emoji-wrap">🍬</div><div class="img-label">Sugar</div></div>
+              <div class="img-card" onclick="speak(this,'salt')"><div class="emoji-wrap">🧂</div><div class="img-label">Salt</div></div>
+              <div class="img-card" onclick="speak(this,'pepper')"><div class="emoji-wrap">🌶️</div><div class="img-label">Pepper</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 Improve Vocabulary -->
+        <div class="section-block teal-bg">
+          <div class="section-title"><div class="section-num-circle">5</div><h2>Improve your Vocabulary</h2></div>
+          <div class="section-body">
+            <div class="improve-grid">
+              <div class="improve-box"><div class="ik">And</div><div class="iv">e / com — Coffee and sugar</div></div>
+              <div class="improve-box"><div class="ik">Or</div><div class="iv">ou — Coffee or tea?</div></div>
+              <div class="improve-box"><div class="ik">With</div><div class="iv">com — Sandwich with cheese</div></div>
+              <div class="improve-box"><div class="ik">Without</div><div class="iv">sem — Coffee without sugar</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 Practice -->
+        <div class="section-block">
+          <div class="section-title"><div class="section-num-circle">6</div><h2>Practice — Complete the Phrases</h2></div>
+          <div class="section-body">
+            <div class="word-bank-wrap" id="wb1">
+              <span class="wbank-tag" onclick="useTag(this)">one</span>
+              <span class="wbank-tag" onclick="useTag(this)">two</span>
+              <span class="wbank-tag" onclick="useTag(this)">three</span>
+              <span class="wbank-tag" onclick="useTag(this)">coffee</span>
+              <span class="wbank-tag" onclick="useTag(this)">water</span>
+              <span class="wbank-tag" onclick="useTag(this)">pizza</span>
+              <span class="wbank-tag" onclick="useTag(this)">sandwich</span>
+              <span class="wbank-tag" onclick="useTag(this)">and</span>
+              <span class="wbank-tag" onclick="useTag(this)">or</span>
+              <span class="wbank-tag" onclick="useTag(this)">with</span>
+              <span class="wbank-tag" onclick="useTag(this)">without</span>
+              <span class="wbank-tag" onclick="useTag(this)">please</span>
+              <span class="wbank-tag" onclick="useTag(this)">thank you</span>
+              <span class="wbank-tag" onclick="useTag(this)">soda</span>
+              <span class="wbank-tag" onclick="useTag(this)">cheese</span>
+              <span class="wbank-tag" onclick="useTag(this)">ham</span>
+            </div>
+            <div class="fill-rows">
+              <div class="fill-row"><span class="row-letter">A</span> Hi. <input class="fill-input" placeholder="___"> pizza, please.</div>
+              <div class="fill-row"><span class="row-letter">B</span> Hello. One <input class="fill-input" placeholder="___">, thank you.</div>
+              <div class="fill-row"><span class="row-letter">C</span> Good morning. <input class="fill-input" placeholder="___"> water, please.</div>
+              <div class="fill-row"><span class="row-letter">D</span> Hi. Three <input class="fill-input" placeholder="___">, thanks.</div>
+              <div class="fill-row"><span class="row-letter">E</span> Good evening. One soda <input class="fill-input" placeholder="___">.</div>
+              <div class="fill-row"><span class="row-letter">F</span> Hello. <input class="fill-input" placeholder="___"> sandwich <input class="fill-input" placeholder="___"> ham, please.</div>
+              <div class="fill-row"><span class="row-letter">G</span> Hi. <input class="fill-input" placeholder="___"> burgers <input class="fill-input" placeholder="___"> cheese, thank you.</div>
+              <div class="fill-row"><span class="row-letter">H</span> Good afternoon. <input class="fill-input" placeholder="___"> waters <input class="fill-input" placeholder="___"> ice?</div>
+              <div class="fill-row"><span class="row-letter">I</span> Hello. One pizza <input class="fill-input" placeholder="___"> one soda, please.</div>
+              <div class="fill-row"><span class="row-letter">J</span> Hi. <input class="fill-input" placeholder="___"> sandwiches <input class="fill-input" placeholder="___"> cheese, thanks.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7 Matching -->
+        <div class="section-block">
+          <div class="section-title"><div class="section-num-circle">7</div><h2>Matching</h2></div>
+          <div class="section-body">
+            <div class="matching-header">Ligue as palavras às imagens</div>
+            <div class="match-labels">
+              <span class="match-label">1 - Bread</span>
+              <span class="match-label">2 - Pizza</span>
+              <span class="match-label">3 - Soda</span>
+              <span class="match-label">4 - Cheese</span>
+              <span class="match-label">5 - Water</span>
+              <span class="match-label">6 - Sandwich</span>
+            </div>
+            <div class="match-emojis">
+              <div class="match-emoji-box" onclick="matchBox(this,'6')"><span class="mej">🥪</span><div class="manswer" id="mb1"></div></div>
+              <div class="match-emoji-box" onclick="matchBox(this,'5')"><span class="mej">💧</span><div class="manswer" id="mb2"></div></div>
+              <div class="match-emoji-box" onclick="matchBox(this,'1')"><span class="mej">🍞</span><div class="manswer" id="mb3"></div></div>
+              <div class="match-emoji-box" onclick="matchBox(this,'4')"><span class="mej">🧀</span><div class="manswer" id="mb4"></div></div>
+              <div class="match-emoji-box" onclick="matchBox(this,'3')"><span class="mej">🥤</span><div class="manswer" id="mb5"></div></div>
+              <div class="match-emoji-box" onclick="matchBox(this,'2')"><span class="mej">🍕</span><div class="manswer" id="mb6"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8 Listening -->
+        <div class="section-block teal-bg">
+          <div class="section-title"><div class="section-num-circle">8</div><h2>Listening — Circle the Word</h2></div>
+          <div class="section-body">
+            <div class="audio-btn-row" onclick="playAudio('L1_ex8')">
+              <svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              Play Audio <span class="file-hint">audio/L1_ex8.mp3</span>
+            </div>
+            <div class="listen-rows">
+              <div class="listen-row"><div class="listen-num">1</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">bread</div><div class="listen-opt" onclick="pickOpt(this)">bird</div><div class="listen-opt" onclick="pickOpt(this)">birth</div><div class="listen-opt" onclick="pickOpt(this)">beer</div></div></div>
+              <div class="listen-row"><div class="listen-num">2</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">cheese</div><div class="listen-opt" onclick="pickOpt(this)">chase</div><div class="listen-opt" onclick="pickOpt(this)">choose</div><div class="listen-opt" onclick="pickOpt(this)">chips</div></div></div>
+              <div class="listen-row"><div class="listen-num">3</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">water</div><div class="listen-opt" onclick="pickOpt(this)">waiter</div><div class="listen-opt" onclick="pickOpt(this)">writer</div><div class="listen-opt" onclick="pickOpt(this)">winter</div></div></div>
+              <div class="listen-row"><div class="listen-num">4</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">pizza</div><div class="listen-opt" onclick="pickOpt(this)">piece</div><div class="listen-opt" onclick="pickOpt(this)">peace</div><div class="listen-opt" onclick="pickOpt(this)">Pisa</div></div></div>
+              <div class="listen-row"><div class="listen-num">5</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">soda</div><div class="listen-opt" onclick="pickOpt(this)">soldier</div><div class="listen-opt" onclick="pickOpt(this)">solar</div><div class="listen-opt" onclick="pickOpt(this)">sad</div></div></div>
+              <div class="listen-row"><div class="listen-num">6</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">ham</div><div class="listen-opt" onclick="pickOpt(this)">hand</div><div class="listen-opt" onclick="pickOpt(this)">home</div><div class="listen-opt" onclick="pickOpt(this)">him</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9 Transcribe -->
+        <div class="section-block">
+          <div class="section-title"><div class="section-num-circle">9</div><h2>Listening — Transcribe the Sentence</h2></div>
+          <div class="section-body">
+            <div class="audio-btn-row" onclick="playAudio('L1_ex9')">
+              <svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              Play Audio <span class="file-hint">audio/L1_ex9.mp3</span>
+            </div>
+            <div class="transcribe-rows">
+              <div class="transcribe-row"><div class="tnum">1</div><input class="transcribe-input" placeholder="Write what you hear..."></div>
+              <div class="transcribe-row"><div class="tnum">2</div><input class="transcribe-input" placeholder="Write what you hear..."></div>
+              <div class="transcribe-row"><div class="tnum">3</div><input class="transcribe-input" placeholder="Write what you hear..."></div>
+              <div class="transcribe-row"><div class="tnum">4</div><input class="transcribe-input" placeholder="Write what you hear..."></div>
+              <div class="transcribe-row"><div class="tnum">5</div><input class="transcribe-input" placeholder="Write what you hear..."></div>
+              <div class="transcribe-row"><div class="tnum">6</div><input class="transcribe-input" placeholder="Write what you hear..."></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10 Express Yourself -->
+        <div class="section-block">
+          <div class="section-title"><div class="section-num-circle">10</div><h2>Express Yourself</h2></div>
+          <div class="section-body">
+            <div class="example-strip"><strong>Exemplo:</strong> Hi. One pizza, please.</div>
+            <div class="express-subtitle">Escreva 5 pedidos simples usando as palavras da lição.</div>
+            <div class="express-rows">
+              <div class="express-row"><div class="enum">1</div><input class="express-input" placeholder="Write your sentence here..."></div>
+              <div class="express-row"><div class="enum">2</div><input class="express-input" placeholder="Write your sentence here..."></div>
+              <div class="express-row"><div class="enum">3</div><input class="express-input" placeholder="Write your sentence here..."></div>
+              <div class="express-row"><div class="enum">4</div><input class="express-input" placeholder="Write your sentence here..."></div>
+              <div class="express-row"><div class="enum">5</div><input class="express-input" placeholder="Write your sentence here..."></div>
+              <div class="express-row"><div class="enum">6</div><input class="express-input" placeholder="Write your sentence here..."></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Summary -->
+        <div class="video-placeholder" onclick="showToast('📹 Add YouTube URL for Lesson 1')">
+          <div class="vp-icon">▶️</div>
+          <p>Lesson 1 — Video Summary</p>
+          <small>[ insert YouTube link here ]</small>
+        </div>
+
+      </div>
+    </div><!-- /lesson-1 -->
+
+    <!-- ════ LESSONS 2–8: same structure, abbreviated for brevity ════ -->
+
+    <!-- LESSON 2 -->
+    <div class="lesson-panel" id="lesson-2">
+      <div class="lesson-header">
+        <div class="lh-num"><span>2</span></div>
+        <div class="lh-text"><div class="lh-label">Lesson 02</div><h1>Ordering Like a Pro</h1><p>Restaurant · Numbers 11–20 · Can I have · I will have</p></div>
+        <div class="lh-tags"><span class="lh-tag">Restaurant</span><span class="lh-tag">Numbers</span><span class="lh-tag">Ordering</span></div>
+      </div>
+      <div class="page-num">A1 - Lesson 2 · 08</div>
+      <div class="lesson-body">
+        <div class="section-block"><div class="section-title"><div class="section-num-circle">1</div><h2>Vocabulary</h2></div><div class="section-body"><div class="vocab-list">
+          <div class="vocab-line" onclick="speak(this,'How are you?')"><div class="bullet"></div>How are you?<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+          <div class="vocab-line" onclick="speak(this,'How are you doing?')"><div class="bullet"></div>How are you doing?<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+          <div class="vocab-line" onclick="speak(this,&quot;How's it going?&quot;)"><div class="bullet"></div>How's it going?<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+          <div class="vocab-line" onclick="speak(this,&quot;I'm good&quot;)"><div class="bullet"></div>I'm good<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+          <div class="vocab-line" onclick="speak(this,'See you later')"><div class="bullet"></div>See you later<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+          <div class="vocab-line" onclick="speak(this,'See you tomorrow')"><div class="bullet"></div>See you tomorrow<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>
+        </div></div></div>
+        <div class="section-block"><div class="section-title"><div class="section-num-circle">2</div><h2>Expressions</h2></div><div class="section-body"><div class="expr-grid">
+          <div class="expr-item" onclick="speak(this,'Of course')"><div class="bullet"></div>Of course</div>
+          <div class="expr-item" onclick="speak(this,'No problem')"><div class="bullet"></div>No problem</div>
+          <div class="expr-item" onclick="speak(this,'Awesome')"><div class="bullet"></div>Awesome</div>
+          <div class="expr-item" onclick="speak(this,'Amazing')"><div class="bullet"></div>Amazing</div>
+          <div class="expr-item" onclick="speak(this,'Cheers')"><div class="bullet"></div>Cheers</div>
+          <div class="expr-item" onclick="speak(this,'Anything else?')"><div class="bullet"></div>Anything else?</div>
+          <div class="expr-item" onclick="speak(this,'Is that all?')"><div class="bullet"></div>Is that all?</div>
+          <div class="expr-item" onclick="speak(this,'One more')"><div class="bullet"></div>One more</div>
+        </div></div></div>
+        <div class="section-block teal-bg"><div class="section-title"><div class="section-num-circle">3</div><h2>Numbers 11–20</h2></div><div class="section-body"><div class="numbers-grid">
+          <div class="num-box" onclick="speak(this,'eleven')"><div class="nv">11</div><div class="nl">Eleven</div></div>
+          <div class="num-box" onclick="speak(this,'twelve')"><div class="nv">12</div><div class="nl">Twelve</div></div>
+          <div class="num-box" onclick="speak(this,'thirteen')"><div class="nv">13</div><div class="nl">Thirteen</div></div>
+          <div class="num-box" onclick="speak(this,'fourteen')"><div class="nv">14</div><div class="nl">Fourteen</div></div>
+          <div class="num-box" onclick="speak(this,'fifteen')"><div class="nv">15</div><div class="nl">Fifteen</div></div>
+          <div class="num-box" onclick="speak(this,'sixteen')"><div class="nv">16</div><div class="nl">Sixteen</div></div>
+          <div class="num-box" onclick="speak(this,'seventeen')"><div class="nv">17</div><div class="nl">Seventeen</div></div>
+          <div class="num-box" onclick="speak(this,'eighteen')"><div class="nv">18</div><div class="nl">Eighteen</div></div>
+          <div class="num-box" onclick="speak(this,'nineteen')"><div class="nv">19</div><div class="nl">Nineteen</div></div>
+          <div class="num-box" onclick="speak(this,'twenty')"><div class="nv">20</div><div class="nl">Twenty</div></div>
+        </div></div></div>
+        <div class="section-block"><div class="section-title"><div class="section-num-circle">4</div><h2>Restaurant Vocabulary</h2></div><div class="section-body"><div class="img-grid">
+          <div class="img-card" onclick="speak(this,'menu')"><div class="emoji-wrap">📋</div><div class="img-label">Menu</div></div>
+          <div class="img-card" onclick="speak(this,'napkin')"><div class="emoji-wrap">🧻</div><div class="img-label">Napkin</div></div>
+          <div class="img-card" onclick="speak(this,'fork')"><div class="emoji-wrap">🍴</div><div class="img-label">Fork</div></div>
+          <div class="img-card" onclick="speak(this,'knife')"><div class="emoji-wrap">🔪</div><div class="img-label">Knife</div></div>
+          <div class="img-card" onclick="speak(this,'spoon')"><div class="emoji-wrap">🥄</div><div class="img-label">Spoon</div></div>
+          <div class="img-card" onclick="speak(this,'glass')"><div class="emoji-wrap">🥛</div><div class="img-label">Glass</div></div>
+          <div class="img-card" onclick="speak(this,'cup')"><div class="emoji-wrap">☕</div><div class="img-label">Cup</div></div>
+          <div class="img-card" onclick="speak(this,'plate')"><div class="emoji-wrap">🍽️</div><div class="img-label">Plate</div></div>
+          <div class="img-card" onclick="speak(this,'check')"><div class="emoji-wrap">🧾</div><div class="img-label">Check</div></div>
+          <div class="img-card" onclick="speak(this,'salad')"><div class="emoji-wrap">🥗</div><div class="img-label">Salad</div></div>
+          <div class="img-card" onclick="speak(this,'beef')"><div class="emoji-wrap">🥩</div><div class="img-label">Beef</div></div>
+          <div class="img-card" onclick="speak(this,'chicken')"><div class="emoji-wrap">🍗</div><div class="img-label">Chicken</div></div>
+          <div class="img-card" onclick="speak(this,'pork')"><div class="emoji-wrap">🐷</div><div class="img-label">Pork</div></div>
+        </div></div></div>
+        <div class="section-block teal-bg"><div class="section-title"><div class="section-num-circle">5</div><h2>Improve your Vocabulary</h2></div><div class="section-body"><div class="improve-grid">
+          <div class="improve-box"><div class="ik">But</div><div class="iv">mas — I like it, but...</div></div>
+          <div class="improve-box"><div class="ik">Anything else?</div><div class="iv">Mais alguma coisa?</div></div>
+          <div class="improve-box"><div class="ik">Is that all?</div><div class="iv">É só isso?</div></div>
+          <div class="improve-box"><div class="ik">One/Two more</div><div class="iv">mais um / mais dois</div></div>
+        </div></div></div>
+        <div class="section-block"><div class="section-title"><div class="section-num-circle">8</div><h2>Listening — Circle the Word</h2></div><div class="section-body">
+          <div class="audio-btn-row" onclick="playAudio('L2_ex8')"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>Play Audio<span class="file-hint">audio/L2_ex8.mp3</span></div>
+          <div class="listen-rows">
+            <div class="listen-row"><div class="listen-num">1</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">fork</div><div class="listen-opt" onclick="pickOpt(this)">pork</div><div class="listen-opt" onclick="pickOpt(this)">work</div><div class="listen-opt" onclick="pickOpt(this)">walk</div></div></div>
+            <div class="listen-row"><div class="listen-num">2</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">knife</div><div class="listen-opt" onclick="pickOpt(this)">nine</div><div class="listen-opt" onclick="pickOpt(this)">life</div><div class="listen-opt" onclick="pickOpt(this)">line</div></div></div>
+            <div class="listen-row"><div class="listen-num">3</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">glass</div><div class="listen-opt" onclick="pickOpt(this)">class</div><div class="listen-opt" onclick="pickOpt(this)">grass</div><div class="listen-opt" onclick="pickOpt(this)">guess</div></div></div>
+            <div class="listen-row"><div class="listen-num">4</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">plate</div><div class="listen-opt" onclick="pickOpt(this)">late</div><div class="listen-opt" onclick="pickOpt(this)">play</div><div class="listen-opt" onclick="pickOpt(this)">plant</div></div></div>
+            <div class="listen-row"><div class="listen-num">5</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">beef</div><div class="listen-opt" onclick="pickOpt(this)">leaf</div><div class="listen-opt" onclick="pickOpt(this)">brief</div><div class="listen-opt" onclick="pickOpt(this)">belief</div></div></div>
+            <div class="listen-row"><div class="listen-num">6</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">salad</div><div class="listen-opt" onclick="pickOpt(this)">solid</div><div class="listen-opt" onclick="pickOpt(this)">select</div><div class="listen-opt" onclick="pickOpt(this)">sell it</div></div></div>
+          </div>
+        </div></div>
+        <div class="section-block"><div class="section-title"><div class="section-num-circle">9</div><h2>Listening — Transcribe the Sentence</h2></div><div class="section-body">
+          <div class="audio-btn-row" onclick="playAudio('L2_ex9')"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>Play Audio<span class="file-hint">audio/L2_ex9.mp3</span></div>
+          <div class="transcribe-rows">
+            <div class="transcribe-row"><div class="tnum">1</div><input class="transcribe-input" placeholder="Write what you hear..."></div>
+            <div class="transcribe-row"><div class="tnum">2</div><input class="transcribe-input" placeholder="Write what you hear..."></div>
+            <div class="transcribe-row"><div class="tnum">3</div><input class="transcribe-input" placeholder="Write what you hear..."></div>
+            <div class="transcribe-row"><div class="tnum">4</div><input class="transcribe-input" placeholder="Write what you hear..."></div>
+            <div class="transcribe-row"><div class="tnum">5</div><input class="transcribe-input" placeholder="Write what you hear..."></div>
+            <div class="transcribe-row"><div class="tnum">6</div><input class="transcribe-input" placeholder="Write what you hear..."></div>
+          </div>
+        </div></div>
+        <div class="section-block"><div class="section-title"><div class="section-num-circle">10</div><h2>Express Yourself</h2></div><div class="section-body">
+          <div class="example-strip"><strong>Exemplo:</strong> Can I have one salad, please?</div>
+          <div class="express-subtitle">Use as palavras da lição para escrever 5 frases.</div>
+          <div class="express-rows">
+            <div class="express-row"><div class="enum">1</div><input class="express-input" placeholder="Can I have..."></div>
+            <div class="express-row"><div class="enum">2</div><input class="express-input" placeholder="I will have..."></div>
+            <div class="express-row"><div class="enum">3</div><input class="express-input" placeholder="Write your sentence here..."></div>
+            <div class="express-row"><div class="enum">4</div><input class="express-input" placeholder="Write your sentence here..."></div>
+            <div class="express-row"><div class="enum">5</div><input class="express-input" placeholder="Write your sentence here..."></div>
+            <div class="express-row"><div class="enum">6</div><input class="express-input" placeholder="Write your sentence here..."></div>
+          </div>
+        </div></div>
+        <div class="video-placeholder" onclick="showToast('📹 Add YouTube URL for Lesson 2')"><div class="vp-icon">▶️</div><p>Lesson 2 — Video Summary</p><small>[ insert YouTube link here ]</small></div>
+      </div>
+    </div>
+
+    <!-- LESSONS 3-8: header + video + core sections for each -->
+    <!-- LESSON 3 -->
+    <div class="lesson-panel" id="lesson-3">
+      <div class="lesson-header"><div class="lh-num"><span>3</span></div><div class="lh-text"><div class="lh-label">Lesson 03</div><h1>Spot It!</h1><p>Demonstratives · Possessives · Objects · Numbers 20–100</p></div><div class="lh-tags"><span class="lh-tag">This/That</span><span class="lh-tag">Objects</span><span class="lh-tag">Adjectives</span></div></div>
+      <div class="page-num">A1 - Lesson 3 · 12</div>
+      <div class="lesson-body">
+        <div class="section-block"><div class="section-title"><div class="section-num-circle">1</div><h2>Vocabulary — Demonstratives & Possessives</h2></div><div class="section-body"><div class="expr-grid">
+          <div class="expr-item" onclick="speak(this,'this')"><div class="bullet"></div>This</div><div class="expr-item" onclick="speak(this,'that')"><div class="bullet"></div>That</div><div class="expr-item" onclick="speak(this,'these')"><div class="bullet"></div>These</div><div class="expr-item" onclick="speak(this,'those')"><div class="bullet"></div>Those</div><div class="expr-item" onclick="speak(this,'my')"><div class="bullet"></div>My</div><div class="expr-item" onclick="speak(this,'your')"><div class="bullet"></div>Your</div><div class="expr-item" onclick="speak(this,'his')"><div class="bullet"></div>His</div><div class="expr-item" onclick="speak(this,'her')"><div class="bullet"></div>Her</div><div class="expr-item" onclick="speak(this,'our')"><div class="bullet"></div>Our</div>
+        </div></div></div>
+        <div class="section-block"><div class="section-title"><div class="section-num-circle">2</div><h2>Expressions — Adjectives</h2></div><div class="section-body"><div class="expr-grid">
+          <div class="expr-item" onclick="speak(this,'big')"><div class="bullet"></div>Big</div><div class="expr-item" onclick="speak(this,'small')"><div class="bullet"></div>Small</div><div class="expr-item" onclick="speak(this,'fast')"><div class="bullet"></div>Fast</div><div class="expr-item" onclick="speak(this,'slow')"><div class="bullet"></div>Slow</div><div class="expr-item" onclick="speak(this,'beautiful')"><div class="bullet"></div>Beautiful</div><div class="expr-item" onclick="speak(this,'ugly')"><div class="bullet"></div>Ugly</div><div class="expr-item" onclick="speak(this,'good')"><div class="bullet"></div>Good</div><div class="expr-item" onclick="speak(this,'bad')"><div class="bullet"></div>Bad</div><div class="expr-item" onclick="speak(this,'expensive')"><div class="bullet"></div>Expensive</div><div class="expr-item" onclick="speak(this,'cheap')"><div class="bullet"></div>Cheap</div>
+        </div></div></div>
+        <div class="section-block teal-bg"><div class="section-title"><div class="section-num-circle">3</div><h2>Numbers 20–100</h2></div><div class="section-body"><div class="numbers-grid">
+          <div class="num-box" onclick="speak(this,'twenty')"><div class="nv">20</div><div class="nl">Twenty</div></div><div class="num-box" onclick="speak(this,'thirty')"><div class="nv">30</div><div class="nl">Thirty</div></div><div class="num-box" onclick="speak(this,'forty')"><div class="nv">40</div><div class="nl">Forty</div></div><div class="num-box" onclick="speak(this,'fifty')"><div class="nv">50</div><div class="nl">Fifty</div></div><div class="num-box" onclick="speak(this,'sixty')"><div class="nv">60</div><div class="nl">Sixty</div></div><div class="num-box" onclick="speak(this,'seventy')"><div class="nv">70</div><div class="nl">Seventy</div></div><div class="num-box" onclick="speak(this,'eighty')"><div class="nv">80</div><div class="nl">Eighty</div></div><div class="num-box" onclick="speak(this,'ninety')"><div class="nv">90</div><div class="nl">Ninety</div></div><div class="num-box" onclick="speak(this,'one hundred')"><div class="nv">100</div><div class="nl">One Hundred</div></div>
+        </div></div></div>
+        <div class="section-block"><div class="section-title"><div class="section-num-circle">4</div><h2>Objects & Items</h2></div><div class="section-body"><div class="img-grid">
+          <div class="img-card" onclick="speak(this,'car')"><div class="emoji-wrap">🚗</div><div class="img-label">Car</div></div><div class="img-card" onclick="speak(this,'house')"><div class="emoji-wrap">🏠</div><div class="img-label">House</div></div><div class="img-card" onclick="speak(this,'keys')"><div class="emoji-wrap">🔑</div><div class="img-label">Keys</div></div><div class="img-card" onclick="speak(this,'cellphone')"><div class="emoji-wrap">📱</div><div class="img-label">Cellphone</div></div><div class="img-card" onclick="speak(this,'camera')"><div class="emoji-wrap">📷</div><div class="img-label">Camera</div></div><div class="img-card" onclick="speak(this,'wallet')"><div class="emoji-wrap">👛</div><div class="img-label">Wallet</div></div><div class="img-card" onclick="speak(this,'purse')"><div class="emoji-wrap">👜</div><div class="img-label">Purse</div></div><div class="img-card" onclick="speak(this,'backpack')"><div class="emoji-wrap">🎒</div><div class="img-label">Backpack</div></div><div class="img-card" onclick="speak(this,'bottle')"><div class="emoji-wrap">🧴</div><div class="img-label">Bottle</div></div><div class="img-card" onclick="speak(this,'watch')"><div class="emoji-wrap">⌚</div><div class="img-label">Watch</div></div><div class="img-card" onclick="speak(this,'credit card')"><div class="emoji-wrap">💳</div><div class="img-label">Credit Card</div></div><div class="img-card" onclick="speak(this,'money')"><div class="emoji-wrap">💵</div><div class="img-label">Money</div></div>
+        </div></div></div>
+        <div class="section-block teal-bg"><div class="section-title"><div class="section-num-circle">5</div><h2>Improve your Vocabulary</h2></div><div class="section-body"><div class="improve-grid">
+          <div class="improve-box"><div class="ik">What is this?</div><div class="iv">O que é isso? (perto)</div></div><div class="improve-box"><div class="ik">What is that?</div><div class="iv">O que é aquilo? (longe)</div></div><div class="improve-box"><div class="ik">What are these?</div><div class="iv">O que são esses? (perto, plural)</div></div><div class="improve-box"><div class="ik">What are those?</div><div class="iv">O que são aqueles? (longe, plural)</div></div>
+        </div></div></div>
+        <div class="section-block"><div class="section-title"><div class="section-num-circle">8</div><h2>Listening — Circle the Word</h2></div><div class="section-body">
+          <div class="audio-btn-row" onclick="playAudio('L3_ex8')"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>Play Audio<span class="file-hint">audio/L3_ex8.mp3</span></div>
+          <div class="listen-rows">
+            <div class="listen-row"><div class="listen-num">1</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">car</div><div class="listen-opt" onclick="pickOpt(this)">card</div><div class="listen-opt" onclick="pickOpt(this)">care</div><div class="listen-opt" onclick="pickOpt(this)">far</div></div></div>
+            <div class="listen-row"><div class="listen-num">2</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">house</div><div class="listen-opt" onclick="pickOpt(this)">mouse</div><div class="listen-opt" onclick="pickOpt(this)">hows</div><div class="listen-opt" onclick="pickOpt(this)">hose</div></div></div>
+            <div class="listen-row"><div class="listen-num">3</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">keys</div><div class="listen-opt" onclick="pickOpt(this)">kiss</div><div class="listen-opt" onclick="pickOpt(this)">case</div><div class="listen-opt" onclick="pickOpt(this)">kids</div></div></div>
+            <div class="listen-row"><div class="listen-num">4</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">watch</div><div class="listen-opt" onclick="pickOpt(this)">wash</div><div class="listen-opt" onclick="pickOpt(this)">witch</div><div class="listen-opt" onclick="pickOpt(this)">what</div></div></div>
+            <div class="listen-row"><div class="listen-num">5</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">bottle</div><div class="listen-opt" onclick="pickOpt(this)">battle</div><div class="listen-opt" onclick="pickOpt(this)">little</div><div class="listen-opt" onclick="pickOpt(this)">butter</div></div></div>
+            <div class="listen-row"><div class="listen-num">6</div><div class="listen-opts"><div class="listen-opt" onclick="pickOpt(this)">camera</div><div class="listen-opt" onclick="pickOpt(this)">camel</div><div class="listen-opt" onclick="pickOpt(this)">come on</div><div class="listen-opt" onclick="pickOpt(this)">karma</div></div></div>
+          </div>
+        </div></div>
+        <div class="section-block"><div class="section-title"><div class="section-num-circle">9</div><h2>Listening — Transcribe the Sentence</h2></div><div class="section-body"><div class="audio-btn-row" onclick="playAudio('L3_ex9')"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>Play Audio<span class="file-hint">audio/L3_ex9.mp3</span></div><div class="transcribe-rows"><div class="transcribe-row"><div class="tnum">1</div><input class="transcribe-input" placeholder="Write what you hear..."></div><div class="transcribe-row"><div class="tnum">2</div><input class="transcribe-input" placeholder="Write what you hear..."></div><div class="transcribe-row"><div class="tnum">3</div><input class="transcribe-input" placeholder="Write what you hear..."></div><div class="transcribe-row"><div class="tnum">4</div><input class="transcribe-input" placeholder="Write what you hear..."></div><div class="transcribe-row"><div class="tnum">5</div><input class="transcribe-input" placeholder="Write what you hear..."></div><div class="transcribe-row"><div class="tnum">6</div><input class="transcribe-input" placeholder="Write what you hear..."></div></div></div></div>
+        <div class="section-block"><div class="section-title"><div class="section-num-circle">10</div><h2>Express Yourself</h2></div><div class="section-body"><div class="example-strip"><strong>Exemplo:</strong> This is my wallet.</div><div class="express-subtitle">Escreva 5 frases simples usando o vocabulário da lição.</div><div class="express-rows"><div class="express-row"><div class="enum">1</div><input class="express-input" placeholder="This is my..."></div><div class="express-row"><div class="enum">2</div><input class="express-input" placeholder="That is your..."></div><div class="express-row"><div class="enum">3</div><input class="express-input" placeholder="These are..."></div><div class="express-row"><div class="enum">4</div><input class="express-input" placeholder="Those are..."></div><div class="express-row"><div class="enum">5</div><input class="express-input" placeholder="Write your sentence here..."></div><div class="express-row"><div class="enum">6</div><input class="express-input" placeholder="Write your sentence here..."></div></div></div></div>
+        <div class="video-placeholder" onclick="showToast('📹 Add YouTube URL for Lesson 3')"><div class="vp-icon">▶️</div><p>Lesson 3 — Video Summary</p><small>[ insert YouTube link here ]</small></div>
+      </div>
+    </div>
+
+    <!-- LESSONS 4-8: condensed but complete structure -->
+    <!-- Each lesson follows: header > page-num > lesson-body with video + all numbered sections + listening + transcribe + express -->
+
+    <script>
+    // Generate lessons 4-8 dynamically with correct data
+    const lessonsData = {
+      4: { title:"People", sub:"Family · Jobs · He is / She is · Numbers 100–900", tags:["Family","Jobs","He/She/I am"], page:"16",
+        vocab:[["friend","Friend"],["brother","Brother"],["father","Father"],["uncle","Uncle"],["husband","Husband"],["cousin","Cousin"],["sister","Sister"],["mother","Mother"],["aunt","Aunt"],["wife","Wife"]],
+        expr:[["tall","Tall"],["funny","Funny"],["polite","Polite"],["strong","Strong"],["calm","Calm"],["short","Short"],["shy","Shy"],["rude","Rude"],["thin","Thin"],["busy","Busy"]],
+        nums:[[100,"One hundred"],[200,"Two hundred"],[300,"Three hundred"],[400,"Four hundred"],[500,"Five hundred"],[600,"Six hundred"],[700,"Seven hundred"],[800,"Eight hundred"],[900,"Nine hundred"]],
+        food:[["⚖️","Lawyer"],["📚","Student"],["🩺","Doctor"],["🦷","Dentist"],["🌾","Agronomist"],["👩‍🏫","Teacher"],["🎸","Musician"],["👮","Police officer"],["💻","IT guy/girl"],["🧮","Accountant"],["🏠","Real estate agent"],["🏦","Bank agent"]],
+        improve:[["He is","Ele é — He is my brother"],["She is","Ela é — She is my sister"],["I am","Eu sou — I am a student"],["My friend is","Meu amigo é..."]],
+        example:"She is my sister.", exSub:"Escreva 5 frases simples usando o vocabulário da lição.",
+        listen8:[["doctor","actor","docker","darker"],["teacher","creature","feature","teaser"],["cousin","causing","custom","cause"],["father","feather","fatter","further"],["sister","mister","scissors","system"],["police","please","piece","place"]]
+      },
+      5: { title:"Life Around You", sub:"Verbs · City places · Years", tags:["To like/live","Places","Years"], page:"20",
+        vocab:[["to like","To like"],["to live","To live"],["to study","To study"],["to work","To work"]],
+        expr:[["very much","Very much"],["a lot","A lot"],["a bit","A bit"],["in","In"],["at","At"]],
+        nums:[[1999,"One thousand nine hundred ninety nine"],[2005,"Two thousand five"],[2010,"Two thousand ten"],[2015,"Two thousand fifteen"],[2020,"Two thousand twenty"],[2024,"Two thousand twenty four"],[2030,"Two thousand thirty"]],
+        food:[["🏙️","City"],["🗺️","Country"],["📍","State"],["🏠","House"],["🏢","Apartment"],["🏘️","Neighborhood"],["🏫","School"],["🏦","Bank"],["🍺","Pub"],["🌾","Farm"],["🌳","Park"],["🛒","Market"]],
+        improve:[["Morning","Good morning — in the morning"],["Afternoon","Good afternoon — in the afternoon"],["Evening","Good evening — in the evening"],["Night","Good night — at night"]],
+        example:"I live in a big city.", exSub:"Escreva 5 frases simples usando o vocabulário da lição.",
+        listen8:[["city","seat","sit","kitty"],["country","counter","company","entry"],["state","straight","steak","skate"],["house","mouse","hows","hose"],["bank","bunk","back","bark"],["school","cool","fool","tool"]]
+      },
+      6: { title:"What You Do", sub:"Verbs · Days of the Week · Frequency", tags:["Days","Always/Never","Verbs"], page:"24",
+        vocab:[["to see","To see"],["to go","To go"],["to eat","To eat"],["to drink","To drink"]],
+        expr:[["don't","Don't"],["always","Always"],["sometimes","Sometimes"],["never","Never"],["on","On"]],
+        days:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        food:[["🛒","Supermarket"],["💪","Gym"],["🎬","Movies"],["🏬","Mall"],["🍽️","Restaurant"],["🏢","Office"],["🏥","Hospital"],["🏊","Pool"],["💊","Pharmacy"],["✈️","Airport"]],
+        improve:[["When","Quando — When do you go?"],["Every day","Todo dia — I eat pizza every day"],["Every week","Toda semana — I go every week"],["Every month","Todo mês — I visit every month"]],
+        example:"I go to the supermarket on Sunday.", exSub:"Escreva 5 frases usando os verbos e dias da semana da lição.",
+        listen8:[["gym","game","gem","Jim"],["supermarket","super","marker","market"],["movies","moves","moody","mouse"],["airport","hairport","report","import"],["restaurant","rest","renter","restroom"],["hospital","hostel","postal","pistol"]]
+      },
+      7: { title:"Routine", sub:"Telling the Time · Wake up / Sleep · Rooms at Home", tags:["Time","Wake up/Sleep","Home rooms"], page:"28",
+        vocab:[["to have","To have"],["to need","To need"],["to prefer","To prefer"],["to wake up","To wake up"],["to sleep","To sleep"],["to take a nap","To take a nap"]],
+        expr:[["early","Early"],["today","Today"],["before","Before"],["tomorrow","Tomorrow"],["midday","Midday"],["late","Late"],["tonight","Tonight"],["after","After"],["noon","Noon"],["midnight","Midnight"]],
+        times:[["7:00 AM","Seven AM"],["8:30 AM","Eight thirty"],["9:45 PM","Nine forty-five PM"],["12:00 PM","Twelve o'clock noon"],["12:00 AM","Twelve o'clock midnight"]],
+        food:[["🛏️","Bedroom"],["🚿","Bathroom"],["🛋️","Living room"],["🍳","Kitchen"],["🚗","Garage"],["🌿","Backyard"],["🪑","Table"],["🛏️","Bed"],["🛋️","Couch"],["🌸","Pillow"],["🧸","Blanket"],["🧍","Alone"]],
+        improve:[["Breakfast","Café da manhã — in the morning"],["Lunch","Almoço — at noon / 12 PM"],["Dinner","Jantar — in the evening"],["Snack","Lanche — any time"]],
+        example:"I sleep at 11 PM.", exSub:"Escreva 5 frases sobre sua rotina.",
+        listen8:[["sleep","slip","sleek","sweep"],["pillow","pilot","below","yellow"],["kitchen","kitten","catching","kicking"],["midnight","midtown","midday","midair"],["garage","courage","mirage","large"],["wake up","makeup","shake up","break up"]]
+      },
+      8: { title:"Going to Places", sub:"Travel · Months · Seasons · Holidays", tags:["Months","Travel","Seasons"], page:"32",
+        vocab:[["to travel","To travel"],["to visit","To visit"]],
+        expr:[["where","Where"],["how often","How often"],["how","How"],["when","When"]],
+        months:["January","February","March","April","May","June","July","August","September","October","November","December"],
+        food:[["🏖️","Vacation"],["🎄","Christmas"],["🐰","Easter"],["🎆","New Year"],["🎭","Carnival"],["❄️","Winter"],["☀️","Summer"],["🌸","Spring"],["🍂","Fall"],["✈️","Abroad"],["🏝️","Beach"],["🎉","Holiday"]],
+        improve:[["By plane","De avião — I go by plane"],["By car","De carro — I travel by car"],["By motorcycle","De moto"],["It depends","Depende do dia"]],
+        example:"I travel in December.", exSub:"Escreva 5 frases sobre suas viagens.",
+        listen8:[["travel","trouble","tray","trial"],["visit","vision","reason","visa"],["summer","simmer","soccer","supper"],["beach","beige","batch","bitch"],["plane","plan","plain","pan"],["holiday","hallway","hollow","holder"]]
+      }
+    };
+
+    function buildLesson(n, d) {
+      const p = document.getElementById('lesson-'+n);
+      if(!p) return;
+      let h = `
+        <div class="lesson-header">
+          <div class="lh-num"><span>${n}</span></div>
+          <div class="lh-text"><div class="lh-label">Lesson 0${n}</div><h1>${d.title}</h1><p>${d.sub}</p></div>
+          <div class="lh-tags">${d.tags.map(t=>`<span class="lh-tag">${t}</span>`).join('')}</div>
+        </div>
+        <div class="page-num">A1 - Lesson ${n} · ${d.page}</div>
+        <div class="lesson-body">
+      `;
+
+      // Vocab
+      if(d.vocab) h += `<div class="section-block"><div class="section-title"><div class="section-num-circle">1</div><h2>Vocabulary</h2></div><div class="section-body"><div class="vocab-list">${d.vocab.map(v=>`<div class="vocab-line" onclick="speak(this,'${v[0]}')"><div class="bullet"></div>${v[1]}<div class="audio-btn"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div></div>`).join('')}</div></div></div>`;
+
+      // Expressions
+      if(d.expr) h += `<div class="section-block"><div class="section-title"><div class="section-num-circle">2</div><h2>Expressions</h2></div><div class="section-body"><div class="expr-grid">${d.expr.map(e=>`<div class="expr-item" onclick="speak(this,'${e[0]}')"><div class="bullet"></div>${e[1]}</div>`).join('')}</div></div></div>`;
+
+      // Numbers / Days / Months / Times
+      if(d.nums) h += `<div class="section-block teal-bg"><div class="section-title"><div class="section-num-circle">3</div><h2>Numbers</h2></div><div class="section-body"><div class="numbers-grid">${d.nums.map(nm=>`<div class="num-box" onclick="speak(this,'${nm[1]}')"><div class="nv">${nm[0]}</div><div class="nl">${nm[1].split(' ').slice(0,2).join(' ')}</div></div>`).join('')}</div></div></div>`;
+      if(d.days) h += `<div class="section-block teal-bg"><div class="section-title"><div class="section-num-circle">3</div><h2>Days of the Week</h2></div><div class="section-body"><div class="days-flex">${d.days.map(day=>`<div class="day-chip" onclick="speak(this,'${day}');this.classList.toggle('off')">${day}</div>`).join('')}</div></div></div>`;
+      if(d.months) h += `<div class="section-block teal-bg"><div class="section-title"><div class="section-num-circle">3</div><h2>Months of the Year</h2></div><div class="section-body"><div class="months-flex">${d.months.map(m=>`<div class="month-chip" onclick="speak(this,'${m}')">${m}</div>`).join('')}</div></div></div>`;
+      if(d.times) h += `<div class="section-block teal-bg"><div class="section-title"><div class="section-num-circle">3</div><h2>Telling the Time</h2></div><div class="section-body"><div class="time-flex">${d.times.map(t=>`<div class="time-box" onclick="speak(this,'${t[1]}')"><div class="tv">${t[0]}</div><div class="tl">${t[1]}</div></div>`).join('')}</div></div></div>`;
+
+      // Food / Images
+      if(d.food) h += `<div class="section-block"><div class="section-title"><div class="section-num-circle">4</div><h2>${n===4?'Jobs & Professions':n===5?'Places & Locations':n===6?'Places & Locations':n===7?'Places — Rooms at Home':'Events & Seasons'}</h2></div><div class="section-body"><div class="img-grid">${d.food.map(f=>`<div class="img-card" onclick="speak(this,'${f[1]}')"><div class="emoji-wrap">${f[0]}</div><div class="img-label">${f[1]}</div></div>`).join('')}</div></div></div>`;
+
+      // Improve Vocab
+      if(d.improve) h += `<div class="section-block teal-bg"><div class="section-title"><div class="section-num-circle">5</div><h2>Improve your Vocabulary</h2></div><div class="section-body"><div class="improve-grid">${d.improve.map(i=>`<div class="improve-box"><div class="ik">${i[0]}</div><div class="iv">${i[1]}</div></div>`).join('')}</div></div></div>`;
+
+      // Listening 8
+      if(d.listen8) h += `<div class="section-block teal-bg"><div class="section-title"><div class="section-num-circle">8</div><h2>Listening — Circle the Word</h2></div><div class="section-body"><div class="audio-btn-row" onclick="playAudio('L${n}_ex8')"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>Play Audio<span class="file-hint">audio/L${n}_ex8.mp3</span></div><div class="listen-rows">${d.listen8.map((row,i)=>`<div class="listen-row"><div class="listen-num">${i+1}</div><div class="listen-opts">${row.map(w=>`<div class="listen-opt" onclick="pickOpt(this)">${w}</div>`).join('')}</div></div>`).join('')}</div></div></div>`;
+
+      // Transcribe 9
+      h += `<div class="section-block"><div class="section-title"><div class="section-num-circle">9</div><h2>Listening — Transcribe the Sentence</h2></div><div class="section-body"><div class="audio-btn-row" onclick="playAudio('L${n}_ex9')"><svg viewBox="0 0 24 24" fill="var(--teal)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>Play Audio<span class="file-hint">audio/L${n}_ex9.mp3</span></div><div class="transcribe-rows">${[1,2,3,4,5,6].map(i=>`<div class="transcribe-row"><div class="tnum">${i}</div><input class="transcribe-input" placeholder="Write what you hear..."></div>`).join('')}</div></div></div>`;
+
+      // Express 10
+      h += `<div class="section-block"><div class="section-title"><div class="section-num-circle">10</div><h2>Express Yourself</h2></div><div class="section-body"><div class="example-strip"><strong>Exemplo:</strong> ${d.example}</div><div class="express-subtitle">${d.exSub}</div><div class="express-rows">${[1,2,3,4,5,6].map(i=>`<div class="express-row"><div class="enum">${i}</div><input class="express-input" placeholder="Write your sentence here..."></div>`).join('')}</div></div></div>`;
+
+      // Video Summary — always at the end
+      h += `<div class="video-placeholder" onclick="showToast('📹 Add YouTube URL for Lesson ${n}')"><div class="vp-icon">▶️</div><p>Lesson ${n} — Video Summary</p><small>[ insert YouTube link here ]</small></div>`;
+
+      h += '</div>'; // close lesson-body
+      p.innerHTML = h;
+    }
+
+    Object.entries(lessonsData).forEach(([n,d]) => buildLesson(parseInt(n), d));
+    </script>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let currentLesson = 1;
+
+function openApp() {
+  document.getElementById('cover').style.display = 'none';
+  const app = document.getElementById('app');
+  app.style.display = 'flex';
+  app.classList.add('active');
+  goLesson(1);
+}
+
+function goLesson(n) {
+  document.querySelectorAll('.lesson-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  const panel = document.getElementById('lesson-'+n);
+  if(panel) panel.classList.add('active');
+  const nav = document.querySelector('[data-l="'+n+'"]');
+  if(nav) nav.classList.add('active');
+  currentLesson = n;
+  document.querySelector('.main').scrollTo(0,0);
+  document.getElementById('pFill').style.width = Math.round((n/8)*100)+'%';
+  closeSidebar();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  sb.classList.toggle('open');
+  document.getElementById('overlay').style.display = sb.classList.contains('open') ? 'block' : 'none';
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').style.display = 'none';
+}
+
+function speak(el, word) {
+  if(el.classList.contains('vocab-line')) el.classList.add('played');
+  const audio = new Audio('audio/' + word.toLowerCase().replace(/[^a-z0-9]/g,'_') + '.mp3');
+  audio.onerror = () => {
+    if('speechSynthesis' in window) {
+      const u = new SpeechSynthesisUtterance(word);
+      u.lang = 'en-US'; u.rate = 0.88;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+    }
+  };
+  audio.play().catch(() => {
+    if('speechSynthesis' in window) {
+      const u = new SpeechSynthesisUtterance(word);
+      u.lang = 'en-US'; u.rate = 0.88;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+    }
+  });
+  showToast('🔊 ' + word);
+}
+
+function playAudio(id) {
+  const a = new Audio('audio/'+id+'.mp3');
+  a.onerror = () => showToast('📂 Insira o arquivo: audio/'+id+'.mp3');
+  a.play().catch(() => showToast('📂 Insira o arquivo: audio/'+id+'.mp3'));
+}
+
+function useTag(el) {
+  const word = el.textContent.trim();
+  const panel = document.getElementById('lesson-'+currentLesson);
+  const inputs = panel.querySelectorAll('.fill-input');
+
+  // Toggle off: already used, find and clear its input
+  if (el.classList.contains('used')) {
+    for (const inp of inputs) {
+      if (inp.dataset.tagWord === word) {
+        inp.value = '';
+        inp.dataset.tagWord = '';
+      }
+    }
+    el.classList.remove('used');
+    return;
+  }
+
+  // Fill next empty input
+  for (const inp of inputs) {
+    if (!inp.value) {
+      inp.value = word;
+      inp.dataset.tagWord = word;
+      el.classList.add('used');
+      break;
+    }
+  }
+}
+
+function pickOpt(el) {
+  el.closest('.listen-opts').querySelectorAll('.listen-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function matchBox(el, answer) {
+  const ans = el.querySelector('.manswer');
+  if(ans) { ans.textContent = answer; el.classList.add('matched'); }
+}
+
+let toastT;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight' && currentLesson<8) goLesson(currentLesson+1);
+  if(e.key==='ArrowLeft' && currentLesson>1) goLesson(currentLesson-1);
+});
+</script>
+</body>
+</html>
