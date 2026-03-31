@@ -79,7 +79,7 @@ body, html {
 
 /* --- HEADER --- */
 .header-main {
-     background-color: var(--nexus-orange);
+     background-color: var(--sidebar-bg);
      color: white;
      padding: 15px 30px;
      display: flex;
@@ -100,7 +100,7 @@ body, html {
 /* --- SIDEBAR LATERAL PRETA --- */
 .sidebar {
      width: var(--sidebar-width);
-     background-color: var(--sidebar-bg);
+     background-color: var(--nexus-orange);
      flex-shrink: 0;
      display: flex;
      flex-direction: column;
@@ -113,7 +113,7 @@ body, html {
      align-items: center;
      gap: 12px;
      padding: 13px 24px;
-     color: rgba(255,255,255,0.55);
+     color: rgba(0,0,0,0.70);
      cursor: pointer;
      font-size: 14px;
      font-weight: 500;
@@ -122,15 +122,15 @@ body, html {
 }
 
 .sidebar-item:hover {
-     background: rgba(255,255,255,0.08);
-     color: rgba(255,255,255,0.9);
+     background: rgba(0,0,0,0.12);
+     color: rgba(0,0,0,0.90);
 }
 
 .sidebar-item.active {
-     background: rgba(231,111,81,0.18);
-     color: white;
+     background: rgba(0,0,0,0.15);
+     color: #1a1a1a;
      font-weight: 700;
-     border-left: 3px solid var(--nexus-orange);
+     border-left: 3px solid #1a1a1a;
 }
 
 .sidebar-item .sidebar-icon {
