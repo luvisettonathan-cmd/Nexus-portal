@@ -216,7 +216,7 @@ function renderPortal(app) {
                                                                     </div>
                                                                           <div style="display:flex; gap:10px; align-items:center;">
                                                                                   <div style="background:rgba(255,255,255,0.2); padding:8px 20px; border-radius:30px; font-size:13px; color:white">
-                                                                                            👋 Olá, Teacher ${teacherName}!
+                                                                                            <span style="display:inline-block;width:9px;height:9px;background:#E76F51;border-radius:50%;margin-right:6px;vertical-align:middle;"></span> Olá, Teacher ${teacherName}!
                                                                                                     </div>
                                                                                                             <button id="btn-sair" style="background:none; border:1px solid rgba(255,255,255,0.4); color:white; border-radius:15px; padding:5px 10px; cursor:pointer; font-size:11px;">Sair</button>
                                                                                                                   </div>
@@ -235,7 +235,8 @@ function renderPortal(app) {
                                                                                                                                                                                                                                               <span class="sidebar-icon">📘</span>
                                                                                                                                                                                                                                                                       <span>Ebook Starter</span>
                                                                                                                                                                                                                                                                                             </div>
-                                                                                                                                                                                                              </nav>
+                                                                                                                                                                                                                <div class="sidebar-footer"></div>
+          </nav>
                                                                                                                                                                                                                     <div class="main-content">
                                                                                                                                                                                                                             <div class="container">
                                                                                                                                                                                                                                       <h1 style="color:#1a2b21; font-family:serif; margin-bottom:5px;">Materiais Extras</h1>
