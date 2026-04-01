@@ -313,36 +313,36 @@ function renderPortal(app) {
                         openEbookModal();
                             });
                               }
-}
-
-  // ── CALENDÁRIO SIDEBAR ITEM ──────────────────────────────────────
-  const calendarioSidebarItem = document.getElementById('sidebar-calendario');
-  if (calendarioSidebarItem) {
-    calendarioSidebarItem.addEventListener('click', () => {
-      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-      calendarioSidebarItem.classList.add('active');
-      const mainContent = document.querySelector('.main-content');
-      if (mainContent) {
+        // ── CALENDÁRIO SIDEBAR ITEM ──────────────────────────────────────
+        const calendarioSidebarItem = document.getElementById('sidebar-calendario');
+        if (calendarioSidebarItem) {
+        calendarioSidebarItem.addEventListener('click', () => {
+        document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+        calendarioSidebarItem.classList.add('active');
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
         mainContent.innerHTML = '<div class="container"></div>';
         renderCalendar(mainContent.querySelector('.container'));
-      }
-    });
-  }
-  // ── MATERIAIS SIDEBAR ITEM (restore view) ────────────────────────
-  const materiaisSidebarItem = document.querySelector('[data-section="materiais"]');
-  if (materiaisSidebarItem) {
-    materiaisSidebarItem.addEventListener('click', () => {
-      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-      materiaisSidebarItem.classList.add('active');
-      const mainContent = document.querySelector('.main-content');
-      if (mainContent) {
+        }
+        });
+        }
+        // ── MATERIAIS SIDEBAR ITEM (restore view) ────────────────────────
+        const materiaisSidebarItem = document.querySelector('[data-section="materiais"]');
+        if (materiaisSidebarItem) {
+        materiaisSidebarItem.addEventListener('click', () => {
+        document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+        materiaisSidebarItem.classList.add('active');
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
         mainContent.innerHTML = '<div class="container"><h1 style="color:#1a2b21; font-family:serif; margin-bottom:5px;">Materiais Extras</h1><p class="subtitle">Acesse os recursos oficiais da Nexus English Center.</p><div class="section-title">Materiais Gerais</div><div class="quick-grid" id="q-gerais"></div><div class="section-title">Nível B2</div><div class="quick-grid" id="q-b2"></div><div class="section-title">Suporte</div><div class="quick-grid" id="q-suporte"></div></div>';
         buildCards(linksGerais, 'q-gerais');
         buildCards(linksB2, 'q-b2');
         buildCards(linksSuporte, 'q-suporte');
-      }
-    });
-  }
+        }
+        });
+        }
+}
+
 
 checkUser();
 
