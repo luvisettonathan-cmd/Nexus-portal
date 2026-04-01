@@ -235,6 +235,10 @@ function renderPortal(app) {
                                                                                                                                                                                                                                               <span class="sidebar-icon">📘</span>
                                                                                                                                                                                                                                                                       <span>Ebook Starter</span>
                                                                                                                                                                                                                                                                                             </div>
+                                                                                                                                                                                                                <div class="sidebar-item" data-section="calendario" id="sidebar-calendario">
+                                                                                                                                                                                                                                                                                            <span class="sidebar-icon">📅</span>
+                                                                                                                                                                                                                                                                                            <span>Calendário</span>
+                                                                                                                                                                                                                </div>
                                                                                                                                                                                                                 <div class="sidebar-footer"></div>
           </nav>
                                                                                                                                                                                                                     <div class="main-content">
@@ -311,6 +315,35 @@ function renderPortal(app) {
                               }
 }
 
+  // ── CALENDÁRIO SIDEBAR ITEM ──────────────────────────────────────
+  const calendarioSidebarItem = document.getElementById('sidebar-calendario');
+  if (calendarioSidebarItem) {
+    calendarioSidebarItem.addEventListener('click', () => {
+      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      calendarioSidebarItem.classList.add('active');
+      const mainContent = document.querySelector('.main-content');
+      if (mainContent) {
+        mainContent.innerHTML = '<div class="container"></div>';
+        renderCalendar(mainContent.querySelector('.container'));
+      }
+    });
+  }
+  // ── MATERIAIS SIDEBAR ITEM (restore view) ────────────────────────
+  const materiaisSidebarItem = document.querySelector('[data-section="materiais"]');
+  if (materiaisSidebarItem) {
+    materiaisSidebarItem.addEventListener('click', () => {
+      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      materiaisSidebarItem.classList.add('active');
+      const mainContent = document.querySelector('.main-content');
+      if (mainContent) {
+        mainContent.innerHTML = '<div class="container"><h1 style="color:#1a2b21; font-family:serif; margin-bottom:5px;">Materiais Extras</h1><p class="subtitle">Acesse os recursos oficiais da Nexus English Center.</p><div class="section-title">Materiais Gerais</div><div class="quick-grid" id="q-gerais"></div><div class="section-title">Nível B2</div><div class="quick-grid" id="q-b2"></div><div class="section-title">Suporte</div><div class="quick-grid" id="q-suporte"></div></div>';
+        buildCards(linksGerais, 'q-gerais');
+        buildCards(linksB2, 'q-b2');
+        buildCards(linksSuporte, 'q-suporte');
+      }
+    });
+  }
+
 checkUser();
 
 // ── EBOOK MODAL ──────────────────────────────────────────────────
@@ -332,3 +365,172 @@ function openEbookModal() {
                                                           document.getElementById('close-ebook-modal').onclick = () => overlay.remove();
                                                             overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
                                                             }
+
+
+// ══════════════════════════════════════════════════════════════
+// CALENDÁRIO INTERATIVO
+// ══════════════════════════════════════════════════════════════
+let calState = {
+  year: new Date().getFullYear(),
+  month: new Date().getMonth(),
+  events: JSON.parse(localStorage.getItem('nexus_cal_events') || '{}')
+};
+
+function saveCalEvents() {
+  localStorage.setItem('nexus_cal_events', JSON.stringify(calState.events));
+}
+
+function renderCalendar(container) {
+  const DAY_NAMES = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+  const MONTH_NAMES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const EVENT_COLORS = ['', 'ev-blue', 'ev-green', 'ev-purple'];
+
+  function buildCalendar() {
+    const { year, month } = calState;
+    const today = new Date();
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrev = new Date(year, month, 0).getDate();
+
+    container.innerHTML = `
+      <div class="calendar-view">
+        <div class="calendar-header">
+          <h2>📅 ${MONTH_NAMES[month]} ${year}</h2>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button class="cal-today-btn" id="cal-btn-today">Hoje</button>
+            <button class="cal-nav-btn" id="cal-btn-prev">‹</button>
+            <button class="cal-nav-btn" id="cal-btn-next">›</button>
+          </div>
+        </div>
+        <div class="calendar-grid-header">
+          ${DAY_NAMES.map(d => `<div class="cal-day-name">${d}</div>`).join('')}
+        </div>
+        <div class="calendar-grid" id="cal-grid"></div>
+      </div>
+    `;
+
+    const grid = document.getElementById('cal-grid');
+    const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
+
+    for (let i = 0; i < totalCells; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cal-cell';
+      let dayNum, cellYear = year, cellMonth = month;
+      let isOtherMonth = false;
+
+      if (i < firstDay) {
+        dayNum = daysInPrev - firstDay + i + 1;
+        cellMonth = month - 1;
+        if (cellMonth < 0) { cellMonth = 11; cellYear = year - 1; }
+        isOtherMonth = true;
+        cell.classList.add('other-month');
+      } else if (i >= firstDay + daysInMonth) {
+        dayNum = i - firstDay - daysInMonth + 1;
+        cellMonth = month + 1;
+        if (cellMonth > 11) { cellMonth = 0; cellYear = year + 1; }
+        isOtherMonth = true;
+        cell.classList.add('other-month');
+      } else {
+        dayNum = i - firstDay + 1;
+      }
+
+      const isToday = !isOtherMonth && dayNum === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+      if (isToday) cell.classList.add('today');
+
+      const dateKey = `${cellYear}-${String(cellMonth+1).padStart(2,'0')}-${String(dayNum).padStart(2,'0')}`;
+      const dayEvents = calState.events[dateKey] || [];
+      if (dayEvents.length > 0) cell.classList.add('has-event');
+
+      cell.innerHTML = `<span class="cal-day-num">${dayNum}</span>` +
+        dayEvents.map(ev => `<div class="cal-event ${EVENT_COLORS[ev.color]||''}" data-key="${dateKey}" data-id="${ev.id}">${ev.title}</div>`).join('');
+
+      cell.querySelectorAll('.cal-event').forEach(evEl => {
+        evEl.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openEventModal(evEl.dataset.key, parseInt(evEl.dataset.id));
+        });
+      });
+
+      cell.addEventListener('click', () => openEventModal(dateKey, null));
+      grid.appendChild(cell);
+    }
+
+    document.getElementById('cal-btn-prev').onclick = () => {
+      calState.month--;
+      if (calState.month < 0) { calState.month = 11; calState.year--; }
+      buildCalendar();
+    };
+    document.getElementById('cal-btn-next').onclick = () => {
+      calState.month++;
+      if (calState.month > 11) { calState.month = 0; calState.year++; }
+      buildCalendar();
+    };
+    document.getElementById('cal-btn-today').onclick = () => {
+      calState.year = new Date().getFullYear();
+      calState.month = new Date().getMonth();
+      buildCalendar();
+    };
+  }
+
+  function openEventModal(dateKey, eventId) {
+    const existing = eventId !== null ? (calState.events[dateKey]||[]).find(e => e.id === eventId) : null;
+    const [y,m,d] = dateKey.split('-');
+    const dateStr = `${d}/${m}/${y}`;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'cal-modal-overlay';
+    overlay.innerHTML = `
+      <div class="cal-modal">
+        <h3>${existing ? '✏️ Editar Evento' : '➕ Novo Evento'} — ${dateStr}</h3>
+        <input type="text" id="ev-title" placeholder="Título do evento" value="${existing ? existing.title : ''}">
+        <textarea id="ev-desc" placeholder="Descrição (opcional)" rows="3" style="resize:none;">${existing ? (existing.desc||'') : ''}</textarea>
+        <select id="ev-color">
+          <option value="0" ${(!existing||existing.color===0)?'selected':''}>🟠 Laranja (padrão)</option>
+          <option value="1" ${existing&&existing.color===1?'selected':''}>🔵 Azul</option>
+          <option value="2" ${existing&&existing.color===2?'selected':''}>🟢 Verde</option>
+          <option value="3" ${existing&&existing.color===3?'selected':''}>🟣 Roxo</option>
+        </select>
+        <div class="cal-modal-actions">
+          ${existing ? '<button class="btn-delete-event" id="ev-btn-delete">🗑 Excluir</button>' : ''}
+          <button class="btn-cancel-event" id="ev-btn-cancel">Cancelar</button>
+          <button class="btn-save-event" id="ev-btn-save">Salvar</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    document.getElementById('ev-btn-cancel').onclick = () => overlay.remove();
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+
+    document.getElementById('ev-btn-save').onclick = () => {
+      const title = document.getElementById('ev-title').value.trim();
+      if (!title) return;
+      const color = parseInt(document.getElementById('ev-color').value);
+      const desc = document.getElementById('ev-desc').value.trim();
+      if (!calState.events[dateKey]) calState.events[dateKey] = [];
+      if (existing) {
+        const idx = calState.events[dateKey].findIndex(e => e.id === eventId);
+        calState.events[dateKey][idx] = { ...existing, title, color, desc };
+      } else {
+        calState.events[dateKey].push({ id: Date.now(), title, color, desc });
+      }
+      saveCalEvents();
+      overlay.remove();
+      buildCalendar();
+    };
+
+    if (existing) {
+      document.getElementById('ev-btn-delete').onclick = () => {
+        calState.events[dateKey] = calState.events[dateKey].filter(e => e.id !== eventId);
+        if (calState.events[dateKey].length === 0) delete calState.events[dateKey];
+        saveCalEvents();
+        overlay.remove();
+        buildCalendar();
+      };
+    }
+
+    setTimeout(() => document.getElementById('ev-title').focus(), 50);
+  }
+
+  buildCalendar();
+}
