@@ -79,7 +79,7 @@ body, html {
 
 /* --- HEADER --- */
 .header-main {
-     background-color: #111111;
+         background-color: var(--nexus-orange);
      color: white;
      padding: 15px 30px;
      display: flex;
