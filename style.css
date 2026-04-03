@@ -518,3 +518,46 @@ h1 {
   border-bottom-color: var(--nexus-orange);
   background: transparent;
 }
+
+
+/* --- BOOK TABS (abas de livros dentro de Materiais) --- */
+.book-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  margin-top: 4px;
+}
+
+.book-tab {
+  padding: 8px 20px;
+  border: 2px solid #d0d7d3;
+  background: white;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: 0.2s;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.book-tab:hover {
+  border-color: var(--nexus-orange);
+  color: var(--nexus-orange);
+}
+
+.book-tab.active {
+  background: var(--nexus-orange);
+  border-color: var(--nexus-orange);
+  color: white;
+}
+
+#book-tab-content {
+  margin-bottom: 10px;
+}
+
+#book-tab-content .book-card {
+  max-width: 280px;
+}
