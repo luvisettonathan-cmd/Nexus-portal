@@ -482,3 +482,39 @@ h1 {
      margin-right: auto;
 }
 .btn-delete-event:hover { background: #fecaca; }
+
+
+/* --- PORTAL TABS (navegação horizontal) --- */
+.portal-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 20px 50px 0;
+  border-bottom: 2px solid #e2e8e4;
+  background: var(--bg-light);
+}
+
+.portal-tab {
+  padding: 10px 22px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  border-radius: 6px 6px 0 0;
+  transition: 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.portal-tab:hover {
+  color: var(--nexus-orange);
+  background: rgba(231,111,81,0.06);
+}
+
+.portal-tab.active {
+  color: var(--nexus-orange);
+  border-bottom-color: var(--nexus-orange);
+  background: transparent;
+}
