@@ -216,9 +216,9 @@ function renderPortal(app) {
                                                                     </div>
                                                                           <div style="display:flex; gap:10px; align-items:center;">
                                                                                   <div style="background:rgba(255,255,255,0.2); padding:8px 20px; border-radius:30px; font-size:13px; color:white">
-                                                                                            <span style="display:inline-block;width:9px;height:9px;background:#E76F51;border-radius:50%;margin-right:6px;vertical-align:middle;"></span> Olá, Teacher ${teacherName}!
+                                                                                            <span style="display:inline-block;width:9px;height:9px;background:#fff;border-radius:50%;margin-right:6px;vertical-align:middle;opacity:0.9;"></span> Olá, Teacher ${teacherName}!
                                                                                                     </div>
-                                                                                                            <button id="btn-sair" style="background:none; border:1px solid rgba(255,255,255,0.4); color:white; border-radius:15px; padding:5px 10px; cursor:pointer; font-size:11px;">Sair</button>
+                                                                                                            <button id="btn-sair" style="background:none; border:1px solid rgba(255,255,255,0.5); color:white; border-radius:20px; padding:7px 16px; cursor:pointer; font-size:12px; font-weight:600; letter-spacing:0.5px;">Sair</button>
                                                                                                                   </div>
                                                                                                                       </header>
                                                                                                                           <div class="portal-body">
