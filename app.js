@@ -201,149 +201,132 @@ function renderLogin(app) {
         });
 }
 
-// ── PORTAL PRINCIPAL ────────────────────────────────────────────
+// ── PORTAL PRINCIPAL ─────────────────────────────────────────────────────────────
 function renderPortal(app) {
-        const teacherName = getTeacherName(state.user?.email);
-        const main = document.createElement('div');
-        main.innerHTML = `
-            <header class="header-main">
-                  <div style="display:flex; align-items:center">
-                          <img src="${NEXUS_LOGO_DATA}" alt="Nexus Logo" style="max-height:45px; margin-right:15px;">
-                                  <div>
-                                            <strong style="font-size:18px">Portal do Professor</strong>
-                                                      <div style="font-size:13px; color:rgba(255,255,255,0.95); font-weight:600; letter-spacing:1.5px; margin-top:3px; text-transform:uppercase;">🩷 Chapecó - SC</div>
-                                                              </div>
-                                                                    </div>
-                                                                          <div style="display:flex; gap:10px; align-items:center;">
-                                                                                  <div style="background:rgba(255,255,255,0.2); padding:8px 20px; border-radius:30px; font-size:13px; color:white">
-                                                                                            <span style="display:inline-block;width:9px;height:9px;background:#fff;border-radius:50%;margin-right:6px;vertical-align:middle;opacity:0.9;"></span> Olá, Teacher ${teacherName}!
-                                                                                                    </div>
-                                                                                                            <button id="btn-sair" style="background:none; border:1px solid rgba(255,255,255,0.5); color:white; border-radius:20px; padding:7px 16px; cursor:pointer; font-size:12px; font-weight:600; letter-spacing:0.5px;">Sair</button>
-                                                                                                                  </div>
-                                                                                                                      </header>
-                                                                                                                          <div class="portal-body">
-                                                                                                                                <nav class="sidebar">
-                                                                                                                                        <div class="sidebar-item active" data-section="materiais">
-                                                                                                                                                  <span class="sidebar-icon">🗂️</span>
-                                                                                                                                                            <span>Materiais</span>
-                                                                                                                                                                    </div>
-                                                                                                                                                                            <div class="sidebar-item disabled" data-section="treinamento">
-                                                                                                                                                                                      <span class="sidebar-icon">🎓</span>
-                                                                                                                                                                                                <span>Treinamento</span>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                      <div class="sidebar-item" data-section="ebook" id="sidebar-ebook">
-                                                                                                                                                                                                                                              <span class="sidebar-icon">📘</span>
-                                                                                                                                                                                                                                                                      <span>Ebook Starter</span>
-                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                <div class="sidebar-item" data-section="calendario" id="sidebar-calendario">
-                                                                                                                                                                                                                                                                                            <span class="sidebar-icon">📅</span>
-                                                                                                                                                                                                                                                                                            <span>Calendário</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class="sidebar-footer"></div>
-          </nav>
-                                                                                                                                                                                                                    <div class="main-content">
-                                                                                                                                                                                                                            <div class="container">
-                                                                                                                                                                                                                                      <h1 style="color:#1a2b21; font-family:serif; margin-bottom:5px;">Materiais Extras</h1>
-                                                                                                                                                                                                                                                <p class="subtitle">Acesse os recursos oficiais da Nexus English Center.</p>
-                                                                                                                                                                                                                                                          <div class="section-title">Materiais Gerais</div>
-                                                                                                                                                                                                                                                                    <div class="quick-grid" id="q-gerais"></div>
-                                                                                                                                                                                                                                                                              <div class="section-title">Nível B2</div>
-                                                                                                                                                                                                                                                                                        <div class="quick-grid" id="q-b2"></div>
-                                                                                                                                                                                                                                                                                                  <div class="section-title">Suporte</div>
-                                                                                                                                                                                                                                                                                                            <div class="quick-grid" id="q-suporte"></div>
-                                                                                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                                                                                          </div>
-                                                                                                                                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                                                                                                                                                `;
-        app.appendChild(main);
+  const teacherName = getTeacherName(state.user?.email);
+  const main = document.createElement('div');
+  main.innerHTML = `
+    <header class="header-main">
+      <div style="display:flex; align-items:center">
+        <img src="${NEXUS_LOGO_DATA}" alt="Nexus Logo" style="max-height:45px; margin-right:15px;">
+        <div>
+          <strong style="font-size:18px">Portal do Professor</strong>
+          <div style="font-size:13px; color:rgba(255,255,255,0.95); font-weight:600; letter-spacing:1.5px; margin-top:3px; text-transform:uppercase;">📍 Chapecó - SC</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <div style="background:rgba(255,255,255,0.2); padding:8px 20px; border-radius:30px; font-size:13px; color:white">
+          <span style="display:inline-block;width:9px;height:9px;background:#fff;border-radius:50%;margin-right:6px;vertical-align:middle;opacity:0.9;"></span>
+          Olá, Teacher ${teacherName}!
+        </div>
+        <button id="btn-sair" style="background:none; border:1px solid rgba(255,255,255,0.5); color:white; border-radius:20px; padding:7px 16px; cursor:pointer; font-size:12px; font-weight:600; letter-spacing:0.5px;">Sair</button>
+      </div>
+    </header>
+    <div class="portal-body">
+      <nav class="sidebar">
+        <div class="sidebar-item active" data-section="materiais">
+          <span class="sidebar-icon">🗂️</span>
+          <span>Materiais</span>
+        </div>
+        <div class="sidebar-item disabled" data-section="treinamento">
+          <span class="sidebar-icon">🎓</span>
+          <span>Treinamento</span>
+        </div>
+        <div class="sidebar-footer"></div>
+      </nav>
+      <div class="main-content">
+        <div class="portal-tabs">
+          <button class="portal-tab active" data-tab="materiais">📚 Materiais</button>
+          <button class="portal-tab" data-tab="ebook">📘 Ebook Starter</button>
+          <button class="portal-tab" data-tab="calendario">📅 Calendário</button>
+        </div>
+        <div class="container" id="tab-content"></div>
+      </div>
+    </div>
+  `;
+  app.appendChild(main);
 
   document.getElementById('btn-sair').onclick = async () => {
-            stopInactivityWatch();
-            await client.auth.signOut();
-            state.screen = 'login';
-            render();
+    stopInactivityWatch();
+    await client.auth.signOut();
+    state.screen = 'login';
+    render();
   };
 
   const linksGerais = [
-        { t: 'Livros 2026',            i: '📖', viewer: 'books' },
-        { t: 'Áudios dos Livros',      i: '🎧', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o' },
-        { t: 'Extra Activities',       i: '🎯', url: 'https://drive.google.com/drive/folders/1uz3ATitZpIJM7S_-ve_w6XmqOosmqPvX?usp=sharing' },
-        { t: 'Material para Aulas',    i: '📂', url: 'https://drive.google.com/drive/folders/1B3HnQl6Zz8aTj2oi_BwAY7n2jEPV5AHU?usp=drive_link' },
-        { t: 'Conversations 2026',     i: '💬', url: 'https://drive.google.com/drive/folders/1ghnIw2A-CCRo_QgXcO1cE39V-8lfop_w?usp=sharing' },
-        { t: 'Guias Starter',          i: '📋', url: 'https://docs.google.com/document/d/1s59KaF69-tCAQdg_abUbMjdNVDnhVJ0SDfO5L56n7h0/edit?usp=drive_link' },
-        { t: 'Transcripts Listenings', i: '📝', viewer: true, url: 'https://docs.google.com/document/d/15KSATfziQzmvirEy8sKnWgB4TZr3xwRDmXWMLLFTYJE/edit?usp=sharing' }
-          ];
-
+    { t: 'Livros 2026',            i: '📖', viewer: 'books' },
+    { t: 'Áudios dos Livros',      i: '🎧', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o' },
+    { t: 'Extra Activities',       i: '🎯', url: 'https://drive.google.com/drive/folders/1uz3ATitZpIJM7S_-ve_w6XmqOosmqPvX?usp=sharing' },
+    { t: 'Material para Aulas',    i: '📂', url: 'https://drive.google.com/drive/folders/1B3HnQl6Zz8aTj2oi_BwAY7n2jEPV5AHU?usp=drive_link' },
+    { t: 'Conversations 2026',     i: '💬', url: 'https://drive.google.com/drive/folders/1ghnIw2A-CCRo_QgXcO1cE39V-8lfop_w?usp=sharing' },
+    { t: 'Guias Starter',          i: '📋', url: 'https://docs.google.com/document/d/1s59KaF69-tCAQdg_abUbMjdNVDnhVJ0SDfO5L56n7h0/edit?usp=drive_link' },
+    { t: 'Transcripts Listenings', i: '📝', viewer: true, url: 'https://docs.google.com/document/d/15KSATfziQzmvirEy8sKnWgB4TZr3xwRDmXWMLLFTYJE/edit?usp=sharing' }
+  ];
   const linksB2 = [
-        { t: 'B2 Scripts',   i: '📜', url: 'https://drive.google.com/drive/folders/1yoRbzOyUKuuP-_KQZRZmBigmTh5v6YkX?usp=drive_link' },
-        { t: 'Listening B2', i: '🎵', url: 'https://drive.google.com/drive/folders/1JTeOIlIY5wgdGLkuERuj-l2EqNwQNfpA?usp=drive_link' }
-          ];
-
+    { t: 'B2 Scripts',   i: '📜', url: 'https://drive.google.com/drive/folders/1yoRbzOyUKuuP-_KQZRZmBigmTh5v6YkX?usp=drive_link' },
+    { t: 'Listening B2', i: '🎵', url: 'https://drive.google.com/drive/folders/1JTeOIlIY5wgdGLkuERuj-l2EqNwQNfpA?usp=drive_link' }
+  ];
   const linksSuporte = [
-        { t: 'Erros e Sugestões', i: '⚠️', url: 'https://docs.google.com/document/d/1C6qYZzcHAA15j0oZzbAb07QF-Gbad6s2ScB8fwAAaFk/edit?tab=t.v471pfad98x' }
-          ];
+    { t: 'Erros e Sugestões', i: '⚠️', url: 'https://docs.google.com/document/d/1C6qYZzcHAA15j0oZzbAb07QF-Gbad6s2ScB8fwAAaFk/edit?tab=t.v471pfad98x' }
+  ];
 
-  function buildCards(links, containerId) {
-            const area = document.getElementById(containerId);
-            links.forEach(link => {
-                        const card = document.createElement('div');
-                        card.className = 'card-base';
-                        card.innerHTML = '<div class="icon-box">' + link.i + '</div><strong style="color:#1a2b21 !important">' + link.t + '</strong>';
-                        card.onclick = () => {
-                                      if (link.viewer === 'books') {
-                                                      openBooksModal();
-                                      } else if (link.viewer === true) {
-                                                      openViewer(link.t, link.url);
-                                      } else {
-                                                      window.open(link.url, '_blank');
-                                      }
-                        };
-                        area.appendChild(card);
-            });
+  function buildCards(links, container) {
+    links.forEach(link => {
+      const card = document.createElement('div');
+      card.className = 'card-base';
+      card.innerHTML = '<div class="icon-box">' + link.i + '</div><strong style="color:#1a2b21 !important">' + link.t + '</strong>';
+      card.onclick = () => {
+        if (link.viewer === 'books') { openBooksModal(); }
+        else if (link.viewer === true) { openViewer(link.t, link.url); }
+        else { window.open(link.url, '_blank'); }
+      };
+      container.appendChild(card);
+    });
   }
 
-  buildCards(linksGerais, 'q-gerais');
-        buildCards(linksB2, 'q-b2');
-        buildCards(linksSuporte, 'q-suporte');
+  function showTab(tabName) {
+    const tabContent = document.getElementById('tab-content');
+    if (!tabContent) return;
+    document.querySelectorAll('.portal-tab').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === tabName);
+    });
+    if (tabName === 'materiais') {
+      tabContent.innerHTML =
+        '<h1 style="color:#1a2b21; font-family:serif; margin-bottom:5px;">Materiais Extras</h1>' +
+        '<p class="subtitle">Acesse os recursos oficiais da Nexus English Center.</p>' +
+        '<div class="section-title">Materiais Gerais</div><div class="quick-grid" id="q-gerais"></div>' +
+        '<div class="section-title">Nível B2</div><div class="quick-grid" id="q-b2"></div>' +
+        '<div class="section-title">Suporte</div><div class="quick-grid" id="q-suporte"></div>';
+      buildCards(linksGerais, document.getElementById('q-gerais'));
+      buildCards(linksB2, document.getElementById('q-b2'));
+      buildCards(linksSuporte, document.getElementById('q-suporte'));
+    } else if (tabName === 'ebook') {
+      tabContent.innerHTML = '';
+      const iframe = document.createElement('iframe');
+      iframe.src = 'ebook.html';
+      iframe.style.cssText = 'width:100%;height:calc(100vh - 180px);border:none;border-radius:12px;';
+      tabContent.appendChild(iframe);
+    } else if (tabName === 'calendario') {
+      tabContent.innerHTML = '';
+      renderCalendar(tabContent);
+    }
+  }
 
-          // ── EBOOK SIDEBAR ITEM ────────────────────────────────────────
-            const ebookSidebarItem = document.getElementById('sidebar-ebook');
-              if (ebookSidebarItem) {
-                  ebookSidebarItem.addEventListener('click', () => {
-                        openEbookModal();
-                            });
-                              }
-        // ── CALENDÁRIO SIDEBAR ITEM ──────────────────────────────────────
-        const calendarioSidebarItem = document.getElementById('sidebar-calendario');
-        if (calendarioSidebarItem) {
-        calendarioSidebarItem.addEventListener('click', () => {
-        document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-        calendarioSidebarItem.classList.add('active');
-        const mainContent = document.querySelector('.main-content');
-        if (mainContent) {
-        mainContent.innerHTML = '<div class="container"></div>';
-        renderCalendar(mainContent.querySelector('.container'));
-        }
-        });
-        }
-        // ── MATERIAIS SIDEBAR ITEM (restore view) ────────────────────────
-        const materiaisSidebarItem = document.querySelector('[data-section="materiais"]');
-        if (materiaisSidebarItem) {
-        materiaisSidebarItem.addEventListener('click', () => {
-        document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-        materiaisSidebarItem.classList.add('active');
-        const mainContent = document.querySelector('.main-content');
-        if (mainContent) {
-        mainContent.innerHTML = '<div class="container"><h1 style="color:#1a2b21; font-family:serif; margin-bottom:5px;">Materiais Extras</h1><p class="subtitle">Acesse os recursos oficiais da Nexus English Center.</p><div class="section-title">Materiais Gerais</div><div class="quick-grid" id="q-gerais"></div><div class="section-title">Nível B2</div><div class="quick-grid" id="q-b2"></div><div class="section-title">Suporte</div><div class="quick-grid" id="q-suporte"></div></div>';
-        buildCards(linksGerais, 'q-gerais');
-        buildCards(linksB2, 'q-b2');
-        buildCards(linksSuporte, 'q-suporte');
-        }
-        });
-        }
+  document.querySelectorAll('.portal-tab').forEach(btn => {
+    btn.addEventListener('click', () => showTab(btn.dataset.tab));
+  });
+
+  const materiaisSidebarItem = document.querySelector('[data-section="materiais"]');
+  if (materiaisSidebarItem) {
+    materiaisSidebarItem.addEventListener('click', () => {
+      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      materiaisSidebarItem.classList.add('active');
+      showTab('materiais');
+    });
+  }
+
+  showTab('materiais');
 }
-
-
 checkUser();
 
 // ── EBOOK MODAL ──────────────────────────────────────────────────
