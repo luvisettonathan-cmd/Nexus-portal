@@ -239,6 +239,12 @@ function renderPortal(app) {
           <button class="portal-tab active" data-tab="materiais">📚 Materiais</button>
           <button class="portal-tab" data-tab="ebook">📘 Ebook Starter</button>
           <button class="portal-tab" data-tab="calendario">📅 Calendário</button>
+          <span class="portal-tabs-sep"></span>
+          <button class="portal-tab" data-tab="livro-0">📖 Starter</button>
+          <button class="portal-tab" data-tab="livro-1">📖 A1</button>
+          <button class="portal-tab" data-tab="livro-2">📖 A2</button>
+          <button class="portal-tab" data-tab="livro-3">📖 B1</button>
+          <button class="portal-tab" data-tab="livro-4">📖 B2</button>
         </div>
         <div class="container" id="tab-content"></div>
       </div>
@@ -289,58 +295,44 @@ function renderPortal(app) {
     document.querySelectorAll('.portal-tab').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.tab === tabName);
     });
+
     if (tabName === 'materiais') {
       tabContent.innerHTML =
         '<h1 style="color:#1a2b21; font-family:serif; margin-bottom:5px;">Materiais Extras</h1>' +
         '<p class="subtitle">Acesse os recursos oficiais da Nexus English Center.</p>' +
-        '<div class="section-title">Livros 2026</div>' +
-        '<div class="book-tabs" id="book-tabs"></div>' +
-        '<div id="book-tab-content"></div>' +
         '<div class="section-title">Materiais Gerais</div><div class="quick-grid" id="q-gerais"></div>' +
-        '<div class="section-title">N\u00edvel B2</div><div class="quick-grid" id="q-b2"></div>' +
+        '<div class="section-title">Nível B2</div><div class="quick-grid" id="q-b2"></div>' +
         '<div class="section-title">Suporte</div><div class="quick-grid" id="q-suporte"></div>';
-
-      // Build book sub-tabs
-      const bookTabsEl = document.getElementById('book-tabs');
-      const bookContentEl = document.getElementById('book-tab-content');
-
-      function showBookTab(idx) {
-        bookTabsEl.querySelectorAll('.book-tab').forEach(b => b.classList.toggle('active', parseInt(b.dataset.idx) === idx));
-        const livro = LIVROS_2026[idx];
-        bookContentEl.innerHTML = '';
-        const card = document.createElement('div');
-        card.className = 'card-base book-card';
-        card.innerHTML = '<div class="icon-box">' + '\uD83D\uDCD6' + '</div><strong style="color:#1a2b21">Book</strong>';
-        card.onclick = () => openViewer(livro.titulo, livro.url);
-        bookContentEl.appendChild(card);
-      }
-
-      LIVROS_2026.forEach((livro, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'book-tab' + (idx === 0 ? ' active' : '');
-        btn.dataset.idx = idx;
-        btn.textContent = livro.titulo;
-        btn.addEventListener('click', () => showBookTab(idx));
-        bookTabsEl.appendChild(btn);
-      });
-
-      showBookTab(0);
-
       buildCards(linksGerais, document.getElementById('q-gerais'));
       buildCards(linksB2, document.getElementById('q-b2'));
       buildCards(linksSuporte, document.getElementById('q-suporte'));
+
     } else if (tabName === 'ebook') {
       tabContent.innerHTML = '';
       const iframe = document.createElement('iframe');
       iframe.src = 'ebook.html';
       iframe.style.cssText = 'width:100%;height:calc(100vh - 180px);border:none;border-radius:12px;';
       tabContent.appendChild(iframe);
+
     } else if (tabName === 'calendario') {
       tabContent.innerHTML = '';
       renderCalendar(tabContent);
+
+    } else if (tabName.startsWith('livro-')) {
+      const livroIdx = parseInt(tabName.split('-')[1]);
+      const livro = LIVROS_2026[livroIdx];
+      if (!livro) return;
+      tabContent.innerHTML =
+        '<h1 style="color:#1a2b21; font-family:serif; margin-bottom:5px;">' + livro.titulo + '</h1>' +
+        '<p class="subtitle">Clique no card abaixo para abrir o livro em PDF.</p>' +
+        '<div class="quick-grid" id="q-livro"></div>';
+      const card = document.createElement('div');
+      card.className = 'card-base';
+      card.innerHTML = '<div class="icon-box">📖</div><strong style="color:#1a2b21">Book</strong>';
+      card.onclick = () => openViewer(livro.titulo, livro.url);
+      document.getElementById('q-livro').appendChild(card);
     }
   }
-
   document.querySelectorAll('.portal-tab').forEach(btn => {
     btn.addEventListener('click', () => showTab(btn.dataset.tab));
   });
