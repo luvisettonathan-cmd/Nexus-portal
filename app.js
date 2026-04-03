@@ -254,8 +254,7 @@ function renderPortal(app) {
   };
 
   const linksGerais = [
-    { t: 'Livros 2026',            i: '📖', viewer: 'books' },
-    { t: 'Áudios dos Livros',      i: '🎧', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o' },
+        { t: 'Áudios dos Livros',      i: '🎧', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o' },
     { t: 'Extra Activities',       i: '🎯', url: 'https://drive.google.com/drive/folders/1uz3ATitZpIJM7S_-ve_w6XmqOosmqPvX?usp=sharing' },
     { t: 'Material para Aulas',    i: '📂', url: 'https://drive.google.com/drive/folders/1B3HnQl6Zz8aTj2oi_BwAY7n2jEPV5AHU?usp=drive_link' },
     { t: 'Conversations 2026',     i: '💬', url: 'https://drive.google.com/drive/folders/1ghnIw2A-CCRo_QgXcO1cE39V-8lfop_w?usp=sharing' },
@@ -294,9 +293,39 @@ function renderPortal(app) {
       tabContent.innerHTML =
         '<h1 style="color:#1a2b21; font-family:serif; margin-bottom:5px;">Materiais Extras</h1>' +
         '<p class="subtitle">Acesse os recursos oficiais da Nexus English Center.</p>' +
+        '<div class="section-title">Livros 2026</div>' +
+        '<div class="book-tabs" id="book-tabs"></div>' +
+        '<div id="book-tab-content"></div>' +
         '<div class="section-title">Materiais Gerais</div><div class="quick-grid" id="q-gerais"></div>' +
-        '<div class="section-title">Nível B2</div><div class="quick-grid" id="q-b2"></div>' +
+        '<div class="section-title">N\u00edvel B2</div><div class="quick-grid" id="q-b2"></div>' +
         '<div class="section-title">Suporte</div><div class="quick-grid" id="q-suporte"></div>';
+
+      // Build book sub-tabs
+      const bookTabsEl = document.getElementById('book-tabs');
+      const bookContentEl = document.getElementById('book-tab-content');
+
+      function showBookTab(idx) {
+        bookTabsEl.querySelectorAll('.book-tab').forEach(b => b.classList.toggle('active', parseInt(b.dataset.idx) === idx));
+        const livro = LIVROS_2026[idx];
+        bookContentEl.innerHTML = '';
+        const card = document.createElement('div');
+        card.className = 'card-base book-card';
+        card.innerHTML = '<div class="icon-box">' + '\uD83D\uDCD6' + '</div><strong style="color:#1a2b21">Book</strong>';
+        card.onclick = () => openViewer(livro.titulo, livro.url);
+        bookContentEl.appendChild(card);
+      }
+
+      LIVROS_2026.forEach((livro, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'book-tab' + (idx === 0 ? ' active' : '');
+        btn.dataset.idx = idx;
+        btn.textContent = livro.titulo;
+        btn.addEventListener('click', () => showBookTab(idx));
+        bookTabsEl.appendChild(btn);
+      });
+
+      showBookTab(0);
+
       buildCards(linksGerais, document.getElementById('q-gerais'));
       buildCards(linksB2, document.getElementById('q-b2'));
       buildCards(linksSuporte, document.getElementById('q-suporte'));
