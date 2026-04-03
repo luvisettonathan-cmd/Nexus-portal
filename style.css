@@ -561,3 +561,20 @@ h1 {
 #book-tab-content .book-card {
   max-width: 280px;
 }
+
+
+/* --- SEPARADOR ENTRE TABS PRINCIPAIS E TABS DE LIVROS --- */
+.portal-tabs-sep {
+  display: inline-block;
+  width: 1px;
+  height: 24px;
+  background: #d0d7d3;
+  margin: 0 6px;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.portal-tabs {
+  flex-wrap: wrap;
+  align-items: center;
+}
