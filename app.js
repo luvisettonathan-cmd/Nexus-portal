@@ -211,7 +211,7 @@ function renderPortal(app) {
                           <img src="${NEXUS_LOGO_DATA}" alt="Nexus Logo" style="max-height:45px; margin-right:15px;">
                                   <div>
                                             <strong style="font-size:18px">Portal do Professor</strong>
-                                                      <div style="font-size:13px; color:rgba(255,255,255,0.95); font-weight:600; letter-spacing:1.5px; margin-top:3px; text-transform:uppercase;">📍 Chapecó - SC</div>
+                                                      <div style="font-size:13px; color:rgba(255,255,255,0.95); font-weight:600; letter-spacing:1.5px; margin-top:3px; text-transform:uppercase;">🩷 Chapecó - SC</div>
                                                               </div>
                                                                     </div>
                                                                           <div style="display:flex; gap:10px; align-items:center;">
@@ -224,7 +224,7 @@ function renderPortal(app) {
                                                                                                                           <div class="portal-body">
                                                                                                                                 <nav class="sidebar">
                                                                                                                                         <div class="sidebar-item active" data-section="materiais">
-                                                                                                                                                  <span class="sidebar-icon">📚</span>
+                                                                                                                                                  <span class="sidebar-icon">🗂️</span>
                                                                                                                                                             <span>Materiais</span>
                                                                                                                                                                     </div>
                                                                                                                                                                             <div class="sidebar-item disabled" data-section="treinamento">
