@@ -12,7 +12,7 @@ const INACTIVITY_LIMIT = 15 * 60 * 1000;
 let state = {
         screen: 'login',
         user: null
-};
+};h
 
 // ── EXTRAI O NOME DO TEACHER A PARTIR DO E-MAIL ────────────────
 function getTeacherName(email) {
@@ -237,7 +237,6 @@ function renderPortal(app) {
       <div class="main-content">
         <div class="portal-tabs">
           <button class="portal-tab active" data-tab="materiais">📚 Materiais</button>
-          <button class="portal-tab" data-tab="ebook">📘 Ebook Starter</button>
           <button class="portal-tab" data-tab="calendario">📅 Calendário</button>
           <span class="portal-tabs-sep"></span>
           <button class="portal-tab" data-tab="livro-0">📖 Starter</button>
@@ -331,6 +330,20 @@ function renderPortal(app) {
       card.innerHTML = '<div class="icon-box">📖</div><strong style="color:#1a2b21">Book</strong>';
       card.onclick = () => openViewer(livro.titulo, livro.url);
       document.getElementById('q-livro').appendChild(card);
+      if (livroIdx === 0) {
+        const ebookTitle = document.createElement('h2');
+        ebookTitle.style.cssText = 'color:#1a2b21; font-family:serif; margin-top:24px; margin-bottom:6px;';
+        ebookTitle.textContent = 'Ebook Starter';
+        tabContent.appendChild(ebookTitle);
+        const ebookDesc = document.createElement('p');
+        ebookDesc.className = 'subtitle';
+        ebookDesc.textContent = 'Visualize o ebook interativo do Starter abaixo.';
+        tabContent.appendChild(ebookDesc);
+        const ebookIframe = document.createElement('iframe');
+        ebookIframe.src = 'ebook.html';
+        ebookIframe.style.cssText = 'width:100%;height:calc(100vh - 180px);border:none;border-radius:12px;margin-top:8px;';
+        tabContent.appendChild(ebookIframe);
+      }
     }
   }
   document.querySelectorAll('.portal-tab').forEach(btn => {
