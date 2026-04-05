@@ -284,7 +284,7 @@ function renderPortal(app) {
     if (tabName === 'materiais') {
       tabContent.innerHTML =
         '<div class="page-title-block"><div class="page-title-text"><h2>Materiais Extras</h2><p class="page-subtitle">Acesse os recursos oficiais da Nexus English Center.</p></div></div>' +
-        '<div class="quick-grid" id="q-gerais"></div>' +
+        '<div class="quick-grid" id="q-gerais"></div>';
       buildCards(linksGerais, document.getElementById('q-gerais'));
 
 
