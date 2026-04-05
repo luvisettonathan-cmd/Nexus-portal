@@ -160,45 +160,80 @@ function render() {
 
 // ── TELA DE LOGIN ───────────────────────────────────────────────
 function renderLogin(app) {
-        const wrap = document.createElement('div');
-        wrap.className = 'login-screen';
-        wrap.innerHTML = `
-            <div class="login-box">
-                  <div style="margin-bottom:20px">
-                          <img src="${NEXUS_LOGO_DATA}" alt="Nexus Logo" style="width:100%; max-width:250px; height:auto; display:block; margin:0 auto">
-                                  <p style="font-size:14px; color:#E76F51; font-weight:700; text-transform:uppercase; letter-spacing:2px; margin-top:10px; text-align:center">Chapecó - SC</p>
-                                        </div>
-                                              <p style="font-size:12px; color:#555; font-weight:600; text-transform:uppercase; letter-spacing:2px; margin-bottom:25px; text-align:center">Portal do Professor</p>
-                                                    <div id="login-err" style="display:none; color:#ff4444; margin-bottom:15px; font-size:14px; text-align:center;">E-mail ou senha incorretos</div>
-                                                          <input type="text" id="email" class="form-input" placeholder="E-mail" autocomplete="username">
-                                                                <input type="password" id="pass" class="form-input" placeholder="Senha" autocomplete="current-password">
-                                                                      <button id="btn-entrar" class="btn-full">Entrar</button>
-                                                                          </div>
-                                                                            `;
-        app.appendChild(wrap);
+  const wrap = document.createElement('div');
+  wrap.className = 'login-screen';
+  wrap.innerHTML = `
+    <div class="login-left">
+      <img src="${NEXUS_LOGO_DATA}" alt="Nexus Logo" class="login-left-logo">
+      <div class="login-left-content">
+        <h1 class="login-hero-title">Bem-vindo ao<br>Portal do Professor</h1>
+        <p class="login-hero-sub">Tudo o que você precisa para sua aula, em um só lugar.</p>
+      </div>
+      <div class="login-illustration">
+        <div class="login-illus-scene">
+          <div class="illus-monitor">
+            <div class="illus-screen">
+              <div class="illus-avatar">👤</div>
+              <div class="illus-lines">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+          <div class="illus-items">
+            <div class="illus-clock">🕒</div>
+            <div class="illus-books">📚</div>
+            <div class="illus-pencils">✏️</div>
+          </div>
+        </div>
+      </div>
+      <div class="login-city-badge">📍 Chapecó - SC</div>
+    </div>
+    <div class="login-right">
+      <div class="login-card">
+        <h2 class="login-card-title">Login</h2>
+        <div id="login-err" class="login-error-msg" style="display:none;">❌ E-mail ou senha incorretos</div>
+        <div class="login-field">
+          <label class="login-label">Email</label>
+          <div class="login-input-wrap">
+            <span class="login-input-icon">📧</span>
+            <input type="text" id="email" class="login-input" placeholder="Email" autocomplete="username">
+          </div>
+        </div>
+        <div class="login-field">
+          <label class="login-label">Senha</label>
+          <div class="login-input-wrap">
+            <span class="login-input-icon">🔒</span>
+            <input type="password" id="pass" class="login-input" placeholder="Senha" autocomplete="current-password">
+          </div>
+        </div>
+        <button id="btn-entrar" class="login-btn-entrar">Entrar</button>
+      </div>
+    </div>
+  `;
+  app.appendChild(wrap);
 
   async function doLogin() {
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('pass').value;
-            const errEl = document.getElementById('login-err');
-            errEl.style.display = 'none';
-            const { data, error } = await client.auth.signInWithPassword({ email, password });
-            if (error) {
-                        errEl.style.display = 'block';
-            } else {
-                        state.user = data.user;
-                        state.screen = 'portal';
-                        startInactivityWatch();
-                        render();
-            }
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('pass').value;
+    const errEl = document.getElementById('login-err');
+    errEl.style.display = 'none';
+    const { data, error } = await client.auth.signInWithPassword({ email, password });
+    if (error) {
+      errEl.style.display = 'block';
+    } else {
+      state.user = data.user;
+      state.screen = 'portal';
+      startInactivityWatch();
+      render();
+    }
   }
 
   document.getElementById('btn-entrar').onclick = doLogin;
-        ['email', 'pass'].forEach(id => {
-                  document.getElementById(id).addEventListener('keydown', (e) => {
-                              if (e.key === 'Enter') doLogin();
-                  });
-        });
+  ['email', 'pass'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') doLogin();
+    });
+  });
 }
 
 // ── PORTAL PRINCIPAL ─────────────────────────────────────────────────────────────
