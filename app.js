@@ -206,84 +206,72 @@ function renderPortal(app) {
   const teacherName = getTeacherName(state.user?.email);
   const main = document.createElement('div');
   main.innerHTML = `
-    <header class="header-main">
-      <div style="display:flex; align-items:center">
-        <img src="${NEXUS_LOGO_DATA}" alt="Nexus Logo" style="max-height:45px; margin-right:15px;">
-        <div>
-          <strong style="font-size:18px">Portal do Professor</strong>
-          <div style="font-size:13px; color:rgba(255,255,255,0.95); font-weight:600; letter-spacing:1.5px; margin-top:3px; text-transform:uppercase;">📍 Chapecó - SC</div>
+    <div class="portal-wrapper">
+      <div class="portal-card">
+        <nav class="sidebar">
+          <div class="sidebar-logo">
+            <img src="${NEXUS_LOGO_DATA}" alt="Nexus Logo">
+          </div>
+          <div class="sidebar-item active" data-section="materiais">
+            <span class="sidebar-icon">📂</span>
+            <span>Materiais</span>
+          </div>
+          <div class="sidebar-item disabled" data-section="treinamento">
+            <span class="sidebar-icon">🎯</span>
+            <span>Treinamento</span>
+          </div>
+          <div class="sidebar-footer"></div>
+        </nav>
+        <div class="portal-main">
+          <div class="header-main">
+            <div class="header-title">
+              <div class="header-title-icon">📋</div>
+              <h1>Portal</h1>
+            </div>
+            <div class="header-user">
+              <div class="header-avatar">
+                <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(teacherName)}&background=F4845F&color=fff&size=80" alt="avatar">
+              </div>
+              <span class="header-greeting">Olá, ${teacherName}!</span>
+              <button class="btn-sair" id="btn-sair">Sair</button>
+            </div>
+          </div>
+          <div class="portal-tabs">
+            <button class="portal-tab active" data-tab="materiais">📚 Materiais</button>
+            <button class="portal-tab" data-tab="calendario">📅 Calendário</button>
+            <span class="portal-tabs-sep"></span>
+            <button class="portal-tab" data-tab="livro-0">📖 Starter</button>
+            <button class="portal-tab" data-tab="livro-1">📖 A1</button>
+            <button class="portal-tab" data-tab="livro-2">📖 A2</button>
+            <button class="portal-tab" data-tab="livro-3">📖 B1</button>
+            <button class="portal-tab" data-tab="livro-4">📖 B2</button>
+          </div>
+          <div class="main-content" id="tab-content"></div>
         </div>
-      </div>
-      <div style="display:flex; gap:10px; align-items:center;">
-        <div style="background:rgba(255,255,255,0.2); padding:8px 20px; border-radius:30px; font-size:13px; color:white">
-          <span style="display:inline-block;width:9px;height:9px;background:#fff;border-radius:50%;margin-right:6px;vertical-align:middle;opacity:0.9;"></span>
-          Olá, Teacher ${teacherName}!
-        </div>
-        <button id="btn-sair" style="background:none; border:1px solid rgba(255,255,255,0.5); color:white; border-radius:20px; padding:7px 16px; cursor:pointer; font-size:12px; font-weight:600; letter-spacing:0.5px;">Sair</button>
-      </div>
-    </header>
-    <div class="portal-body">
-      <nav class="sidebar">
-        <div class="sidebar-item active" data-section="materiais">
-          <span class="sidebar-icon">🗂️</span>
-          <span>Materiais</span>
-        </div>
-        <div class="sidebar-item disabled" data-section="treinamento">
-          <span class="sidebar-icon">🎓</span>
-          <span>Treinamento</span>
-        </div>
-        <div class="sidebar-footer"></div>
-      </nav>
-      <div class="main-content">
-        <div class="portal-tabs">
-          <button class="portal-tab active" data-tab="materiais">📚 Materiais</button>
-          <button class="portal-tab" data-tab="calendario">📅 Calendário</button>
-          <span class="portal-tabs-sep"></span>
-          <button class="portal-tab" data-tab="livro-0">📖 Starter</button>
-          <button class="portal-tab" data-tab="livro-1">📖 A1</button>
-          <button class="portal-tab" data-tab="livro-2">📖 A2</button>
-          <button class="portal-tab" data-tab="livro-3">📖 B1</button>
-          <button class="portal-tab" data-tab="livro-4">📖 B2</button>
-        </div>
-        <div class="container" id="tab-content"></div>
       </div>
     </div>
   `;
+  app.innerHTML = '';
   app.appendChild(main);
 
-  document.getElementById('btn-sair').onclick = async () => {
-    stopInactivityWatch();
-    await client.auth.signOut();
-    state.screen = 'login';
-    render();
-  };
-
   const linksGerais = [
-        { t: 'Áudios dos Livros',      i: '🎧', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o' },
-    { t: 'Extra Activities',       i: '🎯', url: 'https://drive.google.com/drive/folders/1uz3ATitZpIJM7S_-ve_w6XmqOosmqPvX?usp=sharing' },
-    { t: 'Material para Aulas',    i: '📂', url: 'https://drive.google.com/drive/folders/1B3HnQl6Zz8aTj2oi_BwAY7n2jEPV5AHU?usp=drive_link' },
-    { t: 'Conversations 2026',     i: '💬', url: 'https://drive.google.com/drive/folders/1ghnIw2A-CCRo_QgXcO1cE39V-8lfop_w?usp=sharing' },
-    { t: 'Guias Starter',          i: '📋', url: 'https://docs.google.com/document/d/1s59KaF69-tCAQdg_abUbMjdNVDnhVJ0SDfO5L56n7h0/edit?usp=drive_link' },
-    { t: 'Transcripts Listenings', i: '📝', viewer: true, url: 'https://docs.google.com/document/d/15KSATfziQzmvirEy8sKnWgB4TZr3xwRDmXWMLLFTYJE/edit?usp=sharing' }
+      { t: 'Áudios dos Livros', i: '🎧', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o' },
+      { t: 'Extra Activities',  i: '📝', url: 'https://drive.google.com/drive/folders/1uz3ATitZpIJM7S_-ve_w6Xmf' },
+      { t: 'Certificates',      i: '🏆', url: 'https://drive.google.com/drive/folders/1G9JnTl3CaFaE_Y0jqHYVQfT' },
   ];
   const linksB2 = [
-    { t: 'B2 Scripts',   i: '📜', url: 'https://drive.google.com/drive/folders/1yoRbzOyUKuuP-_KQZRZmBigmTh5v6YkX?usp=drive_link' },
-    { t: 'Listening B2', i: '🎵', url: 'https://drive.google.com/drive/folders/1JTeOIlIY5wgdGLkuERuj-l2EqNwQNfpA?usp=drive_link' }
+      { t: 'Áudios B2', i: '🎧', url: 'https://youtube.com/playlist?list=PL34IdbZXxdZqsOg8M3JHxb1DF2t9ItLK_' },
   ];
   const linksSuporte = [
-    { t: 'Erros e Sugestões', i: '⚠️', url: 'https://docs.google.com/document/d/1C6qYZzcHAA15j0oZzbAb07QF-Gbad6s2ScB8fwAAaFk/edit?tab=t.v471pfad98x' }
+      { t: 'Suporte WhatsApp', i: '💬', url: 'https://wa.me/554788061119' },
   ];
 
   function buildCards(links, container) {
     links.forEach(link => {
       const card = document.createElement('div');
       card.className = 'card-base';
-      card.innerHTML = '<div class="icon-box">' + link.i + '</div><strong style="color:#1a2b21 !important">' + link.t + '</strong>';
-      card.onclick = () => {
-        if (link.viewer === 'books') { openBooksModal(); }
-        else if (link.viewer === true) { openViewer(link.t, link.url); }
-        else { window.open(link.url, '_blank'); }
-      };
+      card.innerHTML = '<div class="icon-box">' + link.i + '</div><strong style="color:#1a2b21">' + link.t + '</strong>';
+      card.onclick = () => { window.open(link.url, '_blank'); };
       container.appendChild(card);
     });
   }
@@ -294,63 +282,81 @@ function renderPortal(app) {
     document.querySelectorAll('.portal-tab').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.tab === tabName);
     });
+    tabContent.innerHTML = '';
 
     if (tabName === 'materiais') {
       tabContent.innerHTML =
-        '<h1 style="color:#1a2b21; font-family:serif; margin-bottom:5px;">Materiais Extras</h1>' +
-        '<p class="subtitle">Acesse os recursos oficiais da Nexus English Center.</p>' +
-        '<div class="section-title">Materiais Gerais</div><div class="quick-grid" id="q-gerais"></div>' +
-        '<div class="section-title">Nível B2</div><div class="quick-grid" id="q-b2"></div>' +
-        '<div class="section-title">Suporte</div><div class="quick-grid" id="q-suporte"></div>';
+        '<div class="page-title-block"><div class="page-title-text"><h2>Materiais Extras</h2><p class="page-subtitle">Acesse os recursos oficiais da Nexus English Center.</p></div></div>' +
+        '<div class="quick-grid" id="q-gerais"></div>' +
+        '<p class="section-title">B2</p><div class="quick-grid" id="q-b2"></div>' +
+        '<p class="section-title">Suporte</p><div class="quick-grid" id="q-suporte"></div>';
       buildCards(linksGerais, document.getElementById('q-gerais'));
       buildCards(linksB2, document.getElementById('q-b2'));
       buildCards(linksSuporte, document.getElementById('q-suporte'));
 
     } else if (tabName === 'ebook') {
-      tabContent.innerHTML = '';
       const iframe = document.createElement('iframe');
       iframe.src = 'ebook.html';
-      iframe.style.cssText = 'width:100%;height:calc(100vh - 180px);border:none;border-radius:12px;';
+      iframe.style.cssText = 'width:100%;height:calc(100vh - 200px);border:none;border-radius:12px;';
       tabContent.appendChild(iframe);
 
     } else if (tabName === 'calendario') {
-      tabContent.innerHTML = '';
       renderCalendar(tabContent);
 
     } else if (tabName.startsWith('livro-')) {
       const livroIdx = parseInt(tabName.split('-')[1]);
       const livro = LIVROS_2026[livroIdx];
       if (!livro) return;
+      const levelNames = ['Starter','A1','A2','B1','B2'];
       tabContent.innerHTML =
-        '<h1 style="color:#1a2b21; font-family:serif; margin-bottom:5px;">' + livro.titulo + '</h1>' +
-        '<p class="subtitle">Clique no card abaixo para abrir o livro em PDF.</p>' +
+        '<div class="page-title-block">' +
+          '<div class="page-title-text">' +
+            '<h2>Materiais – ' + livro.titulo + '</h2>' +
+            '<p class="page-subtitle">Acesse livros, transcritos e conteúdos extras</p>' +
+          '</div>' +
+          '<div class="level-tabs" id="level-pills">' +
+            LIVROS_2026.map((l,i) =>
+              '<button class="level-tab' + (i===livroIdx?' active':'') + '" data-livro="' + i + '">' + (levelNames[i]||l.titulo) + '</button>'
+            ).join('') +
+          '</div>' +
+        '</div>' +
         '<div class="quick-grid" id="q-livro"></div>';
       const card = document.createElement('div');
       card.className = 'card-base';
-      card.innerHTML = '<div class="icon-box">📖</div><strong style="color:#1a2b21">Book</strong>';
+      card.innerHTML = '<div class="icon-box">📖</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">Student Book</strong><span style="color:#888;font-size:13px;">' + livro.titulo + '</span></div>';
       card.onclick = () => openViewer(livro.titulo, livro.url);
       document.getElementById('q-livro').appendChild(card);
       if (livroIdx === 0) {
         const ebookCard = document.createElement('div');
         ebookCard.className = 'card-base';
-        ebookCard.innerHTML = '<div class=\"icon-box\">📘</div><strong style=\"color:#1a2b21\">Ebook</strong>';
+        ebookCard.innerHTML = '<div class="icon-box">📘</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">Ebook</strong><span style="color:#888;font-size:13px;">Starter</span></div>';
         ebookCard.onclick = () => openEbookModal();
         document.getElementById('q-livro').appendChild(ebookCard);
       }
+      document.querySelectorAll('.level-tab').forEach(btn => {
+        btn.addEventListener('click', () => showTab('livro-' + btn.dataset.livro));
+      });
     }
   }
+
   document.querySelectorAll('.portal-tab').forEach(btn => {
     btn.addEventListener('click', () => showTab(btn.dataset.tab));
   });
 
-  const materiaisSidebarItem = document.querySelector('[data-section="materiais"]');
-  if (materiaisSidebarItem) {
-    materiaisSidebarItem.addEventListener('click', () => {
+  const matItem = document.querySelector('[data-section="materiais"]');
+  if (matItem) {
+    matItem.addEventListener('click', () => {
       document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-      materiaisSidebarItem.classList.add('active');
+      matItem.classList.add('active');
       showTab('materiais');
     });
   }
+
+  document.getElementById('btn-sair').onclick = async () => {
+    await client.auth.signOut();
+    state.screen = 'login';
+    render();
+  };
 
   showTab('materiais');
 }
