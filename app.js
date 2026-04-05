@@ -263,9 +263,6 @@ function renderPortal(app) {
       { t: 'Material para Aulas',         i: '📂', url: 'https://drive.google.com/drive/folders/1B3HnQl6Zz8aTj2oi_BwAY7n2jEPV5AHU?usp=drive_link' },
       { t: 'Transcript dos Listenings',   i: '📝', url: 'https://docs.google.com/document/d/15KSATfziQzmvirEy8sKnWgB4TZr3xwRDmXWMLLFTYJE/edit?usp=sharing' },
   ];
-  const linksB2 = [
-      { t: 'Áudios B2', i: '🎧', url: 'https://youtube.com/playlist?list=PL34IdbZXxdZqsOg8M3JHxb1DF2t9ItLK_' },
-  ];
   function buildCards(links, container) {
     links.forEach(link => {
       const card = document.createElement('div');
@@ -288,9 +285,7 @@ function renderPortal(app) {
       tabContent.innerHTML =
         '<div class="page-title-block"><div class="page-title-text"><h2>Materiais Extras</h2><p class="page-subtitle">Acesse os recursos oficiais da Nexus English Center.</p></div></div>' +
         '<div class="quick-grid" id="q-gerais"></div>' +
-        '<p class="section-title">B2</p><div class="quick-grid" id="q-b2"></div>';
       buildCards(linksGerais, document.getElementById('q-gerais'));
-      buildCards(linksB2, document.getElementById('q-b2'));
 
 
     } else if (tabName === 'ebook') {
