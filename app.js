@@ -260,6 +260,8 @@ function renderPortal(app) {
   const linksGerais = [
       { t: 'Áudios dos Livros', i: '🎧', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o' },
       { t: 'Extra Activities',  i: '📝', url: 'https://drive.google.com/drive/folders/1uz3ATitZpIJM7S_-ve_w6Xmf' },
+      { t: 'Material para Aulas',         i: '📂', url: 'https://drive.google.com/drive/folders/1B3HnQl6Zz8aTj2oi_BwAY7n2jEPV5AHU?usp=drive_link' },
+      { t: 'Transcript dos Listenings',   i: '📝', url: 'https://docs.google.com/document/d/15KSATfziQzmvirEy8sKnWgB4TZr3xwRDmXWMLLFTYJE/edit?usp=sharing' },
   ];
   const linksB2 = [
       { t: 'Áudios B2', i: '🎧', url: 'https://youtube.com/playlist?list=PL34IdbZXxdZqsOg8M3JHxb1DF2t9ItLK_' },
@@ -329,7 +331,23 @@ function renderPortal(app) {
         ebookCard.innerHTML = '<div class="icon-box">📘</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">Ebook</strong><span style="color:#888;font-size:13px;">Starter</span></div>';
         ebookCard.onclick = () => openEbookModal();
         document.getElementById('q-livro').appendChild(ebookCard);
+              const guiasCard = document.createElement('div');
+        guiasCard.className = 'card-base';
+        guiasCard.innerHTML = '<div class="icon-box">📋</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">Guias Starter</strong></div>';
+        guiasCard.onclick = () => openViewer('Guias Starter', 'https://docs.google.com/document/d/1s59KaF69-tCAQdg_abUbMjdNVDnhVJ0SDfO5L56n7h0/edit?usp=drive_link');
+        document.getElementById('q-livro').appendChild(guiasCard);
       }
+      if (livroIdx === 4) {
+        const b2ScriptsCard = document.createElement('div');
+        b2ScriptsCard.className = 'card-base';
+        b2ScriptsCard.innerHTML = '<div class="icon-box">📜</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">B2 Scripts</strong></div>';
+        b2ScriptsCard.onclick = () => { window.open('https://drive.google.com/drive/folders/1yoRbzOyUKuuP-_KQZRZmBigmTh5v6YkX?usp=drive_link', '_blank'); };
+        document.getElementById('q-livro').appendChild(b2ScriptsCard);
+        const listeningB2Card = document.createElement('div');
+        listeningB2Card.className = 'card-base';
+        listeningB2Card.innerHTML = '<div class="icon-box">🎵</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">Listening B2</strong></div>';
+        listeningB2Card.onclick = () => { window.open('https://drive.google.com/drive/folders/1JTeOIlIY5wgdGLkuERuj-l2EqNwQNfpA?usp=drive_link', '_blank'); };
+        document.getElementById('q-livro').appendChild(listeningB2Card);}
       document.querySelectorAll('.level-tab').forEach(btn => {
         btn.addEventListener('click', () => showTab('livro-' + btn.dataset.livro));
       });
