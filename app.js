@@ -220,13 +220,17 @@ function renderPortal(app) {
             <span class="sidebar-icon">🎯</span>
             <span>Treinamento</span>
           </div>
+          <div class="sidebar-item" data-section="calendario">
+            <span class="sidebar-icon">📅</span>
+            <span>Calendário</span>
+          </div>
           <div class="sidebar-footer"></div>
         </nav>
         <div class="portal-main">
           <div class="header-main">
             <div class="header-title">
               <div class="header-title-icon">📋</div>
-              <h1>Portal</h1>
+              <h1>📍 Chapecó</h1>
             </div>
             <div class="header-user">
               <div class="header-avatar">
@@ -238,7 +242,6 @@ function renderPortal(app) {
           </div>
           <div class="portal-tabs">
             <button class="portal-tab active" data-tab="materiais">📚 Materiais</button>
-            <button class="portal-tab" data-tab="calendario">📅 Calendário</button>
             <span class="portal-tabs-sep"></span>
             <button class="portal-tab" data-tab="livro-0">📖 Starter</button>
             <button class="portal-tab" data-tab="livro-1">📖 A1</button>
@@ -352,7 +355,16 @@ function renderPortal(app) {
     });
   }
 
-  document.getElementById('btn-sair').onclick = async () => {
+  const calItem = document.querySelector('[data-section="calendario"]');
+  if (calItem) {
+    calItem.addEventListener('click', () => {
+      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      calItem.classList.add('active');
+      showTab('calendario');
+    });
+  }
+
+    document.getElementById('btn-sair').onclick = async () => {
     await client.auth.signOut();
     state.screen = 'login';
     render();
