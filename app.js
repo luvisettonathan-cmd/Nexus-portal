@@ -288,7 +288,7 @@ function renderPortal(app) {
       tabContent.innerHTML =
         '<div class="page-title-block"><div class="page-title-text"><h2>Materiais Extras</h2><p class="page-subtitle">Acesse os recursos oficiais da Nexus English Center.</p></div></div>' +
         '<div class="quick-grid" id="q-gerais"></div>' +
-        '<p class="section-title">B2</p><div class="quick-grid" id="q-b2"></div>' +
+        '<p class="section-title">B2</p><div class="quick-grid" id="q-b2"></div>';
       buildCards(linksGerais, document.getElementById('q-gerais'));
       buildCards(linksB2, document.getElementById('q-b2'));
 
