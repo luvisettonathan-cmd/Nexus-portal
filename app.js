@@ -260,15 +260,10 @@ function renderPortal(app) {
   const linksGerais = [
       { t: 'Áudios dos Livros', i: '🎧', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o' },
       { t: 'Extra Activities',  i: '📝', url: 'https://drive.google.com/drive/folders/1uz3ATitZpIJM7S_-ve_w6Xmf' },
-      { t: 'Certificates',      i: '🏆', url: 'https://drive.google.com/drive/folders/1G9JnTl3CaFaE_Y0jqHYVQfT' },
   ];
   const linksB2 = [
       { t: 'Áudios B2', i: '🎧', url: 'https://youtube.com/playlist?list=PL34IdbZXxdZqsOg8M3JHxb1DF2t9ItLK_' },
   ];
-  const linksSuporte = [
-      { t: 'Suporte WhatsApp', i: '💬', url: 'https://wa.me/554788061119' },
-  ];
-
   function buildCards(links, container) {
     links.forEach(link => {
       const card = document.createElement('div');
@@ -292,10 +287,9 @@ function renderPortal(app) {
         '<div class="page-title-block"><div class="page-title-text"><h2>Materiais Extras</h2><p class="page-subtitle">Acesse os recursos oficiais da Nexus English Center.</p></div></div>' +
         '<div class="quick-grid" id="q-gerais"></div>' +
         '<p class="section-title">B2</p><div class="quick-grid" id="q-b2"></div>' +
-        '<p class="section-title">Suporte</p><div class="quick-grid" id="q-suporte"></div>';
       buildCards(linksGerais, document.getElementById('q-gerais'));
       buildCards(linksB2, document.getElementById('q-b2'));
-      buildCards(linksSuporte, document.getElementById('q-suporte'));
+
 
     } else if (tabName === 'ebook') {
       const iframe = document.createElement('iframe');
