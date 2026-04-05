@@ -8,7 +8,7 @@
   --orange-hover: #e5714a;
   --bg: #f5f0eb;
   --white: #ffffff;
-  --sidebar-w: 220px;
+  --sidebar-w: 190px;
   --text: #1a1a1a;
   --muted: #888888;
   --radius: 18px;
@@ -30,18 +30,18 @@ body, html {
   background: var(--bg);
   display: flex;
   align-items: stretch;
-  padding: 24px;
+  padding: 16px;
   gap: 0;
 }
 
 .portal-card {
   background: var(--white);
-  border-radius: 28px;
+  border-radius: 20px;
   box-shadow: 0 4px 40px rgba(0,0,0,0.08);
   width: 100%;
   display: flex;
   overflow: hidden;
-  min-height: calc(100vh - 48px);
+  min-height: calc(100vh - 32px);
 }
 
 /* ── SIDEBAR ─────────────────────────────────────────── */
@@ -50,7 +50,7 @@ body, html {
   background: var(--white);
   display: flex;
   flex-direction: column;
-  padding: 32px 16px;
+  padding: 24px 12px;
   gap: 6px;
   border-right: 1px solid #f0ece8;
   flex-shrink: 0;
@@ -60,11 +60,11 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 
 .sidebar-logo img {
-  height: 52px;
+  height: 40px;
   object-fit: contain;
 }
 
@@ -115,7 +115,7 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 32px;
+  padding: 14px 24px;
   border-bottom: 1px solid #f0ece8;
   background: var(--white);
 }
@@ -130,12 +130,12 @@ body, html {
   background: var(--orange-light);
   border-radius: 10px;
   padding: 8px 10px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
 }
 
 .header-title h1 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text);
 }
@@ -179,7 +179,7 @@ body, html {
 /* ── CONTENT AREA ────────────────────────────────────── */
 .main-content {
   flex: 1;
-  padding: 32px;
+  padding: 22px;
   overflow-y: auto;
 }
 
@@ -194,7 +194,7 @@ body, html {
 }
 
 .page-title-text h2 {
-  font-size: 30px;
+  font-size: 22px;
   font-weight: 800;
   color: var(--text);
   line-height: 1.2;
@@ -248,10 +248,10 @@ body, html {
   background: var(--white);
   border-radius: 18px;
   border: 1.5px solid #efe9e3;
-  padding: 28px 24px;
+  padding: 18px 16px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 14px;
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
@@ -269,18 +269,18 @@ body, html {
 }
 
 .card-icon {
-  width: 72px;
-  height: 72px;
+  width: 56px;
+  height: 56px;
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 42px;
+  font-size: 32px;
   flex-shrink: 0;
 }
 
 .card-info h3 {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 4px;
@@ -297,7 +297,7 @@ body, html {
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 12px 32px;
+  padding: 8px 20px;
   border-bottom: 1px solid #f0ece8;
   background: var(--white);
   overflow-x: auto;
@@ -336,7 +336,7 @@ body, html {
 
 /* ── MATERIAIS PAGE ──────────────────────────────────── */
 .materiais-page {
-  padding: 32px;
+  padding: 22px;
 }
 
 /* ── QUICK GRID (used in book tabs) ─────────────────── */
@@ -351,14 +351,14 @@ body, html {
   background: var(--white);
   border: 1.5px solid #efe9e3;
   border-radius: 18px;
-  padding: 28px 24px;
+  padding: 18px 16px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 14px;
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text);
 }
@@ -370,13 +370,13 @@ body, html {
 }
 
 .icon-box {
-  width: 72px;
-  height: 72px;
+  width: 56px;
+  height: 56px;
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 42px;
+  font-size: 32px;
   flex-shrink: 0;
 }
 
@@ -394,7 +394,7 @@ body, html {
 }
 
 .calendar-header h2 {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text);
 }
@@ -449,7 +449,7 @@ body, html {
 }
 
 .cal-day {
-  min-height: 72px;
+  min-height: 60px;
   border-radius: 10px;
   padding: 8px;
   background: white;
@@ -659,3 +659,24 @@ body, html {
   .level-tabs { flex-wrap: wrap; }
   .page-title-block { flex-direction: column; }
 }
+
+
+/* ── COMPACT SIZE OVERRIDES ─────────────────────────── */
+:root { --sidebar-w: 190px; }
+.portal-wrapper { padding: 16px; }
+.portal-card { border-radius: 20px; min-height: calc(100vh - 32px); }
+.sidebar { padding: 24px 12px; }
+.sidebar-logo { margin-bottom: 20px; }
+.sidebar-logo img { height: 40px; }
+.header-main { padding: 14px 24px; }
+.header-title-icon { font-size: 16px; padding: 6px 8px; }
+.header-title h1 { font-size: 16px; }
+.main-content { padding: 22px; }
+.page-title-text h2 { font-size: 22px; }
+.card-item { padding: 18px 16px; gap: 14px; }
+.card-icon { width: 56px; height: 56px; font-size: 32px; }
+.card-info h3 { font-size: 15px; }
+.portal-tabs { padding: 8px 20px; }
+.materiais-page { padding: 22px; }
+.card-base { padding: 18px 16px; gap: 14px; font-size: 14px; }
+.icon-box { width: 56px; height: 56px; font-size: 32px; }
