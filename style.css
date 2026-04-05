@@ -673,10 +673,14 @@ body, html {
 .header-title h1 { font-size: 16px; }
 .main-content { padding: 22px; }
 .page-title-text h2 { font-size: 22px; }
-.card-item { padding: 18px 16px; gap: 14px; }
-.card-icon { width: 56px; height: 56px; font-size: 32px; }
+.card-item { padding: 10px 12px; gap: 10px; }
+.card-icon { width: 44px; height: 44px; font-size: 24px; }
 .card-info h3 { font-size: 15px; }
 .portal-tabs { padding: 8px 20px; }
 .materiais-page { padding: 22px; }
-.card-base { padding: 18px 16px; gap: 14px; font-size: 14px; }
-.icon-box { width: 56px; height: 56px; font-size: 32px; }
+.card-base { padding: 10px 12px; gap: 10px; font-size: 13px; }
+.icon-box { width: 44px; height: 44px; font-size: 24px; }
+.quick-grid { gap: 8px; margin-top: 12px; }
+.cards-grid { gap: 8px; }
+.page-title-block { margin-bottom: 12px; }
+.section-title { margin: 12px 0 6px; }
