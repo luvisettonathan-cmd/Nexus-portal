@@ -294,7 +294,7 @@ function renderPortal(app) {
 
   const linksGerais = [
       { t: 'Áudios dos Livros', i: '🎧', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o' },
-      { t: 'Extra Activities',  i: '📝', url: 'https://drive.google.com/drive/folders/1uz3ATitZpIJM7S_-ve_w6Xmf' },
+      { t: 'Extra Activities',  i: '📝', url: 'https://drive.google.com/drive/folders/1uz3ATitZpIJM7S_-ve_w6XmqOosmqPvX' },
       { t: 'Material para Aulas',         i: '📂', url: 'https://drive.google.com/drive/folders/1B3HnQl6Zz8aTj2oi_BwAY7n2jEPV5AHU?usp=drive_link' },
       { t: 'Transcript dos Listenings',   i: '📝', url: 'https://docs.google.com/document/d/15KSATfziQzmvirEy8sKnWgB4TZr3xwRDmXWMLLFTYJE/edit?usp=sharing' },
   ];
