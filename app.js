@@ -141,22 +141,27 @@ function openBooksModal() {
 
 // ── INICIALIZAÇÃO ───────────────────────────────────────────────
 async function checkUser() {
-        let { data: { session } } = await client.auth.getSession();
+    try {
+        const { data: { session } } = await client.auth.getSession();
         const lastActivity = localStorage.getItem('nexus_last_activity');
-        const elapsed = lastActivity ? Date.now() - parseInt(lastActivity) : null;
-        if (session && elapsed !== null && elapsed > INACTIVITY_LIMIT) {
+        const elapsed = lastActivity ? (Date.now() - parseInt(lastActivity, 10)) : null;
+        const isExpired = session && elapsed !== null && elapsed > INACTIVITY_LIMIT;
+        if (isExpired) {
             await client.auth.signOut();
             localStorage.removeItem('nexus_last_activity');
-            session = null;
-        }
-        if (session) {
-                  state.user = session.user;
-                  state.screen = 'portal';
-                  startInactivityWatch();
+            state.screen = 'login';
+        } else if (session) {
+            state.user = session.user;
+            state.screen = 'portal';
+            startInactivityWatch();
         } else {
-                  state.screen = 'login';
+            state.screen = 'login';
         }
-        render();
+    } catch (e) {
+        console.error('checkUser error:', e);
+        state.screen = 'login';
+    }
+    render();
 }
 
 function render() {
