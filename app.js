@@ -12,7 +12,7 @@ const INACTIVITY_LIMIT = 15 * 60 * 1000;
 let state = {
         screen: 'login',
         user: null
-};
+};h
 
 // ── EXTRAI O NOME DO TEACHER A PARTIR DO E-MAIL ────────────────
 function getTeacherName(email) {
@@ -26,6 +26,7 @@ function getTeacherName(email) {
 let inactivityTimer = null;
 function resetInactivityTimer() {
         clearTimeout(inactivityTimer);
+        localStorage.setItem('nexus_last_activity', Date.now().toString());
         inactivityTimer = setTimeout(async () => {
                   await client.auth.signOut();
                   state.user = null;
@@ -40,6 +41,7 @@ function startInactivityWatch() {
 }
 function stopInactivityWatch() {
         clearTimeout(inactivityTimer);
+        localStorage.removeItem('nexus_last_activity');
         const events = ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart', 'click'];
         events.forEach(evt => window.removeEventListener(evt, resetInactivityTimer));
 }
@@ -139,7 +141,14 @@ function openBooksModal() {
 
 // ── INICIALIZAÇÃO ───────────────────────────────────────────────
 async function checkUser() {
-        const { data: { session } } = await client.auth.getSession();
+        let { data: { session } } = await client.auth.getSession();
+        const lastActivity = localStorage.getItem('nexus_last_activity');
+        const elapsed = lastActivity ? Date.now() - parseInt(lastActivity) : null;
+        if (session && elapsed !== null && elapsed > INACTIVITY_LIMIT) {
+            await client.auth.signOut();
+            localStorage.removeItem('nexus_last_activity');
+            session = null;
+        }
         if (session) {
                   state.user = session.user;
                   state.screen = 'portal';
@@ -409,6 +418,7 @@ function renderPortal(app) {
     document.getElementById('btn-sair').onclick = async () => {
     await client.auth.signOut();
     state.screen = 'login';
+    localStorage.removeItem('nexus_last_activity');
     render();
   };
 
