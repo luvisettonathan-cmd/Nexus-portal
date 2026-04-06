@@ -12,7 +12,7 @@ const INACTIVITY_LIMIT = 15 * 60 * 1000;
 let state = {
         screen: 'login',
         user: null
-};h
+};
 
 // ── EXTRAI O NOME DO TEACHER A PARTIR DO E-MAIL ────────────────
 function getTeacherName(email) {
