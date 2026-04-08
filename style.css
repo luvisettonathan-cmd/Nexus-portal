@@ -93,6 +93,12 @@ body, html {
   font-weight: 600;
 }
 
+.sidebar-item.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .sidebar-item .sidebar-icon {
   font-size: 18px;
   flex-shrink: 0;
