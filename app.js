@@ -69,23 +69,27 @@ function getEmbedUrl(url) {
 function openViewer(title, url) {
         const old = document.getElementById('pdf-modal-overlay');
         if (old) old.remove();
-
-  const embedUrl = getEmbedUrl(url);
-
-  const overlay = document.createElement('div');
+        const embedUrl = getEmbedUrl(url);
+        const teacherName = getTeacherName(state.user?.email);
+        const userEmail = state.user?.email || '';
+        const overlay = document.createElement('div');
         overlay.id = 'pdf-modal-overlay';
         overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);display:flex;flex-direction:column;align-items:center;justify-content:center;';
-
-  overlay.innerHTML =
-            '<div style="background:#1a2b21;border-radius:12px;width:92vw;height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);">' +
-              '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#243b2f;border-bottom:1px solid rgba(255,255,255,0.1);">' +
+        overlay.innerHTML =
+                '<div style="background:#1a2b21;border-radius:12px;width:92vw;height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);">' +
+                '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#243b2f;border-bottom:1px solid rgba(255,255,255,0.1);">' +
+                '<div style="display:flex;align-items:center;gap:12px;">' +
                 '<span style="color:white;font-weight:700;font-size:15px;">📖 ' + title + '</span>' +
+                '<span style="background:rgba(244,132,95,0.25);color:#F4845F;border:1px solid rgba(244,132,95,0.4);border-radius:20px;padding:3px 12px;font-size:12px;font-weight:600;">👤 ' + teacherName + '</span>' +
+                '</div>' +
                 '<button id="close-pdf-modal" style="background:rgba(255,255,255,0.15);border:none;color:white;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600;">✕ Fechar</button>' +
-              '</div>' +
-              '<iframe src="' + embedUrl + '" style="flex:1;border:none;width:100%;background:#fff;" allow="autoplay" loading="lazy"></iframe>' +
-            '</div>';
-
-  document.body.appendChild(overlay);
+                '</div>' +
+                '<iframe src="' + embedUrl + '" style="flex:1;border:none;width:100%;background:#fff;" allow="autoplay" loading="lazy"></iframe>' +
+                '<div style="padding:6px 16px;background:#1a2b21;border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:flex-end;">' +
+                '<span style="color:rgba(255,255,255,0.35);font-size:11px;">Nexus English Center · ' + userEmail + '</span>' +
+                '</div>' +
+                '</div>';
+        document.body.appendChild(overlay);
         document.getElementById('close-pdf-modal').onclick = () => overlay.remove();
         overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
 }
@@ -317,7 +321,7 @@ function renderPortal(app) {
       const card = document.createElement('div');
       card.className = 'card-base';
       card.innerHTML = '<div class="icon-box">' + link.i + '</div><strong style="color:#1a2b21">' + link.t + '</strong>';
-      card.onclick = () => { window.open(link.url, '_blank'); };
+      card.onclick = () => { if (link.t === 'Transcript dos Listenings') { openViewer(link.t, link.url); } else { window.open(link.url, '_blank'); } };
       container.appendChild(card);
     });
   }
