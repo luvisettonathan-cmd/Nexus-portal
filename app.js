@@ -535,7 +535,7 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
 
     <!-- SEMANA 2 -->
     </div>
-          <div id="w2" class="train-content nx"><div id="w2" style="display:none">
+          <div id="w2" class="train-content nx"><div id="w2">
       <div class="nx-week-title">SEMANA 2 — IMERSÃO E OBSERVAÃÃO</div>
       <div class="nx-week-sub">ObservaÃ§Ã£o de aulas reais e gravadas. Quizes de aplicaÃ§Ã£o.</div>
       <div class="nx-days">
@@ -613,7 +613,7 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
 
     <!-- SEMANA 3 -->
     </div>
-          <div id="w3" class="train-content nx"><div id="w3" style="display:none">
+          <div id="w3" class="train-content nx"><div id="w3">
       <div class="nx-week-title">SEMANA 3 — PRÃTICA SUPERVISIONADA</div>
       <div class="nx-week-sub">Mocks e aulas reais. O professor consulta o acervo quando precisar.</div>
       <div class="nx-days">
