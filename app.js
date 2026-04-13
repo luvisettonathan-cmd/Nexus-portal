@@ -135,7 +135,7 @@ function openBooksModal() {
   });
 }
 
-// ── INICIALIZAÃÃO ───────────────────────────────────────────────
+// ── INICIALIZAÇÃO ───────────────────────────────────────────────
 async function checkUser() {
     try {
         const { data: { session } } = await client.auth.getSession();
@@ -267,7 +267,7 @@ function renderPortal(app) {
           </div>
           <div class="sidebar-item" data-section="calendario">
             <span class="sidebar-icon">📅</span>
-            <span>CalendÃ¡rio</span>
+            <span>Calendário</span>
           </div>
           <div class="sidebar-footer"></div>
         </nav>
@@ -275,13 +275,13 @@ function renderPortal(app) {
           <div class="header-main">
             <div class="header-title">
               <div class="header-title-icon">📋</div>
-              <h1>📍 ChapecÃ³</h1>
+              <h1>📍 Chapecó</h1>
             </div>
             <div class="header-user">
               <div class="header-avatar">
                 <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(teacherName)}&background=F4845F&color=fff&size=80" alt="avatar">
               </div>
-              <span class="header-greeting">OlÃ¡, ${teacherName}!</span>
+              <span class="header-greeting">Olá, ${teacherName}!</span>
               <button class="btn-sair" id="btn-sair">Sair</button>
             </div>
           </div>
@@ -303,7 +303,7 @@ function renderPortal(app) {
   app.appendChild(main);
 
   const linksGerais = [
-      { t: 'Ãudios dos Livros', i: '🎧', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o' },
+      { t: 'Áudios dos Livros', i: '🎧', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o' },
       { t: 'Extra Activities',  i: '📝', url: 'https://drive.google.com/drive/folders/1uz3ATitZpIJM7S_-ve_w6XmqOosmqPvX' },
       { t: 'Material para Aulas',         i: '📂', url: 'https://drive.google.com/drive/folders/1B3HnQl6Zz8aTj2oi_BwAY7n2jEPV5AHU?usp=drive_link' },
       { t: 'Transcript dos Listenings',   i: '📝', url: 'https://docs.google.com/document/d/15KSATfziQzmvirEy8sKnWgB4TZr3xwRDmXWMLLFTYJE/edit?usp=sharing' },
@@ -351,7 +351,7 @@ function renderPortal(app) {
         '<div class="page-title-block">' +
           '<div class="page-title-text">' +
             '<h2>Materiais – ' + livro.titulo + '</h2>' +
-            '<p class="page-subtitle">Acesse livros, transcritos e conteÃºdos extras</p>' +
+            '<p class="page-subtitle">Acesse livros, transcritos e conteúdos extras</p>' +
           '</div>' +
           '<div class="level-tabs" id="level-pills">' +
             LIVROS_2026.map((l,i) =>
@@ -457,8 +457,8 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <button class="train-tab" data-week="w3">SEMANA 3 — Prática</button>
           </div>
           <div id="w1" class="train-content active nx"><div id="w1">
-      <div class="nx-week-title">SEMANA 1 — INTEGRAÃÃO E CONHECIMENTO GERAL</div>
-      <div class="nx-week-sub">Teoria, sistema e materiais. VÃ­deos introdutÃ³rios + quizes de compreensÃ£o.</div>
+      <div class="nx-week-title">SEMANA 1 — INTEGRAÇÃO E CONHECIMENTO GERAL</div>
+      <div class="nx-week-sub">Teoria, sistema e materiais. Vídeos introdutórios + quizes de compreensão.</div>
       <div class="nx-days">
 
         <div class="nx-day has-quiz">
@@ -469,9 +469,9 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Bem-vindo Ã  Nexus</strong> — cultura, valores, expectativas e rotina<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Tour pelo portal</strong> — navegaÃ§Ã£o, student records e materiais<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>ReuniÃ£o de boas-vindas</strong> com coordenador — apresentaÃ§Ã£o da equipe e da unidade<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Bem-vindo à Nexus</strong> — cultura, valores, expectativas e rotina<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Tour pelo portal</strong> — navegação, student records e materiais<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Reunião de boas-vindas</strong> com coordenador — apresentação da equipe e da unidade<span class="nx-tag tg-live">ao vivo</span></div></div>
           </div>
         </div>
 
@@ -484,7 +484,7 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
           </div>
           <div class="nx-day-body">
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Starter — objetivo e lesson steps</strong> — vocabulary, repetition, guided practice<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: A1 — objetivo e lesson steps</strong> — gramÃ¡tica estruturada, 3 skills, phrasal verbs<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: A1 — objetivo e lesson steps</strong> — gramática estruturada, 3 skills, phrasal verbs<span class="nx-tag tg-portal">portal</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Ler as unidades 1 e 2</strong> do Starter e do A1 fisicamente<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
@@ -498,7 +498,7 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
           </div>
           <div class="nx-day-body">
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: A2 e B1 — estrutura e lesson steps</strong> — homework → warm-up → grammar → vocabulary → phrasal verbs<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: O quadro em toda aula</strong> — nunca apagar, organizaÃ§Ã£o visual<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: O quadro em toda aula</strong> — nunca apagar, organização visual<span class="nx-tag tg-portal">portal</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Ler as unidades 1 e 2</strong> do A2 e do B1 fisicamente<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
@@ -512,7 +512,7 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
           </div>
           <div class="nx-day-body">
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Conversation — os 3 steps</strong> — warm-up, vocabulary spotlight, talking time, pares, forbidden words<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Student records — como escrever</strong> — o que incluir, o que nÃ£o fazer<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Student records — como escrever</strong> — o que incluir, o que não fazer<span class="nx-tag tg-portal">portal</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Praticar escrita de student record</strong> — baseado em aula simulada descrita no portal<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
@@ -525,8 +525,8 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Aulas presenciais, online e hÃ­bridas</strong> — diferenÃ§as prÃ¡ticas, cÃ¢meras, engajamento<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>ReuniÃ£o de revisÃ£o</strong> com coordenador — dÃºvidas da semana antes do quiz<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Aulas presenciais, online e híbridas</strong> — diferenças práticas, câmeras, engajamento<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Reunião de revisão</strong> com coordenador — dúvidas da semana antes do quiz<span class="nx-tag tg-live">ao vivo</span></div></div>
           </div>
         </div>
 
@@ -536,8 +536,8 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
     <!-- SEMANA 2 -->
     </div>
           <div id="w2" class="train-content nx"><div id="w2">
-      <div class="nx-week-title">SEMANA 2 — IMERSÃO E OBSERVAÃÃO</div>
-      <div class="nx-week-sub">ObservaÃ§Ã£o de aulas reais e gravadas. Quizes de aplicaÃ§Ã£o.</div>
+      <div class="nx-week-title">SEMANA 2 — IMERSÃO E OBSERVAÇÃO</div>
+      <div class="nx-week-sub">Observação de aulas reais e gravadas. Quizes de aplicação.</div>
       <div class="nx-days">
 
         <div class="nx-day">
@@ -547,9 +547,9 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar aula presencial ao vivo</strong> — quadro, ritmo, uso do livro e postura<span class="nx-tag tg-obs">observaÃ§Ã£o</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar aula online ao vivo</strong> — plataforma, cÃ¢meras, engajamento<span class="nx-tag tg-obs">observaÃ§Ã£o</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Preencher diÃ¡rio de observaÃ§Ã£o</strong> no portal<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar aula presencial ao vivo</strong> — quadro, ritmo, uso do livro e postura<span class="nx-tag tg-obs">observação</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar aula online ao vivo</strong> — plataforma, câmeras, engajamento<span class="nx-tag tg-obs">observação</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Preencher diário de observação</strong> no portal<span class="nx-tag tg-portal">portal</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Debriefing</strong> com coordenador<span class="nx-tag tg-live">ao vivo</span></div></div>
           </div>
         </div>
@@ -557,14 +557,14 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
         <div class="nx-day has-quiz">
           <div class="nx-day-hd" onclick="tog(this)">
             <span class="nx-day-num">DIA 07</span>
-            <span class="nx-day-title">Aulas gravadas + anÃ¡lise</span>
+            <span class="nx-day-title">Aulas gravadas + análise</span>
             <div class="nx-badges"><span class="nx-quiz-badge">1 quiz</span></div>
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir aulas gravadas do acervo</strong> — 1 de cada nÃ­vel: Starter, A1, A2 ou B1<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Analisar student records</strong> das aulas assistidas — comparar com o padrÃ£o ensinado<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Debriefing</strong> com coordenador sobre as observaÃ§Ãµes<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir aulas gravadas do acervo</strong> — 1 de cada nível: Starter, A1, A2 ou B1<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Analisar student records</strong> das aulas assistidas — comparar com o padrão ensinado<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Debriefing</strong> com coordenador sobre as observações<span class="nx-tag tg-live">ao vivo</span></div></div>
           </div>
         </div>
 
@@ -576,9 +576,9 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar conversation ao vivo</strong> — 3 steps, vocabulary spotlight, talking time e forbidden words na prÃ¡tica<span class="nx-tag tg-obs">observaÃ§Ã£o</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir conversation gravada</strong> — comparar estilos de facilitaÃ§Ã£o<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Preencher ficha de anÃ¡lise</strong> da conversation no portal<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar conversation ao vivo</strong> — 3 steps, vocabulary spotlight, talking time e forbidden words na prática<span class="nx-tag tg-obs">observação</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir conversation gravada</strong> — comparar estilos de facilitação<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Preencher ficha de análise</strong> da conversation no portal<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
 
@@ -589,21 +589,21 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>ExploraÃ§Ã£o livre do portal</strong> — materiais extras, fichas, Ã¡udios e vÃ­deos de suporte por nÃ­vel<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Planejar a aula mock</strong> — escolher livro, unidade e montar plano de aula completo<span class="nx-tag tg-prat">prÃ¡tica</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Rever vÃ­deos e gravaÃ§Ãµes com dÃºvidas especÃ­ficas</strong> — o acervo serve como suporte permanente<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Exploração livre do portal</strong> — materiais extras, fichas, áudios e vídeos de suporte por nível<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Planejar a aula mock</strong> — escolher livro, unidade e montar plano de aula completo<span class="nx-tag tg-prat">prática</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Rever vídeos e gravações com dúvidas específicas</strong> — o acervo serve como suporte permanente<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
 
         <div class="nx-day has-quiz">
           <div class="nx-day-hd" onclick="tog(this)">
             <span class="nx-day-num">DIA 10</span>
-            <span class="nx-day-title">ConsolidaÃ§Ã£o + orientaÃ§Ã£o para o mock</span>
+            <span class="nx-day-title">Consolidação + orientação para o mock</span>
             <div class="nx-badges"><span class="nx-quiz-badge">quiz final</span></div>
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>ReuniÃ£o de orientaÃ§Ã£o para o mock</strong> — critÃ©rios de avaliaÃ§Ã£o, dÃºvidas e alinhamento<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Reunião de orientação para o mock</strong> — critérios de avaliação, dúvidas e alinhamento<span class="nx-tag tg-live">ao vivo</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Finalizar plano de aula do mock</strong> e submeter no portal<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
@@ -614,7 +614,7 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
     <!-- SEMANA 3 -->
     </div>
           <div id="w3" class="train-content nx"><div id="w3">
-      <div class="nx-week-title">SEMANA 3 — PRÃTICA SUPERVISIONADA</div>
+      <div class="nx-week-title">SEMANA 3 — PRÁTICA SUPERVISIONADA</div>
       <div class="nx-week-sub">Mocks e aulas reais. O professor consulta o acervo quando precisar.</div>
       <div class="nx-days">
 
@@ -626,8 +626,8 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
           </div>
           <div class="nx-day-body">
             <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Aula mock</strong> — coordenador observa postura, quadro, steps e student record<span class="nx-tag tg-prat">mock</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback estruturado imediato</strong> — formulÃ¡rio do portal + sessÃ£o com coordenador<span class="nx-tag tg-live">ao vivo</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Auto-avaliaÃ§Ã£o + rever vÃ­deos relacionados</strong> se houver ponto de melhora especÃ­fico<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback estruturado imediato</strong> — formulário do portal + sessão com coordenador<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Auto-avaliação + rever vídeos relacionados</strong> se houver ponto de melhora específico<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
 
@@ -640,7 +640,7 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
           <div class="nx-day-body">
             <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Aula mock de conversation</strong> — foco nos 3 steps e no papel do professor como facilitador<span class="nx-tag tg-prat">mock</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback estruturado</strong> com coordenador — comparar com mock 1<span class="nx-tag tg-live">ao vivo</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Student record da aula mock</strong> — submetido no portal apÃ³s o feedback<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Student record da aula mock</strong> — submetido no portal após o feedback<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
 
@@ -652,7 +652,7 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
           </div>
           <div class="nx-day-body">
             <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Aula real com alunos da Nexus</strong> — coordenador presente como observador<span class="nx-tag tg-prat">aula real</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback pÃ³s-aula</strong> — 30 min com coordenador: pontos fortes e de melhora<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback pós-aula</strong> — 30 min com coordenador: pontos fortes e de melhora<span class="nx-tag tg-live">ao vivo</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Student record da aula</strong> — coordenador avalia a qualidade do registro<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
@@ -665,21 +665,21 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
           </div>
           <div class="nx-day-body">
             <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Segunda aula real</strong> — formato diferente do dia 13<span class="nx-tag tg-prat">aula real</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback comparativo</strong> — evoluÃ§Ã£o em relaÃ§Ã£o ao dia 13<span class="nx-tag tg-live">ao vivo</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Plano de desenvolvimento individual (PDI)</strong> — metas dos prÃ³ximos 30 dias<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback comparativo</strong> — evolução em relação ao dia 13<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Plano de desenvolvimento individual (PDI)</strong> — metas dos próximos 30 dias<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
 
         <div class="nx-day has-quiz">
           <div class="nx-day-hd" onclick="tog(this)">
             <span class="nx-day-num">DIA 15</span>
-            <span class="nx-day-title">ConclusÃ£o + quiz certificador</span>
+            <span class="nx-day-title">Conclusão + quiz certificador</span>
             <div class="nx-badges"><span class="nx-quiz-badge">quiz final</span></div>
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>ReuniÃ£o de conclusÃ£o</strong> — resultado do quiz, PDI finalizado e acesso completo ao portal<span class="nx-tag tg-live">ao vivo</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Ritual de acompanhamento contÃ­nuo</strong> — check-ins mensais, acervo permanente disponÃ­vel<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Reunião de conclusão</strong> — resultado do quiz, PDI finalizado e acesso completo ao portal<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Ritual de acompanhamento contínuo</strong> — check-ins mensais, acervo permanente disponível<span class="nx-tag tg-live">ao vivo</span></div></div>
           </div>
         </div>
 
@@ -769,7 +769,7 @@ function openEbookModal() {
 
 
 // ══════════════════════════════════════════════════════════════
-// CALENDÃRIO INTERATIVO
+// CALENDÁRIO INTERATIVO
 // ══════════════════════════════════════════════════════════════
 let calState = {
   year: new Date().getFullYear(),
@@ -782,8 +782,8 @@ function saveCalEvents() {
 }
 
 function renderCalendar(container) {
-  const DAY_NAMES = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'SÃ¡b'];
-  const MONTH_NAMES = ['Janeiro','Fevereiro','MarÃ§o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const DAY_NAMES = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+  const MONTH_NAMES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
   const EVENT_COLORS = ['', 'ev-blue', 'ev-green', 'ev-purple'];
 
   function buildCalendar() {
@@ -883,10 +883,10 @@ function renderCalendar(container) {
     overlay.innerHTML = `
       <div class="cal-modal">
         <h3>${existing ? '✏️ Editar Evento' : '➕ Novo Evento'} — ${dateStr}</h3>
-        <input type="text" id="ev-title" placeholder="TÃ­tulo do evento" value="${existing ? existing.title : ''}">
-        <textarea id="ev-desc" placeholder="DescriÃ§Ã£o (opcional)" rows="3" style="resize:none;">${existing ? (existing.desc||'') : ''}</textarea>
+        <input type="text" id="ev-title" placeholder="Título do evento" value="${existing ? existing.title : ''}">
+        <textarea id="ev-desc" placeholder="Descrição (opcional)" rows="3" style="resize:none;">${existing ? (existing.desc||'') : ''}</textarea>
         <select id="ev-color">
-          <option value="0" ${(!existing||existing.color===0)?'selected':''}>🟠 Laranja (padrÃ£o)</option>
+          <option value="0" ${(!existing||existing.color===0)?'selected':''}>🟠 Laranja (padrão)</option>
           <option value="1" ${existing&&existing.color===1?'selected':''}>🔵 Azul</option>
           <option value="2" ${existing&&existing.color===2?'selected':''}>🟢 Verde</option>
           <option value="3" ${existing&&existing.color===3?'selected':''}>🟣 Roxo</option>
