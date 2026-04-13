@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Teacher Training</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
+.nx{background:#2a2a2a;border-radius:12px;overflow:hidden;max-width:860px;margin:0 auto}
+.nx-top{background:#2a2a2a;padding:20px 24px 0}
+.nx-logo{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.nx-logo-mark{width:28px;height:28px;background:#c8531a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff}
+.nx-logo-text{font-size:13px;font-weight:500;color:#fff;letter-spacing:.5px}
+.nx-logo-sub{font-size:10px;color:#9a7a65;letter-spacing:1px}
+.nx-tabs{display:flex;gap:0;border-bottom:1px solid #3a3a3a}
+.nx-tab{flex:1;padding:10px 8px 12px;background:transparent;border:none;border-bottom:3px solid transparent;cursor:pointer;text-align:center;transition:all .2s;margin-bottom:-1px}
+.nx-tab.active{border-bottom-color:#c8531a}
+.nx-tab-num{font-size:10px;color:#9a7a65;letter-spacing:1px;display:block;margin-bottom:2px}
+.nx-tab-label{font-size:12px;font-weight:500;color:#b0a090}
+.nx-tab.active .nx-tab-label{color:#e87640}
+.nx-body{background:#1e1e1e;padding:20px 24px 24px}
+.nx-week-title{font-size:10px;color:#c8531a;letter-spacing:1.5px;margin-bottom:3px;font-weight:500}
+.nx-week-sub{font-size:12px;color:#7a6a5a;margin-bottom:16px;line-height:1.5}
+.nx-days{display:flex;flex-direction:column;gap:8px}
+.nx-day{background:#2a2a2a;border-radius:8px;overflow:hidden;border:0.5px solid #3a3a3a}
+.nx-day.has-quiz{border-color:#4a3010}
+.nx-day-hd{display:flex;align-items:center;gap:8px;padding:10px 13px;cursor:pointer;user-select:none}
+.nx-day-num{font-size:10px;font-weight:500;color:#c8531a;background:#3d2010;padding:2px 7px;border-radius:3px;white-space:nowrap;font-family:monospace}
+.nx-day-title{font-size:12px;color:#e8d5c4;flex:1;font-weight:500}
+.nx-badges{display:flex;gap:4px;align-items:center;flex-shrink:0}
+.nx-quiz-badge{font-size:9px;padding:2px 6px;border-radius:3px;background:#3d2010;color:#e87640;font-weight:500;white-space:nowrap}
+.nx-chevron{width:12px;height:12px;flex-shrink:0;transition:transform .2s;opacity:.4;color:#fff}
+.nx-chevron.open{transform:rotate(90deg);opacity:.8}
+.nx-day-body{display:none;border-top:0.5px solid #333;padding:10px 13px;flex-direction:column;gap:0}
+.nx-day-body.open{display:flex}
+.nx-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:0.5px solid #2e2e2e}
+.nx-item:last-child{border-bottom:none}
+.nx-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.dot-portal{background:#c8531a}
+.dot-live{background:#1d9e75}
+.dot-obs{background:#7f77dd}
+.dot-prat{background:#e87640}
+.nx-item-text{font-size:11px;color:#907a6a;line-height:1.5}
+.nx-item-text strong{color:#d8c5b4;font-weight:500}
+.nx-tag{display:inline-block;font-size:9px;padding:1px 5px;border-radius:3px;margin-left:4px;vertical-align:middle;font-weight:500}
+.tg-portal{background:#3d2010;color:#e87640}
+.tg-live{background:#0a3020;color:#1d9e75}
+.tg-obs{background:#26215c;color:#afa9ec}
+.tg-prat{background:#451a05;color:#f0997b}
+</style>
+</head>
+<body>
+<div class="nx">
+  <div class="nx-top">
+    <div class="nx-logo">
+      <div class="nx-logo-mark">N</div>
+      <div>
+        <div class="nx-logo-text">NEXUS</div>
+        <div class="nx-logo-sub">Teacher Training</div>
+      </div>
+    </div>
+    <div class="nx-tabs">
+      <div class="nx-tab active" onclick="showWeek(1,this)">
+        <span class="nx-tab-num">SEMANA 01</span>
+        <span class="nx-tab-label">Integração</span>
+      </div>
+      <div class="nx-tab" onclick="showWeek(2,this)">
+        <span class="nx-tab-num">SEMANA 02</span>
+        <span class="nx-tab-label">Imersão</span>
+      </div>
+      <div class="nx-tab" onclick="showWeek(3,this)">
+        <span class="nx-tab-num">SEMANA 03</span>
+        <span class="nx-tab-label">Prática</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="nx-body">
+
+    <!-- SEMANA 1 -->
+    <div id="w1">
+      <div class="nx-week-title">SEMANA 1 — INTEGRAÇÃO E CONHECIMENTO GERAL</div>
+      <div class="nx-week-sub">Teoria, sistema e materiais. Vídeos introdutórios + quizes de compreensão.</div>
+      <div class="nx-days">
+
+        <div class="nx-day has-quiz">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 01</span>
+            <span class="nx-day-title">Boas-vindas + sistema</span>
+            <div class="nx-badges"><span class="nx-quiz-badge">1 quiz</span></div>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Bem-vindo à Nexus</strong> — cultura, valores, expectativas e rotina<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Tour pelo portal</strong> — navegação, student records e materiais<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Reunião de boas-vindas</strong> com coordenador — apresentação da equipe e da unidade<span class="nx-tag tg-live">ao vivo</span></div></div>
+          </div>
+        </div>
+
+        <div class="nx-day has-quiz">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 02</span>
+            <span class="nx-day-title">Livros: Starter e A1</span>
+            <div class="nx-badges"><span class="nx-quiz-badge">1 quiz</span></div>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Starter — objetivo e lesson steps</strong> — vocabulary, repetition, guided practice<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: A1 — objetivo e lesson steps</strong> — gramática estruturada, 3 skills, phrasal verbs<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Ler as unidades 1 e 2</strong> do Starter e do A1 fisicamente<span class="nx-tag tg-portal">portal</span></div></div>
+          </div>
+        </div>
+
+        <div class="nx-day has-quiz">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 03</span>
+            <span class="nx-day-title">Livros: A2, B1 e B2</span>
+            <div class="nx-badges"><span class="nx-quiz-badge">1 quiz</span></div>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: A2 e B1 — estrutura e lesson steps</strong> — homework → warm-up → grammar → vocabulary → phrasal verbs<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: O quadro em toda aula</strong> — nunca apagar, organização visual<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Ler as unidades 1 e 2</strong> do A2 e do B1 fisicamente<span class="nx-tag tg-portal">portal</span></div></div>
+          </div>
+        </div>
+
+        <div class="nx-day has-quiz">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 04</span>
+            <span class="nx-day-title">Conversation + student records</span>
+            <div class="nx-badges"><span class="nx-quiz-badge">1 quiz</span></div>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Conversation — os 3 steps</strong> — warm-up, vocabulary spotlight, talking time, pares, forbidden words<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Student records — como escrever</strong> — o que incluir, o que não fazer<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Praticar escrita de student record</strong> — baseado em aula simulada descrita no portal<span class="nx-tag tg-portal">portal</span></div></div>
+          </div>
+        </div>
+
+        <div class="nx-day has-quiz">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 05</span>
+            <span class="nx-day-title">Formatos de aula + quiz final da semana</span>
+            <div class="nx-badges"><span class="nx-quiz-badge">quiz final</span></div>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Aulas presenciais, online e híbridas</strong> — diferenças práticas, câmeras, engajamento<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Reunião de revisão</strong> com coordenador — dúvidas da semana antes do quiz<span class="nx-tag tg-live">ao vivo</span></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SEMANA 2 -->
+    <div id="w2" style="display:none">
+      <div class="nx-week-title">SEMANA 2 — IMERSÃO E OBSERVAÇÃO</div>
+      <div class="nx-week-sub">Observação de aulas reais e gravadas. Quizes de aplicação.</div>
+      <div class="nx-days">
+
+        <div class="nx-day">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 06</span>
+            <span class="nx-day-title">Observar aulas ao vivo</span>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar aula presencial ao vivo</strong> — quadro, ritmo, uso do livro e postura<span class="nx-tag tg-obs">observação</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar aula online ao vivo</strong> — plataforma, câmeras, engajamento<span class="nx-tag tg-obs">observação</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Preencher diário de observação</strong> no portal<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Debriefing</strong> com coordenador<span class="nx-tag tg-live">ao vivo</span></div></div>
+          </div>
+        </div>
+
+        <div class="nx-day has-quiz">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 07</span>
+            <span class="nx-day-title">Aulas gravadas + análise</span>
+            <div class="nx-badges"><span class="nx-quiz-badge">1 quiz</span></div>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir aulas gravadas do acervo</strong> — 1 de cada nível: Starter, A1, A2 ou B1<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Analisar student records</strong> das aulas assistidas — comparar com o padrão ensinado<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Debriefing</strong> com coordenador sobre as observações<span class="nx-tag tg-live">ao vivo</span></div></div>
+          </div>
+        </div>
+
+        <div class="nx-day has-quiz">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 08</span>
+            <span class="nx-day-title">Conversation ao vivo + gravada</span>
+            <div class="nx-badges"><span class="nx-quiz-badge">1 quiz</span></div>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar conversation ao vivo</strong> — 3 steps, vocabulary spotlight, talking time e forbidden words na prática<span class="nx-tag tg-obs">observação</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir conversation gravada</strong> — comparar estilos de facilitação<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Preencher ficha de análise</strong> da conversation no portal<span class="nx-tag tg-portal">portal</span></div></div>
+          </div>
+        </div>
+
+        <div class="nx-day">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 09</span>
+            <span class="nx-day-title">Portal livre + planejamento do mock</span>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Exploração livre do portal</strong> — materiais extras, fichas, áudios e vídeos de suporte por nível<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Planejar a aula mock</strong> — escolher livro, unidade e montar plano de aula completo<span class="nx-tag tg-prat">prática</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Rever vídeos e gravações com dúvidas específicas</strong> — o acervo serve como suporte permanente<span class="nx-tag tg-portal">portal</span></div></div>
+          </div>
+        </div>
+
+        <div class="nx-day has-quiz">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 10</span>
+            <span class="nx-day-title">Consolidação + orientação para o mock</span>
+            <div class="nx-badges"><span class="nx-quiz-badge">quiz final</span></div>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Reunião de orientação para o mock</strong> — critérios de avaliação, dúvidas e alinhamento<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Finalizar plano de aula do mock</strong> e submeter no portal<span class="nx-tag tg-portal">portal</span></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SEMANA 3 -->
+    <div id="w3" style="display:none">
+      <div class="nx-week-title">SEMANA 3 — PRÁTICA SUPERVISIONADA</div>
+      <div class="nx-week-sub">Mocks e aulas reais. O professor consulta o acervo quando precisar.</div>
+      <div class="nx-days">
+
+        <div class="nx-day">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 11</span>
+            <span class="nx-day-title">Mock 1 — aula regular</span>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Aula mock</strong> — coordenador observa postura, quadro, steps e student record<span class="nx-tag tg-prat">mock</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback estruturado imediato</strong> — formulário do portal + sessão com coordenador<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Auto-avaliação + rever vídeos relacionados</strong> se houver ponto de melhora específico<span class="nx-tag tg-portal">portal</span></div></div>
+          </div>
+        </div>
+
+        <div class="nx-day">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 12</span>
+            <span class="nx-day-title">Mock 2 — conversation</span>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Aula mock de conversation</strong> — foco nos 3 steps e no papel do professor como facilitador<span class="nx-tag tg-prat">mock</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback estruturado</strong> com coordenador — comparar com mock 1<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Student record da aula mock</strong> — submetido no portal após o feedback<span class="nx-tag tg-portal">portal</span></div></div>
+          </div>
+        </div>
+
+        <div class="nx-day">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 13</span>
+            <span class="nx-day-title">Primeira aula real supervisionada</span>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Aula real com alunos da Nexus</strong> — coordenador presente como observador<span class="nx-tag tg-prat">aula real</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback pós-aula</strong> — 30 min com coordenador: pontos fortes e de melhora<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Student record da aula</strong> — coordenador avalia a qualidade do registro<span class="nx-tag tg-portal">portal</span></div></div>
+          </div>
+        </div>
+
+        <div class="nx-day">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 14</span>
+            <span class="nx-day-title">Segunda aula real supervisionada</span>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Segunda aula real</strong> — formato diferente do dia 13<span class="nx-tag tg-prat">aula real</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback comparativo</strong> — evolução em relação ao dia 13<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Plano de desenvolvimento individual (PDI)</strong> — metas dos próximos 30 dias<span class="nx-tag tg-portal">portal</span></div></div>
+          </div>
+        </div>
+
+        <div class="nx-day has-quiz">
+          <div class="nx-day-hd" onclick="tog(this)">
+            <span class="nx-day-num">DIA 15</span>
+            <span class="nx-day-title">Conclusão + quiz certificador</span>
+            <div class="nx-badges"><span class="nx-quiz-badge">quiz final</span></div>
+            <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="nx-day-body">
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Reunião de conclusão</strong> — resultado do quiz, PDI finalizado e acesso completo ao portal<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Ritual de acompanhamento contínuo</strong> — check-ins mensais, acervo permanente disponível<span class="nx-tag tg-live">ao vivo</span></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function showWeek(n,tab){
+  document.querySelectorAll('.nx-tab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  ['w1','w2','w3'].forEach((id,i)=>{
+    document.getElementById(id).style.display=(i+1===n)?'block':'none';
+  });
+}
+function tog(hd){
+  const body=hd.nextElementSibling;
+  const chev=hd.querySelector('.nx-chevron');
+  const open=body.classList.toggle('open');
+  chev.classList.toggle('open',open);
+}
+</script>
+</body>
+</html>
