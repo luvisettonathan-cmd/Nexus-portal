@@ -1,6 +1,6 @@
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════
 // NEXUS ENGLISH CENTER - PORTAL DO PROFESSOR
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════
 
 const SUPABASE_URL = 'https://macpqlkefvjfrvotkkqh.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1hY3BxbGtlZnZqZnJ2b3Rra3FoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NzY1NjEsImV4cCI6MjA5MDE1MjU2MX0.dz0dsXVHOPkobv8ZMOg5UfHHVOQcB5gipT_rJkoQMaE';
@@ -14,7 +14,7 @@ let state = {
         user: null
 };
 
-// ââ EXTRAI O NOME DO TEACHER A PARTIR DO E-MAIL ââââââââââââââââ
+// ── EXTRAI O NOME DO TEACHER A PARTIR DO E-MAIL ────────────────
 function getTeacherName(email) {
         if (!email) return 'Teacher';
         const local = email.split('@')[0].toLowerCase();
@@ -22,7 +22,7 @@ function getTeacherName(email) {
         return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
-// ââ AUTO-LOGOUT POR INATIVIDADE ââââââââââââââââââââââââââââââââ
+// ── AUTO-LOGOUT POR INATIVIDADE ────────────────────────────────
 let inactivityTimer = null;
 function resetInactivityTimer() {
         clearTimeout(inactivityTimer);
@@ -46,7 +46,7 @@ function stopInactivityWatch() {
         events.forEach(evt => window.removeEventListener(evt, resetInactivityTimer));
 }
 
-// ââ VIEWER EMBUTIDO (Drive PDF + Google Docs) âââââââââââââââââââ
+// ── VIEWER EMBUTIDO (Drive PDF + Google Docs) ───────────────────
 function getEmbedUrl(url) {
         // Google Drive PDF: /file/d/ID/view -> /file/d/ID/preview
   const driveFile = url.match(/\/file\/d\/([^/]+)/);
@@ -76,8 +76,8 @@ function openViewer(title, url) {
         overlay.innerHTML =
                 '<div style="background:#1a2b21;border-radius:12px;width:92vw;height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);">' +
                 '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#243b2f;border-bottom:1px solid rgba(255,255,255,0.1);">' +
-                '<span style="color:white;font-weight:700;font-size:15px;">ð ' + title + '</span>' +
-                '<button id="close-pdf-modal" style="background:rgba(255,255,255,0.15);border:none;color:white;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600;">â Fechar</button>' +
+                '<span style="color:white;font-weight:700;font-size:15px;">📖 ' + title + '</span>' +
+                '<button id="close-pdf-modal" style="background:rgba(255,255,255,0.15);border:none;color:white;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600;">✕ Fechar</button>' +
                 '</div>' +
                 '<iframe src="' + embedUrl + '" style="flex:1;border:none;width:100%;background:#fff;" allow="autoplay" loading="lazy"></iframe>' +
                 '</div>';
@@ -86,7 +86,7 @@ function openViewer(title, url) {
         overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
 }
 
-// ââ LIVROS 2026 âââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── LIVROS 2026 ─────────────────────────────────────────────────
 const LIVROS_2026 = [
       { titulo: 'Starter', url: 'https://drive.google.com/file/d/1risqNij5UoxUk00qT95unmuhUbS04TX7/view?usp=drive_link' },
       { titulo: 'A1',      url: 'https://drive.google.com/file/d/1A8hjwRffJaifwsvKzo6Zq9MUQHJOhGwA/view?usp=drive_link' },
@@ -95,7 +95,7 @@ const LIVROS_2026 = [
       { titulo: 'B2',      url: 'https://drive.google.com/file/d/1vJUIHER2_6o_SzQry6vtwHLFX1hM1hfb/view?usp=drive_link' }
       ];
 
-// ââ MODAL DE LISTAGEM DE LIVROS âââââââââââââââââââââââââââââââââ
+// ── MODAL DE LISTAGEM DE LIVROS ─────────────────────────────────
 function openBooksModal() {
         const old = document.getElementById('books-modal-overlay');
         if (old) old.remove();
@@ -106,17 +106,17 @@ function openBooksModal() {
 
   const listaHTML = LIVROS_2026.map((livro, i) =>
             '<div class="book-item" data-idx="' + i + '" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:10px;background:rgba(255,255,255,0.07);cursor:pointer;transition:background 0.2s;margin-bottom:8px;" onmouseover="this.style.background=\'rgba(255,255,255,0.15)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.07)\'">' +
-              '<span style="font-size:22px;">ð</span>' +
+              '<span style="font-size:22px;">📄</span>' +
               '<span style="color:white;font-weight:600;font-size:14px;">' + livro.titulo + '</span>' +
-              '<span style="margin-left:auto;color:rgba(255,255,255,0.5);font-size:12px;">Abrir â</span>' +
+              '<span style="margin-left:auto;color:rgba(255,255,255,0.5);font-size:12px;">Abrir →</span>' +
             '</div>'
                                       ).join('');
 
   overlay.innerHTML =
             '<div style="background:#1a2b21;border-radius:14px;width:500px;max-width:94vw;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.5);">' +
               '<div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:#243b2f;border-radius:14px 14px 0 0;border-bottom:1px solid rgba(255,255,255,0.1);">' +
-                '<span style="color:white;font-weight:700;font-size:16px;">ð Livros 2026</span>' +
-                '<button id="close-books-modal" style="background:rgba(255,255,255,0.15);border:none;color:white;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600;">â Fechar</button>' +
+                '<span style="color:white;font-weight:700;font-size:16px;">📚 Livros 2026</span>' +
+                '<button id="close-books-modal" style="background:rgba(255,255,255,0.15);border:none;color:white;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600;">✕ Fechar</button>' +
               '</div>' +
               '<div style="padding:16px;overflow-y:auto;flex:1;">' + listaHTML + '</div>' +
             '</div>';
@@ -135,7 +135,7 @@ function openBooksModal() {
   });
 }
 
-// ââ INICIALIZAÃÃO âââââââââââââââââââââââââââââââââââââââââââââââ
+// ── INICIALIZAÃÃO ───────────────────────────────────────────────
 async function checkUser() {
     try {
         const { data: { session } } = await client.auth.getSession();
@@ -168,7 +168,7 @@ function render() {
         else renderPortal(app);
 }
 
-// ââ TELA DE LOGIN âââââââââââââââââââââââââââââââââââââââââââââââ
+// ── TELA DE LOGIN ───────────────────────────────────────────────
 function renderLogin(app) {
   const wrap = document.createElement('div');
   wrap.className = 'login-screen';
@@ -178,22 +178,22 @@ function renderLogin(app) {
       <div class="login-left-content">
         <h1 class="login-hero-title">Bem-vindo ao<br>Portal do Professor</h1>
       
-        <div class="login-city-badge" style="margin-top:16px;display:inline-flex;align-items:center;">ð ChapecÃ³ - SC</div>
+        <div class="login-city-badge" style="margin-top:16px;display:inline-flex;align-items:center;">📍 ChapecÃ³ - SC</div>
       </div>
       <div class="login-illustration">
         <div class="login-illus-scene">
           <div class="illus-monitor">
             <div class="illus-screen">
-              <div class="illus-avatar">ð¤</div>
+              <div class="illus-avatar">👤</div>
               <div class="illus-lines">
                 <span></span><span></span><span></span>
               </div>
             </div>
           </div>
           <div class="illus-items">
-            <div class="illus-clock">ð</div>
-            <div class="illus-books">ð</div>
-            <div class="illus-pencils">âï¸</div>
+            <div class="illus-clock">🕒</div>
+            <div class="illus-books">📚</div>
+            <div class="illus-pencils">✏️</div>
           </div>
         </div>
       </div>
@@ -201,18 +201,18 @@ function renderLogin(app) {
     <div class="login-right" style="width: 460px; min-width: 460px;">
       <div class="login-card">
         <h2 class="login-card-title">Login</h2>
-        <div id="login-err" class="login-error-msg" style="display:none;">â E-mail ou senha incorretos</div>
+        <div id="login-err" class="login-error-msg" style="display:none;">❌ E-mail ou senha incorretos</div>
         <div class="login-field">
           <label class="login-label">Email</label>
           <div class="login-input-wrap">
-            <span class="login-input-icon">ð§</span>
+            <span class="login-input-icon">📧</span>
             <input type="text" id="email" class="login-input" placeholder="Email" autocomplete="username">
           </div>
         </div>
         <div class="login-field">
           <label class="login-label">Senha</label>
           <div class="login-input-wrap">
-            <span class="login-input-icon">ð</span>
+            <span class="login-input-icon">🔒</span>
             <input type="password" id="pass" class="login-input" placeholder="Senha" autocomplete="current-password">
           </div>
         </div>
@@ -246,7 +246,7 @@ function renderLogin(app) {
   });
 }
 
-// ââ PORTAL PRINCIPAL âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── PORTAL PRINCIPAL ─────────────────────────────────────────────────────────────
 function renderPortal(app) {
   const teacherName = getTeacherName(state.user?.email);
   const main = document.createElement('div');
@@ -258,15 +258,15 @@ function renderPortal(app) {
             <img src="${NEXUS_LOGO_DATA}" alt="Nexus Logo">
           </div>
           <div class="sidebar-item active" data-section="materiais">
-            <span class="sidebar-icon">ð</span>
+            <span class="sidebar-icon">📂</span>
             <span>Materiais</span>
           </div>
           <div class="${state.user.email === 'luvisettonathan8@gmail.com' ? 'sidebar-item' : 'sidebar-item disabled'}" data-section="treinamento">
-            <span class="sidebar-icon">ð¯</span>
+            <span class="sidebar-icon">🎯</span>
             <span>Treinamento</span>
           </div>
           <div class="sidebar-item" data-section="calendario">
-            <span class="sidebar-icon">ð</span>
+            <span class="sidebar-icon">📅</span>
             <span>CalendÃ¡rio</span>
           </div>
           <div class="sidebar-footer"></div>
@@ -274,8 +274,8 @@ function renderPortal(app) {
         <div class="portal-main">
           <div class="header-main">
             <div class="header-title">
-              <div class="header-title-icon">ð</div>
-              <h1>ð ChapecÃ³</h1>
+              <div class="header-title-icon">📋</div>
+              <h1>📍 ChapecÃ³</h1>
             </div>
             <div class="header-user">
               <div class="header-avatar">
@@ -286,13 +286,13 @@ function renderPortal(app) {
             </div>
           </div>
           <div class="portal-tabs">
-            <button class="portal-tab active" data-tab="materiais">ð Materiais</button>
+            <button class="portal-tab active" data-tab="materiais">📚 Materiais</button>
             <span class="portal-tabs-sep"></span>
-            <button class="portal-tab" data-tab="livro-0">ð Starter</button>
-            <button class="portal-tab" data-tab="livro-1">ð A1</button>
-            <button class="portal-tab" data-tab="livro-2">ð A2</button>
-            <button class="portal-tab" data-tab="livro-3">ð B1</button>
-            <button class="portal-tab" data-tab="livro-4">ð B2</button>
+            <button class="portal-tab" data-tab="livro-0">📖 Starter</button>
+            <button class="portal-tab" data-tab="livro-1">📖 A1</button>
+            <button class="portal-tab" data-tab="livro-2">📖 A2</button>
+            <button class="portal-tab" data-tab="livro-3">📖 B1</button>
+            <button class="portal-tab" data-tab="livro-4">📖 B2</button>
           </div>
           <div class="main-content" id="tab-content"></div>
         </div>
@@ -303,10 +303,10 @@ function renderPortal(app) {
   app.appendChild(main);
 
   const linksGerais = [
-      { t: 'Ãudios dos Livros', i: 'ð§', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o' },
-      { t: 'Extra Activities',  i: 'ð', url: 'https://drive.google.com/drive/folders/1uz3ATitZpIJM7S_-ve_w6XmqOosmqPvX' },
-      { t: 'Material para Aulas',         i: 'ð', url: 'https://drive.google.com/drive/folders/1B3HnQl6Zz8aTj2oi_BwAY7n2jEPV5AHU?usp=drive_link' },
-      { t: 'Transcript dos Listenings',   i: 'ð', url: 'https://docs.google.com/document/d/15KSATfziQzmvirEy8sKnWgB4TZr3xwRDmXWMLLFTYJE/edit?usp=sharing' },
+      { t: 'Ãudios dos Livros', i: '🎧', url: 'https://www.youtube.com/playlist?list=PL34IdbZXxdZrPlbPevlLZwszORWe9_G2o' },
+      { t: 'Extra Activities',  i: '📝', url: 'https://drive.google.com/drive/folders/1uz3ATitZpIJM7S_-ve_w6XmqOosmqPvX' },
+      { t: 'Material para Aulas',         i: '📂', url: 'https://drive.google.com/drive/folders/1B3HnQl6Zz8aTj2oi_BwAY7n2jEPV5AHU?usp=drive_link' },
+      { t: 'Transcript dos Listenings',   i: '📝', url: 'https://docs.google.com/document/d/15KSATfziQzmvirEy8sKnWgB4TZr3xwRDmXWMLLFTYJE/edit?usp=sharing' },
   ];
   function buildCards(links, container) {
     links.forEach(link => {
@@ -350,7 +350,7 @@ function renderPortal(app) {
       tabContent.innerHTML =
         '<div class="page-title-block">' +
           '<div class="page-title-text">' +
-            '<h2>Materiais â ' + livro.titulo + '</h2>' +
+            '<h2>Materiais – ' + livro.titulo + '</h2>' +
             '<p class="page-subtitle">Acesse livros, transcritos e conteÃºdos extras</p>' +
           '</div>' +
           '<div class="level-tabs" id="level-pills">' +
@@ -362,30 +362,30 @@ function renderPortal(app) {
         '<div class="quick-grid" id="q-livro"></div>';
       const card = document.createElement('div');
       card.className = 'card-base';
-      card.innerHTML = '<div class="icon-box">ð</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">Student Book</strong><span style="color:#888;font-size:13px;">' + livro.titulo + '</span></div>';
+      card.innerHTML = '<div class="icon-box">📖</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">Student Book</strong><span style="color:#888;font-size:13px;">' + livro.titulo + '</span></div>';
       card.onclick = () => openViewer(livro.titulo, livro.url);
       document.getElementById('q-livro').appendChild(card);
       if (livroIdx === 0) {
         const ebookCard = document.createElement('div');
         ebookCard.className = 'card-base';
-        ebookCard.innerHTML = '<div class="icon-box">ð</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">Ebook</strong><span style="color:#888;font-size:13px;">Starter</span></div>';
+        ebookCard.innerHTML = '<div class="icon-box">📘</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">Ebook</strong><span style="color:#888;font-size:13px;">Starter</span></div>';
         ebookCard.onclick = () => openEbookModal();
         document.getElementById('q-livro').appendChild(ebookCard);
               const guiasCard = document.createElement('div');
         guiasCard.className = 'card-base';
-        guiasCard.innerHTML = '<div class="icon-box">ð</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">Guias Starter</strong></div>';
+        guiasCard.innerHTML = '<div class="icon-box">📋</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">Guias Starter</strong></div>';
         guiasCard.onclick = () => openViewer('Guias Starter', 'https://docs.google.com/document/d/1s59KaF69-tCAQdg_abUbMjdNVDnhVJ0SDfO5L56n7h0/edit?usp=drive_link');
         document.getElementById('q-livro').appendChild(guiasCard);
       }
       if (livroIdx === 4) {
         const b2ScriptsCard = document.createElement('div');
         b2ScriptsCard.className = 'card-base';
-        b2ScriptsCard.innerHTML = '<div class="icon-box">ð</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">B2 Scripts</strong></div>';
+        b2ScriptsCard.innerHTML = '<div class="icon-box">📜</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">B2 Scripts</strong></div>';
         b2ScriptsCard.onclick = () => { window.open('https://drive.google.com/drive/folders/1yoRbzOyUKuuP-_KQZRZmBigmTh5v6YkX?usp=drive_link', '_blank'); };
         document.getElementById('q-livro').appendChild(b2ScriptsCard);
         const listeningB2Card = document.createElement('div');
         listeningB2Card.className = 'card-base';
-        listeningB2Card.innerHTML = '<div class="icon-box">ðµ</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">Listening B2</strong></div>';
+        listeningB2Card.innerHTML = '<div class="icon-box">🎵</div><div><strong style="color:#1a2b21;font-size:17px;display:block;">Listening B2</strong></div>';
         listeningB2Card.onclick = () => { window.open('https://drive.google.com/drive/folders/1JTeOIlIY5wgdGLkuERuj-l2EqNwQNfpA?usp=drive_link', '_blank'); };
         document.getElementById('q-livro').appendChild(listeningB2Card);}
       document.querySelectorAll('.level-tab').forEach(btn => {
@@ -463,7 +463,7 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
 
     <!-- SEMANA 1 -->
     <div id="w1">
-      <div class="nx-week-title">SEMANA 1 â INTEGRAÃÃO E CONHECIMENTO GERAL</div>
+      <div class="nx-week-title">SEMANA 1 — INTEGRAÃÃO E CONHECIMENTO GERAL</div>
       <div class="nx-week-sub">Teoria, sistema e materiais. VÃ­deos introdutÃ³rios + quizes de compreensÃ£o.</div>
       <div class="nx-days">
 
@@ -475,9 +475,9 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Bem-vindo Ã  Nexus</strong> â cultura, valores, expectativas e rotina<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Tour pelo portal</strong> â navegaÃ§Ã£o, student records e materiais<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>ReuniÃ£o de boas-vindas</strong> com coordenador â apresentaÃ§Ã£o da equipe e da unidade<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Bem-vindo Ã  Nexus</strong> — cultura, valores, expectativas e rotina<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Tour pelo portal</strong> — navegaÃ§Ã£o, student records e materiais<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>ReuniÃ£o de boas-vindas</strong> com coordenador — apresentaÃ§Ã£o da equipe e da unidade<span class="nx-tag tg-live">ao vivo</span></div></div>
           </div>
         </div>
 
@@ -489,8 +489,8 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Starter â objetivo e lesson steps</strong> â vocabulary, repetition, guided practice<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: A1 â objetivo e lesson steps</strong> â gramÃ¡tica estruturada, 3 skills, phrasal verbs<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Starter — objetivo e lesson steps</strong> — vocabulary, repetition, guided practice<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: A1 — objetivo e lesson steps</strong> — gramÃ¡tica estruturada, 3 skills, phrasal verbs<span class="nx-tag tg-portal">portal</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Ler as unidades 1 e 2</strong> do Starter e do A1 fisicamente<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
@@ -503,8 +503,8 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: A2 e B1 â estrutura e lesson steps</strong> â homework â warm-up â grammar â vocabulary â phrasal verbs<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: O quadro em toda aula</strong> â nunca apagar, organizaÃ§Ã£o visual<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: A2 e B1 — estrutura e lesson steps</strong> — homework → warm-up → grammar → vocabulary → phrasal verbs<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: O quadro em toda aula</strong> — nunca apagar, organizaÃ§Ã£o visual<span class="nx-tag tg-portal">portal</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Ler as unidades 1 e 2</strong> do A2 e do B1 fisicamente<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
@@ -517,9 +517,9 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Conversation â os 3 steps</strong> â warm-up, vocabulary spotlight, talking time, pares, forbidden words<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Student records â como escrever</strong> â o que incluir, o que nÃ£o fazer<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Praticar escrita de student record</strong> â baseado em aula simulada descrita no portal<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Conversation — os 3 steps</strong> — warm-up, vocabulary spotlight, talking time, pares, forbidden words<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Student records — como escrever</strong> — o que incluir, o que nÃ£o fazer<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Praticar escrita de student record</strong> — baseado em aula simulada descrita no portal<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
 
@@ -531,8 +531,8 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Aulas presenciais, online e hÃ­bridas</strong> â diferenÃ§as prÃ¡ticas, cÃ¢meras, engajamento<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>ReuniÃ£o de revisÃ£o</strong> com coordenador â dÃºvidas da semana antes do quiz<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir: Aulas presenciais, online e hÃ­bridas</strong> — diferenÃ§as prÃ¡ticas, cÃ¢meras, engajamento<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>ReuniÃ£o de revisÃ£o</strong> com coordenador — dÃºvidas da semana antes do quiz<span class="nx-tag tg-live">ao vivo</span></div></div>
           </div>
         </div>
 
@@ -541,7 +541,7 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
 
     <!-- SEMANA 2 -->
     <div id="w2" style="display:none">
-      <div class="nx-week-title">SEMANA 2 â IMERSÃO E OBSERVAÃÃO</div>
+      <div class="nx-week-title">SEMANA 2 — IMERSÃO E OBSERVAÃÃO</div>
       <div class="nx-week-sub">ObservaÃ§Ã£o de aulas reais e gravadas. Quizes de aplicaÃ§Ã£o.</div>
       <div class="nx-days">
 
@@ -552,8 +552,8 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar aula presencial ao vivo</strong> â quadro, ritmo, uso do livro e postura<span class="nx-tag tg-obs">observaÃ§Ã£o</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar aula online ao vivo</strong> â plataforma, cÃ¢meras, engajamento<span class="nx-tag tg-obs">observaÃ§Ã£o</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar aula presencial ao vivo</strong> — quadro, ritmo, uso do livro e postura<span class="nx-tag tg-obs">observaÃ§Ã£o</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar aula online ao vivo</strong> — plataforma, cÃ¢meras, engajamento<span class="nx-tag tg-obs">observaÃ§Ã£o</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Preencher diÃ¡rio de observaÃ§Ã£o</strong> no portal<span class="nx-tag tg-portal">portal</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Debriefing</strong> com coordenador<span class="nx-tag tg-live">ao vivo</span></div></div>
           </div>
@@ -567,8 +567,8 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir aulas gravadas do acervo</strong> â 1 de cada nÃ­vel: Starter, A1, A2 ou B1<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Analisar student records</strong> das aulas assistidas â comparar com o padrÃ£o ensinado<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir aulas gravadas do acervo</strong> — 1 de cada nÃ­vel: Starter, A1, A2 ou B1<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Analisar student records</strong> das aulas assistidas — comparar com o padrÃ£o ensinado<span class="nx-tag tg-portal">portal</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Debriefing</strong> com coordenador sobre as observaÃ§Ãµes<span class="nx-tag tg-live">ao vivo</span></div></div>
           </div>
         </div>
@@ -581,8 +581,8 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar conversation ao vivo</strong> â 3 steps, vocabulary spotlight, talking time e forbidden words na prÃ¡tica<span class="nx-tag tg-obs">observaÃ§Ã£o</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir conversation gravada</strong> â comparar estilos de facilitaÃ§Ã£o<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-obs"></div><div class="nx-item-text"><strong>Observar conversation ao vivo</strong> — 3 steps, vocabulary spotlight, talking time e forbidden words na prÃ¡tica<span class="nx-tag tg-obs">observaÃ§Ã£o</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Assistir conversation gravada</strong> — comparar estilos de facilitaÃ§Ã£o<span class="nx-tag tg-portal">portal</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Preencher ficha de anÃ¡lise</strong> da conversation no portal<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
@@ -594,9 +594,9 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>ExploraÃ§Ã£o livre do portal</strong> â materiais extras, fichas, Ã¡udios e vÃ­deos de suporte por nÃ­vel<span class="nx-tag tg-portal">portal</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Planejar a aula mock</strong> â escolher livro, unidade e montar plano de aula completo<span class="nx-tag tg-prat">prÃ¡tica</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Rever vÃ­deos e gravaÃ§Ãµes com dÃºvidas especÃ­ficas</strong> â o acervo serve como suporte permanente<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>ExploraÃ§Ã£o livre do portal</strong> — materiais extras, fichas, Ã¡udios e vÃ­deos de suporte por nÃ­vel<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Planejar a aula mock</strong> — escolher livro, unidade e montar plano de aula completo<span class="nx-tag tg-prat">prÃ¡tica</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Rever vÃ­deos e gravaÃ§Ãµes com dÃºvidas especÃ­ficas</strong> — o acervo serve como suporte permanente<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
 
@@ -608,7 +608,7 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>ReuniÃ£o de orientaÃ§Ã£o para o mock</strong> â critÃ©rios de avaliaÃ§Ã£o, dÃºvidas e alinhamento<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>ReuniÃ£o de orientaÃ§Ã£o para o mock</strong> — critÃ©rios de avaliaÃ§Ã£o, dÃºvidas e alinhamento<span class="nx-tag tg-live">ao vivo</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Finalizar plano de aula do mock</strong> e submeter no portal<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
@@ -618,19 +618,19 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
 
     <!-- SEMANA 3 -->
     <div id="w3" style="display:none">
-      <div class="nx-week-title">SEMANA 3 â PRÃTICA SUPERVISIONADA</div>
+      <div class="nx-week-title">SEMANA 3 — PRÃTICA SUPERVISIONADA</div>
       <div class="nx-week-sub">Mocks e aulas reais. O professor consulta o acervo quando precisar.</div>
       <div class="nx-days">
 
         <div class="nx-day">
           <div class="nx-day-hd" onclick="tog(this)">
             <span class="nx-day-num">DIA 11</span>
-            <span class="nx-day-title">Mock 1 â aula regular</span>
+            <span class="nx-day-title">Mock 1 — aula regular</span>
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Aula mock</strong> â coordenador observa postura, quadro, steps e student record<span class="nx-tag tg-prat">mock</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback estruturado imediato</strong> â formulÃ¡rio do portal + sessÃ£o com coordenador<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Aula mock</strong> — coordenador observa postura, quadro, steps e student record<span class="nx-tag tg-prat">mock</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback estruturado imediato</strong> — formulÃ¡rio do portal + sessÃ£o com coordenador<span class="nx-tag tg-live">ao vivo</span></div></div>
             <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Auto-avaliaÃ§Ã£o + rever vÃ­deos relacionados</strong> se houver ponto de melhora especÃ­fico<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
@@ -638,13 +638,13 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
         <div class="nx-day">
           <div class="nx-day-hd" onclick="tog(this)">
             <span class="nx-day-num">DIA 12</span>
-            <span class="nx-day-title">Mock 2 â conversation</span>
+            <span class="nx-day-title">Mock 2 — conversation</span>
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Aula mock de conversation</strong> â foco nos 3 steps e no papel do professor como facilitador<span class="nx-tag tg-prat">mock</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback estruturado</strong> com coordenador â comparar com mock 1<span class="nx-tag tg-live">ao vivo</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Student record da aula mock</strong> â submetido no portal apÃ³s o feedback<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Aula mock de conversation</strong> — foco nos 3 steps e no papel do professor como facilitador<span class="nx-tag tg-prat">mock</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback estruturado</strong> com coordenador — comparar com mock 1<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Student record da aula mock</strong> — submetido no portal apÃ³s o feedback<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
 
@@ -655,9 +655,9 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Aula real com alunos da Nexus</strong> â coordenador presente como observador<span class="nx-tag tg-prat">aula real</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback pÃ³s-aula</strong> â 30 min com coordenador: pontos fortes e de melhora<span class="nx-tag tg-live">ao vivo</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Student record da aula</strong> â coordenador avalia a qualidade do registro<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Aula real com alunos da Nexus</strong> — coordenador presente como observador<span class="nx-tag tg-prat">aula real</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback pÃ³s-aula</strong> — 30 min com coordenador: pontos fortes e de melhora<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Student record da aula</strong> — coordenador avalia a qualidade do registro<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
 
@@ -668,9 +668,9 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Segunda aula real</strong> â formato diferente do dia 13<span class="nx-tag tg-prat">aula real</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback comparativo</strong> â evoluÃ§Ã£o em relaÃ§Ã£o ao dia 13<span class="nx-tag tg-live">ao vivo</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Plano de desenvolvimento individual (PDI)</strong> â metas dos prÃ³ximos 30 dias<span class="nx-tag tg-portal">portal</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-prat"></div><div class="nx-item-text"><strong>Segunda aula real</strong> — formato diferente do dia 13<span class="nx-tag tg-prat">aula real</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Feedback comparativo</strong> — evoluÃ§Ã£o em relaÃ§Ã£o ao dia 13<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-portal"></div><div class="nx-item-text"><strong>Plano de desenvolvimento individual (PDI)</strong> — metas dos prÃ³ximos 30 dias<span class="nx-tag tg-portal">portal</span></div></div>
           </div>
         </div>
 
@@ -682,8 +682,8 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
             <svg class="nx-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
           <div class="nx-day-body">
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>ReuniÃ£o de conclusÃ£o</strong> â resultado do quiz, PDI finalizado e acesso completo ao portal<span class="nx-tag tg-live">ao vivo</span></div></div>
-            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Ritual de acompanhamento contÃ­nuo</strong> â check-ins mensais, acervo permanente disponÃ­vel<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>ReuniÃ£o de conclusÃ£o</strong> — resultado do quiz, PDI finalizado e acesso completo ao portal<span class="nx-tag tg-live">ao vivo</span></div></div>
+            <div class="nx-item"><div class="nx-dot dot-live"></div><div class="nx-item-text"><strong>Ritual de acompanhamento contÃ­nuo</strong> — check-ins mensais, acervo permanente disponÃ­vel<span class="nx-tag tg-live">ao vivo</span></div></div>
           </div>
         </div>
 
@@ -768,7 +768,7 @@ function tog(hd){
 }
 checkUser();
 
-// ââ EBOOK MODAL ââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── EBOOK MODAL ──────────────────────────────────────────────────
 function openEbookModal() {
   const old = document.getElementById('ebook-modal-overlay');
     if (old) old.remove();
@@ -778,8 +778,8 @@ function openEbookModal() {
             overlay.innerHTML =
                 '<div style="background:#fff;border-radius:12px;width:96vw;height:94vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.6);">' +
                       '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#1a2b21;border-bottom:1px solid rgba(255,255,255,0.1);">' +
-                              '<span style="color:white;font-weight:700;font-size:15px;">ð Starter</span>' +
-                                      '<button id="close-ebook-modal" style="background:rgba(255,255,255,0.15);border:none;color:white;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600;">â Fechar</button>' +
+                              '<span style="color:white;font-weight:700;font-size:15px;">📘 Starter</span>' +
+                                      '<button id="close-ebook-modal" style="background:rgba(255,255,255,0.15);border:none;color:white;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600;">✕ Fechar</button>' +
                                             '</div>' +
                                                   '<iframe src="ebook.html" style="flex:1;border:none;width:100%;background:#fff;" loading="lazy"></iframe>' +
                                                       '</div>';
@@ -789,9 +789,9 @@ function openEbookModal() {
                                                             }
 
 
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════
 // CALENDÃRIO INTERATIVO
-// ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════════════════════════
 let calState = {
   year: new Date().getFullYear(),
   month: new Date().getMonth(),
@@ -817,11 +817,11 @@ function renderCalendar(container) {
     container.innerHTML = `
       <div class="calendar-view">
         <div class="calendar-header">
-          <h2>ð ${MONTH_NAMES[month]} ${year}</h2>
+          <h2>📅 ${MONTH_NAMES[month]} ${year}</h2>
           <div style="display:flex;gap:8px;align-items:center;">
             <button class="cal-today-btn" id="cal-btn-today">Hoje</button>
-            <button class="cal-nav-btn" id="cal-btn-prev">â¹</button>
-            <button class="cal-nav-btn" id="cal-btn-next">âº</button>
+            <button class="cal-nav-btn" id="cal-btn-prev">‹</button>
+            <button class="cal-nav-btn" id="cal-btn-next">›</button>
           </div>
         </div>
         <div class="calendar-grid-header">
@@ -903,17 +903,17 @@ function renderCalendar(container) {
     overlay.className = 'cal-modal-overlay';
     overlay.innerHTML = `
       <div class="cal-modal">
-        <h3>${existing ? 'âï¸ Editar Evento' : 'â Novo Evento'} â ${dateStr}</h3>
+        <h3>${existing ? '✏️ Editar Evento' : '➕ Novo Evento'} — ${dateStr}</h3>
         <input type="text" id="ev-title" placeholder="TÃ­tulo do evento" value="${existing ? existing.title : ''}">
         <textarea id="ev-desc" placeholder="DescriÃ§Ã£o (opcional)" rows="3" style="resize:none;">${existing ? (existing.desc||'') : ''}</textarea>
         <select id="ev-color">
-          <option value="0" ${(!existing||existing.color===0)?'selected':''}>ð  Laranja (padrÃ£o)</option>
-          <option value="1" ${existing&&existing.color===1?'selected':''}>ðµ Azul</option>
-          <option value="2" ${existing&&existing.color===2?'selected':''}>ð¢ Verde</option>
-          <option value="3" ${existing&&existing.color===3?'selected':''}>ð£ Roxo</option>
+          <option value="0" ${(!existing||existing.color===0)?'selected':''}>🟠 Laranja (padrÃ£o)</option>
+          <option value="1" ${existing&&existing.color===1?'selected':''}>🔵 Azul</option>
+          <option value="2" ${existing&&existing.color===2?'selected':''}>🟢 Verde</option>
+          <option value="3" ${existing&&existing.color===3?'selected':''}>🟣 Roxo</option>
         </select>
         <div class="cal-modal-actions">
-          ${existing ? '<button class="btn-delete-event" id="ev-btn-delete">ð Excluir</button>' : ''}
+          ${existing ? '<button class="btn-delete-event" id="ev-btn-delete">🗑 Excluir</button>' : ''}
           <button class="btn-cancel-event" id="ev-btn-cancel">Cancelar</button>
           <button class="btn-save-event" id="ev-btn-save">Salvar</button>
         </div>
