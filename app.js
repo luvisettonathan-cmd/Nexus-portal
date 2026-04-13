@@ -391,8 +391,6 @@ function renderPortal(app) {
       document.querySelectorAll('.level-tab').forEach(btn => {
         btn.addEventListener('click', () => showTab('livro-' + btn.dataset.livro));
       });
-    }
-  
     } else if (tabName === 'treinamento') {
         tabContent.innerHTML = `<style>*{box-sizing:border-box;margin:0;padding:0}
 body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
@@ -725,7 +723,8 @@ function tog(hd){
   chev.classList.toggle('open',open);
 }
         })();
-}
+    }
+  }
 
   document.querySelectorAll('.portal-tab').forEach(btn => {
     btn.addEventListener('click', () => showTab(btn.dataset.tab));
@@ -749,8 +748,6 @@ function tog(hd){
     });
   }
 
-    d
-
     const trainItem = document.querySelector('[data-section="treinamento"]');
     if (trainItem && !trainItem.classList.contains('disabled')) {
         trainItem.addEventListener('click', () => {
@@ -758,7 +755,9 @@ function tog(hd){
             trainItem.classList.add('active');
             showTab('treinamento');
         });
-    }ocument.getElementById('btn-sair').onclick = async () => {
+    }
+
+    document.getElementById('btn-sair').onclick = async () => {
     await client.auth.signOut();
     state.screen = 'login';
     localStorage.removeItem('nexus_last_activity');
