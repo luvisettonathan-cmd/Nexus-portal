@@ -269,6 +269,10 @@ function renderPortal(app) {
             <span class="sidebar-icon">📅</span>
             <span>Calendário</span>
           </div>
+          <div class="${state.user.email === 'luvisettonathan8@gmail.com' ? 'sidebar-item' : 'sidebar-item disabled'}" data-section="modelos-quadro">
+            <span class="sidebar-icon">🗂️</span>
+            <span>Modelos de quadro</span>
+          </div>
           <div class="sidebar-footer"></div>
         </nav>
         <div class="portal-main">
@@ -391,6 +395,11 @@ function renderPortal(app) {
       document.querySelectorAll('.level-tab').forEach(btn => {
         btn.addEventListener('click', () => showTab('livro-' + btn.dataset.livro));
       });
+    } else if (tabName === 'modelos-quadro') {
+      tabContent.innerHTML =
+        '<div class="page-title-block"><div class="page-title-text"><h2>Modelos de quadro</h2><p class="page-subtitle">Templates e modelos para organização das aulas.</p></div></div>' +
+        '<div class="quick-grid" id="q-modelos"></div>';
+
     } else if (tabName === 'treinamento') {
         tabContent.innerHTML = `
           <style>
@@ -723,6 +732,15 @@ function renderPortal(app) {
             document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
             trainItem.classList.add('active');
             showTab('treinamento');
+        });
+    }
+
+    const modelosItem = document.querySelector('[data-section="modelos-quadro"]');
+    if (modelosItem && !modelosItem.classList.contains('disabled')) {
+        modelosItem.addEventListener('click', () => {
+            document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+            modelosItem.classList.add('active');
+            showTab('modelos-quadro');
         });
     }
 
