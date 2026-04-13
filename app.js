@@ -392,7 +392,9 @@ function renderPortal(app) {
         btn.addEventListener('click', () => showTab('livro-' + btn.dataset.livro));
       });
     } else if (tabName === 'treinamento') {
-        tabContent.innerHTML = `<style>*{box-sizing:border-box;margin:0;padding:0}
+        tabContent.innerHTML = `
+          <style>
+            *{box-sizing:border-box;margin:0;padding:0}
 body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
 .nx{background:#2a2a2a;border-radius:12px;overflow:hidden;max-width:860px;margin:0 auto}
 .nx-top{background:#2a2a2a;padding:20px 24px 0}
@@ -434,35 +436,27 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
 .tg-portal{background:#3d2010;color:#e87640}
 .tg-live{background:#0a3020;color:#1d9e75}
 .tg-obs{background:#26215c;color:#afa9ec}
-.tg-prat{background:#451a05;color:#f0997b}</style><div class="nx">
-  <div class="nx-top">
-    <div class="nx-logo">
-      <div class="nx-logo-mark">N</div>
-      <div>
-        <div class="nx-logo-text">NEXUS</div>
-        <div class="nx-logo-sub">Teacher Training</div>
-      </div>
-    </div>
-    <div class="nx-tabs">
-      <div class="nx-tab active" onclick="showWeek(1,this)">
-        <span class="nx-tab-num">SEMANA 01</span>
-        <span class="nx-tab-label">IntegraÃ§Ã£o</span>
-      </div>
-      <div class="nx-tab" onclick="showWeek(2,this)">
-        <span class="nx-tab-num">SEMANA 02</span>
-        <span class="nx-tab-label">ImersÃ£o</span>
-      </div>
-      <div class="nx-tab" onclick="showWeek(3,this)">
-        <span class="nx-tab-num">SEMANA 03</span>
-        <span class="nx-tab-label">PrÃ¡tica</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="nx-body">
-
-    <!-- SEMANA 1 -->
-    <div id="w1">
+.tg-prat{background:#451a05;color:#f0997b}
+            .train-tabs { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+            .train-tab { background:#2a2a2a; border:none; border-radius:8px; padding:8px 18px; color:#a89880; font-size:13px; font-weight:600; cursor:pointer; transition:all .2s; }
+            .train-tab.active { background:#c8531a; color:#fff; }
+            .train-tab:hover:not(.active) { background:#3a3a3a; color:#e8d5c4; }
+            .train-content { display:none; }
+            .train-content.active { display:block; }
+            .nx { background:transparent !important; padding:0 !important; }
+          </style>
+          <div class="page-title-block">
+            <div class="page-title-text">
+              <h2>Treinamento</h2>
+              <p class="page-subtitle">Programa de onboarding — 3 semanas</p>
+            </div>
+          </div>
+          <div class="train-tabs">
+            <button class="train-tab active" data-week="w1">SEMANA 1 — Integração</button>
+            <button class="train-tab" data-week="w2">SEMANA 2 — Imersão</button>
+            <button class="train-tab" data-week="w3">SEMANA 3 — Prática</button>
+          </div>
+          <div id="w1" class="train-content active nx"><div id="w1">
       <div class="nx-week-title">SEMANA 1 — INTEGRAÃÃO E CONHECIMENTO GERAL</div>
       <div class="nx-week-sub">Teoria, sistema e materiais. VÃ­deos introdutÃ³rios + quizes de compreensÃ£o.</div>
       <div class="nx-days">
@@ -540,7 +534,8 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
     </div>
 
     <!-- SEMANA 2 -->
-    <div id="w2" style="display:none">
+    </div>
+          <div id="w2" class="train-content nx"><div id="w2" style="display:none">
       <div class="nx-week-title">SEMANA 2 — IMERSÃO E OBSERVAÃÃO</div>
       <div class="nx-week-sub">ObservaÃ§Ã£o de aulas reais e gravadas. Quizes de aplicaÃ§Ã£o.</div>
       <div class="nx-days">
@@ -617,7 +612,8 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
     </div>
 
     <!-- SEMANA 3 -->
-    <div id="w3" style="display:none">
+    </div>
+          <div id="w3" class="train-content nx"><div id="w3" style="display:none">
       <div class="nx-week-title">SEMANA 3 — PRÃTICA SUPERVISIONADA</div>
       <div class="nx-week-sub">Mocks e aulas reais. O professor consulta o acervo quando precisar.</div>
       <div class="nx-days">
@@ -688,41 +684,24 @@ body{background:#1a1a1a;padding:24px;font-family:Arial,sans-serif}
         </div>
 
       </div>
-    </div>
-
-  </div>
-</div>
-
-<script>
-function showWeek(n,tab){
-  document.querySelectorAll('.nx-tab').forEach(t=>t.classList.remove('active'));
-  tab.classList.add('active');
-  ['w1','w2','w3'].forEach((id,i)=>{
-    document.getElementById(id).style.display=(i+1===n)?'block':'none';
-  });
-}
-function tog(hd){
-  const body=hd.nextElementSibling;
-  const chev=hd.querySelector('.nx-chevron');
-  const open=body.classList.toggle('open');
-  chev.classList.toggle('open',open);
-}
-</script>`;
-        (function(){
-function showWeek(n,tab){
-  document.querySelectorAll('.nx-tab').forEach(t=>t.classList.remove('active'));
-  tab.classList.add('active');
-  ['w1','w2','w3'].forEach((id,i)=>{
-    document.getElementById(id).style.display=(i+1===n)?'block':'none';
-  });
-}
-function tog(hd){
-  const body=hd.nextElementSibling;
-  const chev=hd.querySelector('.nx-chevron');
-  const open=body.classList.toggle('open');
-  chev.classList.toggle('open',open);
-}
-        })();
+    </div></div>
+        `;
+        tabContent.querySelectorAll('.train-tab').forEach(btn => {
+          btn.addEventListener('click', () => {
+            tabContent.querySelectorAll('.train-tab').forEach(t => t.classList.remove('active'));
+            tabContent.querySelectorAll('.train-content').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            tabContent.querySelector('#' + btn.dataset.week).classList.add('active');
+          });
+        });
+        tabContent.querySelectorAll('.nx-day-hd').forEach(hd => {
+          hd.addEventListener('click', () => {
+            const body = hd.nextElementSibling;
+            const chev = hd.querySelector('.nx-chevron');
+            const open = body.classList.toggle('open');
+            if(chev) chev.classList.toggle('open', open);
+          });
+        });
     }
   }
 
