@@ -12,7 +12,7 @@ const INACTIVITY_LIMIT = 15 * 60 * 1000;
 let state = {
         screen: 'login',
         user: null
-};
+};h
 
 // ── EXTRAI O NOME DO TEACHER A PARTIR DO E-MAIL ────────────────
 function getTeacherName(email) {
@@ -261,7 +261,7 @@ function renderPortal(app) {
             <span class="sidebar-icon">📂</span>
             <span>Materiais</span>
           </div>
-          <div class="sidebar-item disabled" data-section="treinamento">
+          <div class="${state.user.email === 'luvisettonathan8@gmail.com' ? 'sidebar-item' : 'sidebar-item disabled'}" data-section="treinamento">
             <span class="sidebar-icon">🎯</span>
             <span>Treinamento</span>
           </div>
