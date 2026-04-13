@@ -178,7 +178,7 @@ function renderLogin(app) {
       <div class="login-left-content">
         <h1 class="login-hero-title">Bem-vindo ao<br>Portal do Professor</h1>
       
-        <div class="login-city-badge" style="margin-top:16px;display:inline-flex;align-items:center;">📍 ChapecÃ³ - SC</div>
+        <div class="login-city-badge" style="margin-top:16px;display:inline-flex;align-items:center;">📍 Chapecó - SC</div>
       </div>
       <div class="login-illustration">
         <div class="login-illus-scene">
